@@ -12,9 +12,38 @@
         /* Màu nền tổng thể trang nhã, dịu mắt */
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Tiêu đề chính: Màu xanh biển nhạt, sang trọng */
-        .hero-header { background: linear-gradient(135deg, #2b7a78 0%, #3aafa9 100%); color: white; padding: 22px 20px; border-radius: 0 0 16px 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(43, 122, 120, 0.12); }
-        .logo-bhxh { width: 50px; height: 50px; object-fit: contain; background: white; border-radius: 50%; padding: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        /* Tiêu đề chuẩn phong cách BHXH Việt Nam theo mẫu ảnh */
+        .hero-header { 
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            color: #1e293b; 
+            padding: 16px 20px; 
+            border-radius: 0 0 16px 16px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+            border-bottom: 4px solid #0d6efd;
+        }
+        
+        .logo-bhxh { width: 55px; height: 55px; object-fit: contain; }
+
+        .brand-title {
+            color: #b71c1c;
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .brand-subtitle {
+            color: #555555;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
+            margin-bottom: 0;
+        }
 
         .kpi-card { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; height: 100%; transition: transform 0.2s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
@@ -30,8 +59,6 @@
             border-color: #cbd5e1 !important;
             border-width: 1.5px !important;
         }
-
-        .btn-tab { border-radius: 20px; font-size: 0.8rem; font-weight: 600; padding: 5px 12px; margin-right: 4px; margin-bottom: 4px; }
         
         .bar-row { display: flex; align-items: center; margin-bottom: 14px; }
         .bar-label { width: 220px; font-weight: 600; font-size: 0.85rem; color: #333; text-align: right; padding-right: 15px; }
@@ -52,22 +79,24 @@
 <body>
 
 <div class="container-fluid px-4 mb-5">
-    <!-- TIÊU ĐỀ KÈM LOGO BHXH VIỆT NAM -->
+    <!-- TIÊU ĐỀ CHUẨN MẪU -->
     <div class="hero-header">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
             <div class="d-flex align-items-center gap-3">
-                <!-- Logo Bảo hiểm xã hội Việt Nam -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Logo_BHXH_Vi%E1%BB%87t_Nam.png" alt="Logo BHXH VN" class="logo-bhxh">
+                <!-- Logo BHXH chuẩn định dạng (SVG nhúng trực tiếp không sợ lỗi tải ảnh) -->
+                <svg class="logo-bhxh" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="250" cy="250" r="240" fill="#1976d2"/>
+                    <circle cx="250" cy="250" r="215" fill="none" stroke="#ffffff" stroke-width="8"/>
+                    <path d="M250 80 C 180 150, 150 220, 160 320 C 200 300, 230 260, 250 200 C 270 260, 300 300, 340 320 C 350 220, 320 150, 250 80 Z" fill="#ffffff"/>
+                    <circle cx="250" cy="150" r="30" fill="#ffffff"/>
+                </svg>
                 <div>
-                    <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.9;">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</small>
-                    <h2 class="fw-bold mt-1 mb-1" style="font-size: 1.5rem;">Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu</h2>
-                    <p class="m-0" style="opacity: 0.85; font-size: 0.9rem;">Hệ thống tự động đồng bộ dữ liệu trực tuyến từ Server.</p>
+                    <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
+                    <p class="brand-subtitle">VIETNAM SOCIAL SECURITY - CƠ SỞ CÁI NƯỚC</p>
                 </div>
             </div>
-            <div class="mt-3 mt-md-0">
-                <span class="badge bg-light text-success px-3 py-2 fw-bold rounded-pill shadow-sm" id="trangThaiLoad">
-                    ⏳ Đang tải dữ liệu trực tuyến...
-                </span>
+            <div class="mt-2 mt-md-0 text-md-end">
+                <span class="text-secondary fw-bold" style="font-size: 0.85rem;">Hotline: <span style="color: #b71c1c; font-weight: 800;">1900 90 68</span></span>
             </div>
         </div>
     </div>
@@ -308,15 +337,10 @@
                 selectSheet.selectedIndex = defaultIndex;
                 let defaultSheetName = validSheets[defaultIndex];
 
-                document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu';
-                document.getElementById('trangThaiLoad').className = 'badge bg-light text-success px-3 py-2 fw-bold rounded-pill shadow-sm';
-
                 taiVaPhanTichDuLieu(defaultSheetName);
             })
             .catch(error => {
                 console.error(error);
-                document.getElementById('trangThaiLoad').innerHTML = '❌ Lỗi tải file Excel!';
-                document.getElementById('trangThaiLoad').className = 'badge bg-danger text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
                 alert("Không tìm thấy file! Hãy chắc chắn file Excel nằm cùng thư mục gốc.");
             });
     });
