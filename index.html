@@ -12,37 +12,38 @@
         /* Màu nền tổng thể trang nhã, dịu mắt */
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Tiêu đề chuẩn phong cách BHXH Việt Nam theo mẫu ảnh */
+        /* Tiêu đề chuẩn phong cách BGXH với nền trống đồng xanh dương */
         .hero-header { 
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            background: linear-gradient(135deg, rgba(227, 242, 253, 0.95) 0%, rgba(187, 222, 251, 0.95) 100%), 
+                        radial-gradient(circle, rgba(25, 118, 210, 0.08) 10%, transparent 10%);
+            background-size: 100% 100%, 25px 25px;
             color: #1e293b; 
-            padding: 16px 20px; 
+            padding: 18px 25px; 
             border-radius: 0 0 16px 16px; 
             margin-bottom: 20px; 
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.12);
             border-bottom: 4px solid #0d6efd;
         }
         
-        .logo-bhxh { width: 55px; height: 55px; object-fit: contain; }
+        .logo-bhxh { width: 58px; height: 58px; object-fit: contain; flex-shrink: 0; }
+
+        .brand-top-sub {
+            color: #333333;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0 0 2px 0;
+        }
 
         .brand-title {
             color: #b71c1c;
-            font-weight: 800;
-            font-size: 1.45rem;
+            font-weight: 900;
+            font-size: 1.6rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             line-height: 1.2;
             margin: 0;
-        }
-
-        .brand-subtitle {
-            color: #555555;
-            font-weight: 600;
-            font-size: 0.78rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 2px;
-            margin-bottom: 0;
         }
 
         .kpi-card { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; height: 100%; transition: transform 0.2s; }
@@ -81,22 +82,17 @@
 <div class="container-fluid px-4 mb-5">
     <!-- TIÊU ĐỀ CHUẨN MẪU -->
     <div class="hero-header">
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <div class="d-flex align-items-center gap-3">
-                <!-- Logo BHXH chuẩn định dạng (SVG nhúng trực tiếp không sợ lỗi tải ảnh) -->
-                <svg class="logo-bhxh" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="250" cy="250" r="240" fill="#1976d2"/>
-                    <circle cx="250" cy="250" r="215" fill="none" stroke="#ffffff" stroke-width="8"/>
-                    <path d="M250 80 C 180 150, 150 220, 160 320 C 200 300, 230 260, 250 200 C 270 260, 300 300, 340 320 C 350 220, 320 150, 250 80 Z" fill="#ffffff"/>
-                    <circle cx="250" cy="150" r="30" fill="#ffffff"/>
-                </svg>
-                <div>
-                    <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
-                    <p class="brand-subtitle">VIETNAM SOCIAL SECURITY - CƠ SỞ CÁI NƯỚC</p>
-                </div>
-            </div>
-            <div class="mt-2 mt-md-0 text-md-end">
-                <span class="text-secondary fw-bold" style="font-size: 0.85rem;">Hotline: <span style="color: #b71c1c; font-weight: 800;">1900 90 68</span></span>
+        <div class="d-flex align-items-center gap-3">
+            <!-- Logo BHXH chuẩn dạng SVG sắc nét -->
+            <svg class="logo-bhxh" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="250" cy="250" r="240" fill="#1976d2"/>
+                <circle cx="250" cy="250" r="215" fill="none" stroke="#ffffff" stroke-width="8"/>
+                <path d="M250 80 C 180 150, 150 220, 160 320 C 200 300, 230 260, 250 200 C 270 260, 300 300, 340 320 C 350 220, 320 150, 250 80 Z" fill="#ffffff"/>
+                <circle cx="250" cy="150" r="30" fill="#ffffff"/>
+            </svg>
+            <div>
+                <p class="brand-top-sub">BẢO HIỂM XÃ HỘI TỈNH CÀ MAU</p>
+                <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
             </div>
         </div>
     </div>
