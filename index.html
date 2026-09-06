@@ -61,7 +61,7 @@
     <div class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Mặc định tháng gần nhất):</label>
+                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Mặc định tháng mới nhất):</label>
                 <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
                     <option value="">-- Đang khởi tạo dữ liệu --</option>
                 </select>
@@ -279,42 +279,45 @@
                 let selectSheet = document.getElementById('selectSheet');
                 selectSheet.innerHTML = '';
                 
-                let validSheets = workbookData.SheetNames;
+                let allSheets = workbookData.SheetNames;
 
-                if (validSheets.length === 0) {
+                if (allSheets.length === 0) {
                     throw new Error("Không tìm thấy sheet hợp lệ trong file!");
                 }
 
-                // TÍNH TOÁN THÁNG HIỆN TẠI TRỪ 1
-                let now = new Date();
-                let thangMacDinh = now.getMonth(); // 0-based: Tháng 9 -> getMonth() = 8 -> tương ứng tháng 8
-                if (thangMacDinh === 0) thangMacDinh = 12; // Trường hợp Tháng 1 -> lùi lại Tháng 12
-
-                // Tìm sheet trong Excel khớp với Tháng Mặc Định
-                let targetSheet = validSheets.find(name => {
-                    let numMatch = name.match(/\d+/);
-                    return numMatch && parseInt(numMatch[0]) === thangMacDinh;
+                // TÌM MỐC BẮT ĐẦU TỪ SHEET 'Tháng 7_2025'
+                let startIndex = allSheets.findIndex(name => {
+                    let nameClean = name.toLowerCase().replace(/\s+/g, '');
+                    return nameClean.includes('tháng7_2025') || 
+                           nameClean.includes('tháng7-2025') || 
+                           nameClean.includes('t07_2025') || 
+                           nameClean.includes('t7_2025');
                 });
 
-                // Nếu không thấy sheet tháng lùi 1, fallback lấy sheet cuối cùng trong danh sách
-                if (!targetSheet) {
-                    targetSheet = validSheets[validSheets.length - 1];
+                // Nếu không thấy sheet Tháng 7_2025, mặc định lấy từ sheet đầu tiên
+                if (startIndex === -1) startIndex = 0;
+
+                // LỌC DANH SÁCH SHEET: Bỏ qua hoàn toàn các sheet trước Tháng 7_2025
+                let validSheets = allSheets.slice(startIndex);
+
+                if (validSheets.length === 0) {
+                    validSheets = allSheets;
                 }
 
                 validSheets.forEach(name => {
                     let opt = document.createElement('option');
                     opt.value = name;
                     opt.innerText = "Kỳ báo cáo: " + name;
-                    if (name === targetSheet) {
-                        opt.selected = true;
-                    }
                     selectSheet.appendChild(opt);
                 });
+
+                // Mặc định chọn Sheet mới nhất (ở vị trí cuối cùng)
+                selectSheet.selectedIndex = validSheets.length - 1;
 
                 document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
                 document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
 
-                // Tải dữ liệu của sheet mặc định được chọn
+                // Tải dữ liệu của sheet được chọn ban đầu
                 doiKyBaoCao();
             })
             .catch(error => {
@@ -330,6 +333,8 @@
         let sheetName = selectSheet.value;
         if (sheetName && workbookData && workbookData.Sheets[sheetName]) {
             taiVaPhanTichDuLieu(sheetName);
+        } else {
+            console.warn("Không tìm thấy sheet: " + sheetName);
         }
     }
 
