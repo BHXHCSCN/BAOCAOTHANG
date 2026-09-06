@@ -62,7 +62,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Mặc định tháng mới nhất):</label>
-                <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
+                <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao(this.value)">
                     <option value="">-- Đang khởi tạo dữ liệu --</option>
                 </select>
             </div>
@@ -281,7 +281,7 @@
                 
                 let allSheets = workbookData.SheetNames;
 
-                if (allSheets.length === 0) {
+                if (!allSheets || allSheets.length === 0) {
                     throw new Error("Không tìm thấy sheet hợp lệ trong file!");
                 }
 
@@ -294,15 +294,8 @@
                            nameClean.includes('t7_2025');
                 });
 
-                // Nếu không thấy sheet Tháng 7_2025, mặc định lấy từ sheet đầu tiên
                 if (startIndex === -1) startIndex = 0;
-
-                // LỌC DANH SÁCH SHEET: Bỏ qua hoàn toàn các sheet trước Tháng 7_2025
                 let validSheets = allSheets.slice(startIndex);
-
-                if (validSheets.length === 0) {
-                    validSheets = allSheets;
-                }
 
                 validSheets.forEach(name => {
                     let opt = document.createElement('option');
@@ -311,35 +304,35 @@
                     selectSheet.appendChild(opt);
                 });
 
-                // Mặc định chọn Sheet mới nhất (ở vị trí cuối cùng)
-                selectSheet.selectedIndex = validSheets.length - 1;
+                // Chọn mặc định sheet mới nhất
+                let lastSheetName = validSheets[validSheets.length - 1];
+                selectSheet.value = lastSheetName;
 
                 document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
                 document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
 
-                // Tải dữ liệu của sheet được chọn ban đầu
-                doiKyBaoCao();
+                // Tải dữ liệu kỳ báo cáo mặc định
+                doiKyBaoCao(lastSheetName);
             })
             .catch(error => {
                 console.error(error);
                 document.getElementById('trangThaiLoad').innerHTML = '❌ Lỗi tải file Excel!';
                 document.getElementById('trangThaiLoad').className = 'badge bg-danger text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
-                alert("Không tìm thấy file hoặc dữ liệu hợp lệ trên hệ thống!");
             });
     });
 
-    function doiKyBaoCao() {
-        let selectSheet = document.getElementById('selectSheet');
-        let sheetName = selectSheet.value;
+    function doiKyBaoCao(sheetName) {
+        if (!sheetName) {
+            sheetName = document.getElementById('selectSheet').value;
+        }
         if (sheetName && workbookData && workbookData.Sheets[sheetName]) {
             taiVaPhanTichDuLieu(sheetName);
-        } else {
-            console.warn("Không tìm thấy sheet: " + sheetName);
         }
     }
 
     function taiVaPhanTichDuLieu(sheetName) {
         let worksheet = workbookData.Sheets[sheetName];
+        // Đọc dữ liệu thô dạng mảng 2 chiều
         let jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1, defval: 0});
         
         document.getElementById('lblKyBaoCao').innerText = sheetName;
@@ -361,56 +354,61 @@
         xemTheoXaCuThe = false;
 
         let soXaDat100 = 0;
-        let rawThuMap = {};
 
-        jsonData.forEach((row, rIdx) => {
-            let tenDonVi = row[1] ? row[1].toString().trim() : "";
-            let col24Val = row[24] ? row[24].toString().trim() : "";
+        jsonData.forEach((row) => {
+            if (!row || row.length === 0) return;
 
-            if (rIdx >= 8 && rIdx <= 13 && col24Val !== "") {
-                let tenKhoanThu = col24Val;
-                if (rIdx === 10 || tenKhoanThu === "BHXH TN") {
-                    tenKhoanThu = "Bảo hiểm xã hội tự nguyện";
-                } else if (rIdx === 11 || tenKhoanThu === "Thu BHTN") {
-                    tenKhoanThu = "Bảo hiểm thất nghiệp";
+            // Đọc động các cột dựa trên dữ liệu hàng
+            let col1Val = row[1] ? row[1].toString().trim() : "";
+            
+            // Lọc dữ liệu Bảng Thu / Bảng Nợ bằng khớp tên nội dung
+            for (let c = 0; c < row.length; c++) {
+                let cellVal = row[c] ? row[c].toString().trim() : "";
+                if (cellVal.includes("BHXH Bắt buộc") || cellVal.includes("BHXH tự nguyện") || cellVal.includes("BHTN") || cellVal.includes("BHYT")) {
+                    if (row[c+1] !== undefined && !isNaN(Number(row[c+1]))) {
+                        // Tránh ghi đè trùng lặp dữ liệu xã
+                        if (c >= 20 && thuDataRows.length < 6) {
+                            thuDataRows.push({
+                                noi_dung: cellVal,
+                                so_kh: Number(row[c+1]) || 0,
+                                luy_ke: Number(row[c+2]) || 0,
+                                lk_truoc: Number(row[c+3]) || 0,
+                                trong_thang: Number(row[c+4]) || 0,
+                                so_cuoi_nam: Number(row[c+5]) || 0,
+                                tyle_kh: Number(row[c+6]) ? Number(row[c+6]).toFixed(2) : "0.00",
+                                con_th: Number(row[c+7]) || 0,
+                                thu_cuoi_2025: Number(row[c+8]) || 0
+                            });
+                        }
+                    }
                 }
-
-                rawThuMap[rIdx] = {
-                    noi_dung: tenKhoanThu,
-                    so_kh: Number(row[25]) || 0,
-                    luy_ke: Number(row[26]) || 0,
-                    lk_truoc: Number(row[27]) || 0,
-                    trong_thang: Number(row[28]) || 0,
-                    so_cuoi_nam: Number(row[29]) || 0,
-                    tyle_kh: Number(row[30]) ? Number(row[30]).toFixed(2) : "0.00",
-                    con_th: Number(row[31]) || 0,
-                    thu_cuoi_2025: Number(row[32]) || 0
-                };
             }
 
-            if (rIdx === 8) {
-                noDataStore = {
-                    ten: "BHXH cơ sở Cái Nước",
-                    tong: Number(row[33]) || 0,
-                    no_khong_lai: Number(row[34]) || 0,
-                    no_tinh_lai: Number(row[35]) || 0,
-                    no_lai: Number(row[36]) || 0,
-                    nsnn: Number(row[37]) || 0,
-                    so_cham_dong: Number(row[38]) || 0,
-                    tyle_kh: Number(row[39]) ? Number(row[39]).toFixed(2) : "0.00",
-                    so_kh: Number(row[40]) ? Number(row[40]).toFixed(2) : "0.00",
-                    cong_tru_kh: Number(row[41]) ? Number(row[41]).toFixed(2) : "0.00"
-                };
+            // Lọc dữ liệu nợ BHXH cơ sở Cái Nước
+            if (col1Val.toLowerCase().includes("bhxh cơ sở cái nước") || col1Val.toLowerCase().includes("tổng cộng")) {
+                if (row[33] !== undefined) {
+                    noDataStore = {
+                        ten: col1Val || "BHXH cơ sở Cái Nước",
+                        tong: Number(row[33]) || 0,
+                        no_khong_lai: Number(row[34]) || 0,
+                        no_tinh_lai: Number(row[35]) || 0,
+                        no_lai: Number(row[36]) || 0,
+                        nsnn: Number(row[37]) || 0,
+                        so_cham_dong: Number(row[38]) || 0,
+                        tyle_kh: Number(row[39]) ? Number(row[39]).toFixed(2) : "0.00",
+                        so_kh: Number(row[40]) ? Number(row[40]).toFixed(2) : "0.00",
+                        cong_tru_kh: Number(row[41]) ? Number(row[41]).toFixed(2) : "0.00"
+                    };
+                }
             }
 
-            let matchFound = danhSachXaCaiNuoc.find(x => tenDonVi.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
+            // Quét tìm danh sách 7 Xã
+            let matchFound = danhSachXaCaiNuoc.find(x => col1Val.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
             if (matchFound) {
-                // BHYT
                 let ds_bhyt = Number(row[2]) || 0;
                 let th_bhyt = Number(row[3]) || 0;
                 let tyle_bhyt = ds_bhyt > 0 ? Number(((th_bhyt / ds_bhyt) * 100).toFixed(2)) : 0;
 
-                // BHXH Bắt buộc
                 let kh_bb = Number(row[5]) || 0;
                 let th_bb = Number(row[6]) || 0;
                 let stt_bb = Number(row[7]) || 0;
@@ -418,7 +416,6 @@
                 let con_bb = Number(row[9]) || 0;
                 let tyle_bb = kh_bb > 0 ? Number(((th_bb / kh_bb) * 100).toFixed(2)) : 0;
 
-                // BHXH Tự nguyện
                 let kh_btn = Number(row[11]) || 0;
                 let th_btn = Number(row[12]) || 0;
                 let stt_btn = Number(row[13]) || 0;
@@ -426,7 +423,6 @@
                 let con_btn = Number(row[15]) || 0;
                 let tyle_btn = kh_btn > 0 ? Number(((th_btn / kh_btn) * 100).toFixed(2)) : 0;
 
-                // BHXH Chung (BB + TN)
                 let kh_chung = kh_bb + kh_btn;
                 let th_chung = th_bb + th_btn;
                 let stt_chung = stt_bb + stt_btn;
@@ -434,7 +430,6 @@
                 let con_chung = con_bb + con_btn;
                 let tyle_chung = kh_chung > 0 ? Number(((th_chung / kh_chung) * 100).toFixed(2)) : 0;
 
-                // BHTN
                 let kh_bhtn = Number(row[17]) || 0;
                 let th_bhtn = Number(row[18]) || 0;
                 let stt_bhtn = Number(row[19]) || 0;
@@ -457,12 +452,6 @@
                 opt.value = matchFound;
                 opt.innerText = matchFound;
                 selectXa.appendChild(opt);
-            }
-        });
-
-        [8, 9, 10, 11, 12, 13].forEach(idx => {
-            if (rawThuMap[idx]) {
-                thuDataRows.push(rawThuMap[idx]);
             }
         });
 
@@ -493,6 +482,10 @@
     function renderBangChiTieuThu() {
         let tbody = document.getElementById('tblChiTieuThu').getElementsByTagName('tbody')[0];
         tbody.innerHTML = '';
+        if (thuDataRows.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">Không có dữ liệu thu cho tháng này</td></tr>';
+            return;
+        }
         thuDataRows.forEach((row, idx) => {
             let isTong = idx === 0;
             let rowClass = isTong ? 'table-secondary fw-bold' : '';
