@@ -20,7 +20,6 @@
         th { background-color: #f8f9fa !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #495057; }
         td { vertical-align: middle; font-size: 0.82rem; }
         
-        /* Tùy chỉnh đường kẻ bảng 3 đậm và rõ hơn giữa các dòng xã */
         #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
             border-color: #b0bec5 !important;
             border-width: 1.5px !important;
@@ -46,7 +45,7 @@
     <div class="hero-header">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
             <div>
-                <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.85;">BHXH Cơ sở Cái Nước năm 2026</small>
+                <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.85;">BHXH Cơ sở Cái Nước</small>
                 <h2 class="fw-bold mt-1 mb-2">Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu</h2>
                 <p class="m-0" style="opacity: 0.9; font-size: 0.95rem;">Hệ thống tự động đồng bộ dữ liệu trực tuyến từ Server.</p>
             </div>
@@ -58,11 +57,11 @@
         </div>
     </div>
 
-    <!-- Thanh chuyển đổi kỳ báo cáo & Xuất PDF -->
+    <!-- Thanh chuyển đổi kỳ báo cáo -->
     <div class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo:</label>
+                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Từ Tháng 7 trở đi):</label>
                 <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
                     <option value="">-- Đang khởi tạo dữ liệu --</option>
                 </select>
@@ -176,38 +175,11 @@
                             <th colspan="3">Bảo Hiểm Y Tế</th>
                         </tr>
                         <tr>
-                            <!-- BHXH Chung -->
-                            <th>Kế hoạch</th>
-                            <th id="thLabelChung">Thực hiện</th>
-                            <th>So với tháng trước</th>
-                            <th>So với cuối năm 2025</th>
-                            <th>Còn phải thực hiện</th>
-                            <th>Tỷ lệ (%)</th>
-                            <!-- BHXH Bắt buộc -->
-                            <th>Kế hoạch</th>
-                            <th id="thLabelBB">Thực hiện</th>
-                            <th>So với tháng trước</th>
-                            <th>So với cuối năm 2025</th>
-                            <th>Còn phải thực hiện</th>
-                            <th>Tỷ lệ (%)</th>
-                            <!-- BHXH Tự nguyện -->
-                            <th>Kế hoạch</th>
-                            <th id="thLabelTN">Thực hiện</th>
-                            <th>So với tháng trước</th>
-                            <th>So với cuối năm 2025</th>
-                            <th>Còn phải thực hiện</th>
-                            <th>Tỷ lệ (%)</th>
-                            <!-- BHTN -->
-                            <th>Kế hoạch</th>
-                            <th id="thLabelBHTN">Thực hiện</th>
-                            <th>So với tháng trước</th>
-                            <th>So với cuối năm 2025</th>
-                            <th>Còn phải thực hiện</th>
-                            <th>Tỷ lệ (%)</th>
-                            <!-- BHYT -->
-                            <th>Dân số theo Thống kê tỉnh Cà Mau</th>
-                            <th id="thLabelBHYT">Thực hiện</th>
-                            <th>Tỷ lệ (%)</th>
+                            <th>Kế hoạch</th><th id="thLabelChung">Thực hiện</th><th>So với tháng trước</th><th>So với năm trước</th><th>Còn phải thực hiện</th><th>Tỷ lệ (%)</th>
+                            <th>Kế hoạch</th><th id="thLabelBB">Thực hiện</th><th>So với tháng trước</th><th>So với năm trước</th><th>Còn phải thực hiện</th><th>Tỷ lệ (%)</th>
+                            <th>Kế hoạch</th><th id="thLabelTN">Thực hiện</th><th>So với tháng trước</th><th>So với năm trước</th><th>Còn phải thực hiện</th><th>Tỷ lệ (%)</th>
+                            <th>Kế hoạch</th><th id="thLabelBHTN">Thực hiện</th><th>So với tháng trước</th><th>So với năm trước</th><th>Còn phải thực hiện</th><th>Tỷ lệ (%)</th>
+                            <th>Dân số thống kê</th><th id="thLabelBHYT">Thực hiện</th><th>Tỷ lệ (%)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -218,7 +190,7 @@
         <!-- Bộ lọc mục biểu đồ & xã -->
         <div class="filter-section">
             <div class="row align-items-center g-3">
-                <div class="col-md-7" id="chiTieuGroupWrapper">
+                <div class="col-md-7">
                     <label class="form-label small fw-bold text-muted mb-1">CHỈ TIÊU ĐÁNH GIÁ ĐỂ XEM BIỂU ĐỒ</label>
                     <div id="chiTieuGroup">
                         <button class="btn btn-sm btn-primary btn-tab" onclick="chuyenMuc('bhxh_chung', this)">BHXH chung</button>
@@ -280,17 +252,19 @@
                 let selectSheet = document.getElementById('selectSheet');
                 selectSheet.innerHTML = '';
                 
-                // 1. Lọc tất cả các sheet có chứa chữ "tháng" hoặc "thang" linh hoạt hơn
+                // 1. Lọc thông minh: CHỈ hiện những sheet từ tháng 7 trở đi
                 let validSheets = workbookData.SheetNames.filter(name => {
-                    let lower = name.toLowerCase();
-                    return lower.includes('tháng') || lower.includes('thang');
+                    let lower = name.toLowerCase().trim();
+                    let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/); // Tìm số sau chữ "tháng"
+                    if (match) {
+                        let month = parseInt(match[1], 10);
+                        return month >= 7 && month <= 12; // Ép điều kiện từ tháng 7 tới 12
+                    }
+                    return false;
                 });
 
-                if (validSheets.length === 0) {
-                    validSheets = workbookData.SheetNames; // Fallback lấy toàn bộ nếu không tìm thấy chữ tháng
-                }
+                if (validSheets.length === 0) validSheets = workbookData.SheetNames; 
 
-                // Chèn các option vào Select dropdown
                 validSheets.forEach(name => {
                     let opt = document.createElement('option');
                     opt.value = name;
@@ -298,38 +272,33 @@
                     selectSheet.appendChild(opt);
                 });
 
-                // 2. Tính toán Tháng hiện tại trừ 1 để đặt làm mặc định (ví dụ đang là tháng 9 -> tự chọn tháng 8)
-                let currentMonth = new Date().getMonth() + 1; // getMonth() trả về 0-11
+                // 2. Chức năng Default: Chọn tháng hiện tại trừ đi 1
+                let currentMonth = new Date().getMonth() + 1; 
                 let targetMonth = currentMonth === 1 ? 12 : currentMonth - 1;
                 
                 let defaultIndex = 0;
                 for (let i = 0; i < validSheets.length; i++) {
                     let nameLower = validSheets[i].toLowerCase();
-                    // Regex quét tìm chính xác số tháng mục tiêu (tránh việc "tháng 1" dính nhầm "tháng 10" hay "tháng 11")
-                    // [^0-9] hoặc kết thúc chuỗi để đảm bảo sau số tháng không phải là một số khác (như _2025 thì _ không phải là số)
                     let regex = new RegExp(`(tháng|thang)\\s*0?${targetMonth}([^0-9]|$)`, 'i');
-                    
                     if (regex.test(nameLower)) {
                         defaultIndex = i;
                         break;
                     }
                 }
 
-                // Gán giá trị mặc định vào Select dropdown
                 selectSheet.selectedIndex = defaultIndex;
                 let defaultSheetName = validSheets[defaultIndex];
 
                 document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
                 document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
 
-                // 3. Tải phân tích dữ liệu cho tháng mặc định
                 taiVaPhanTichDuLieu(defaultSheetName);
             })
             .catch(error => {
                 console.error(error);
                 document.getElementById('trangThaiLoad').innerHTML = '❌ Lỗi tải file Excel!';
                 document.getElementById('trangThaiLoad').className = 'badge bg-danger text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
-                alert("Không tìm thấy file hoặc dữ liệu hợp lệ trên hệ thống!");
+                alert("Không tìm thấy file! Hãy chắc chắn file Excel nằm cùng thư mục gốc.");
             });
     });
 
@@ -342,16 +311,15 @@
         let worksheet = workbookData.Sheets[sheetName];
         let jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1, defval: 0});
         
-        document.getElementById('lblKyBaoCao').innerText = sheetName;
-        document.getElementById('lblKyBaoCao2').innerText = sheetName;
-        document.getElementById('lblKyBaoCaoThu').innerText = sheetName;
-        document.getElementById('lblKyBaoCaoNo').innerText = sheetName;
-        
-        document.getElementById('thLabelChung').innerText = sheetName;
-        document.getElementById('thLabelBB').innerText = sheetName;
-        document.getElementById('thLabelTN').innerText = sheetName;
-        document.getElementById('thLabelBHTN').innerText = sheetName;
-        document.getElementById('thLabelBHYT').innerText = sheetName;
+        // 3. Khóa đồng bộ Tiêu Đề: Đảm bảo toàn bộ tiêu đề các bảng đều nhất quán 100%
+        const labelsToUpdate = [
+            'lblKyBaoCao', 'lblKyBaoCao2', 'lblKyBaoCaoThu', 'lblKyBaoCaoNo',
+            'thLabelChung', 'thLabelBB', 'thLabelTN', 'thLabelBHTN', 'thLabelBHYT'
+        ];
+        labelsToUpdate.forEach(id => {
+            let el = document.getElementById(id);
+            if(el) el.innerText = sheetName;
+        });
 
         rawDataStore = [];
         thuDataRows = [];
@@ -363,83 +331,83 @@
         let soXaDat100 = 0;
         let rawThuMap = {};
 
-        jsonData.forEach((row, rIdx) => {
-            let tenDonVi = row[1] ? row[1].toString().trim() : "";
-            let col24Val = row[24] ? row[24].toString().trim() : "";
-
-            if (rIdx >= 8 && rIdx <= 13 && col24Val !== "") {
-                let tenKhoanThu = col24Val;
-                if (rIdx === 10 || tenKhoanThu === "BHXH TN") {
-                    tenKhoanThu = "Bảo hiểm xã hội tự nguyện";
-                } else if (rIdx === 11 || tenKhoanThu === "Thu BHTN") {
-                    tenKhoanThu = "Bảo hiểm thất nghiệp";
+        // 4. QUÉT VỊ TRÍ ĐỘNG: Không gắn cứng tọa độ dòng/cột nữa. 
+        // File Excel thay đổi form (thêm cột, thêm hàng) code vẫn tự dò đúng dữ liệu.
+        let baseRowIdx = 8, thuColIdx = 24, xaColIdx = 1;
+        
+        for(let r = 0; r < jsonData.length; r++) {
+            if(jsonData[r]) {
+                for(let c = 0; c < jsonData[r].length; c++) {
+                    let cellVal = String(jsonData[r][c]).toUpperCase().replace(/\s+/g, ' ').trim();
+                    if(cellVal === "TỔNG SỐ THU" || cellVal.includes("TỔNG SỐ THU")) {
+                        baseRowIdx = r;
+                        thuColIdx = c;
+                    }
+                    if(cellVal === "XÃ CÁI NƯỚC" || cellVal === "CÁI NƯỚC") {
+                        xaColIdx = c;
+                    }
                 }
+            }
+        }
+
+        jsonData.forEach((row, rIdx) => {
+            // -- Lấy dữ liệu BẢNG 1 & 2 (Dựa vào tọa độ động baseRowIdx và thuColIdx) --
+            let colThuName = row[thuColIdx] ? row[thuColIdx].toString().trim() : "";
+            if (rIdx >= baseRowIdx && rIdx <= baseRowIdx + 5 && colThuName !== "") {
+                let tenKhoanThu = colThuName;
+                if (rIdx === baseRowIdx + 2 || tenKhoanThu === "BHXH TN") tenKhoanThu = "Bảo hiểm xã hội tự nguyện";
+                else if (rIdx === baseRowIdx + 3 || tenKhoanThu === "Thu BHTN") tenKhoanThu = "Bảo hiểm thất nghiệp";
 
                 rawThuMap[rIdx] = {
                     noi_dung: tenKhoanThu,
-                    so_kh: Number(row[25]) || 0,
-                    luy_ke: Number(row[26]) || 0,
-                    lk_truoc: Number(row[27]) || 0,
-                    trong_thang: Number(row[28]) || 0,
-                    so_cuoi_nam: Number(row[29]) || 0,
-                    tyle_kh: Number(row[30]) ? Number(row[30]).toFixed(2) : "0.00",
-                    con_th: Number(row[31]) || 0,
-                    thu_cuoi_2025: Number(row[32]) || 0
+                    so_kh: Number(row[thuColIdx + 1]) || 0,
+                    luy_ke: Number(row[thuColIdx + 2]) || 0,
+                    lk_truoc: Number(row[thuColIdx + 3]) || 0,
+                    trong_thang: Number(row[thuColIdx + 4]) || 0,
+                    so_cuoi_nam: Number(row[thuColIdx + 5]) || 0,
+                    tyle_kh: Number(row[thuColIdx + 6]) ? Number(row[thuColIdx + 6]).toFixed(2) : "0.00",
+                    con_th: Number(row[thuColIdx + 7]) || 0,
+                    thu_cuoi_2025: Number(row[thuColIdx + 8]) || 0
                 };
             }
 
-            if (rIdx === 8) {
+            if (rIdx === baseRowIdx) {
                 noDataStore = {
                     ten: "BHXH cơ sở Cái Nước",
-                    tong: Number(row[33]) || 0,
-                    no_khong_lai: Number(row[34]) || 0,
-                    no_tinh_lai: Number(row[35]) || 0,
-                    no_lai: Number(row[36]) || 0,
-                    nsnn: Number(row[37]) || 0,
-                    so_cham_dong: Number(row[38]) || 0,
-                    tyle_kh: Number(row[39]) ? Number(row[39]).toFixed(2) : "0.00",
-                    so_kh: Number(row[40]) ? Number(row[40]).toFixed(2) : "0.00",
-                    cong_tru_kh: Number(row[41]) ? Number(row[41]).toFixed(2) : "0.00"
+                    tong: Number(row[thuColIdx + 9]) || 0,
+                    no_khong_lai: Number(row[thuColIdx + 10]) || 0,
+                    no_tinh_lai: Number(row[thuColIdx + 11]) || 0,
+                    no_lai: Number(row[thuColIdx + 12]) || 0,
+                    nsnn: Number(row[thuColIdx + 13]) || 0,
+                    so_cham_dong: Number(row[thuColIdx + 14]) || 0,
+                    tyle_kh: Number(row[thuColIdx + 15]) ? Number(row[thuColIdx + 15]).toFixed(2) : "0.00",
+                    so_kh: Number(row[thuColIdx + 16]) ? Number(row[thuColIdx + 16]).toFixed(2) : "0.00",
+                    cong_tru_kh: Number(row[thuColIdx + 17]) ? Number(row[thuColIdx + 17]).toFixed(2) : "0.00"
                 };
             }
 
+            // -- Lấy dữ liệu XÃ (Dựa vào tọa độ động xaColIdx) --
+            let tenDonVi = row[xaColIdx] ? row[xaColIdx].toString().trim() : "";
             let matchFound = danhSachXaCaiNuoc.find(x => tenDonVi.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
+            
             if (matchFound) {
-                // BHYT
-                let ds_bhyt = Number(row[2]) || 0;
-                let th_bhyt = Number(row[3]) || 0;
+                let ds_bhyt = Number(row[xaColIdx + 1]) || 0;
+                let th_bhyt = Number(row[xaColIdx + 2]) || 0;
                 let tyle_bhyt = ds_bhyt > 0 ? Number(((th_bhyt / ds_bhyt) * 100).toFixed(2)) : 0;
 
-                // BHXH Bắt buộc
-                let kh_bb = Number(row[5]) || 0;
-                let th_bb = Number(row[6]) || 0;
-                let stt_bb = Number(row[7]) || 0;
-                let scn_bb = Number(row[8]) || 0;
-                let con_bb = Number(row[9]) || 0;
+                let kh_bb = Number(row[xaColIdx + 4]) || 0; let th_bb = Number(row[xaColIdx + 5]) || 0;
+                let stt_bb = Number(row[xaColIdx + 6]) || 0; let scn_bb = Number(row[xaColIdx + 7]) || 0; let con_bb = Number(row[xaColIdx + 8]) || 0;
                 let tyle_bb = kh_bb > 0 ? Number(((th_bb / kh_bb) * 100).toFixed(2)) : 0;
 
-                // BHXH Tự nguyện
-                let kh_btn = Number(row[11]) || 0;
-                let th_btn = Number(row[12]) || 0;
-                let stt_btn = Number(row[13]) || 0;
-                let scn_btn = Number(row[14]) || 0;
-                let con_btn = Number(row[15]) || 0;
+                let kh_btn = Number(row[xaColIdx + 10]) || 0; let th_btn = Number(row[xaColIdx + 11]) || 0;
+                let stt_btn = Number(row[xaColIdx + 12]) || 0; let scn_btn = Number(row[xaColIdx + 13]) || 0; let con_btn = Number(row[xaColIdx + 14]) || 0;
                 let tyle_btn = kh_btn > 0 ? Number(((th_btn / kh_btn) * 100).toFixed(2)) : 0;
 
-                // BHXH Chung (BB + TN)
-                let kh_chung = kh_bb + kh_btn;
-                let th_chung = th_bb + th_btn;
-                let stt_chung = stt_bb + stt_btn;
-                let scn_chung = scn_bb + scn_btn;
-                let con_chung = con_bb + con_btn;
+                let kh_chung = kh_bb + kh_btn; let th_chung = th_bb + th_btn; let stt_chung = stt_bb + stt_btn; let scn_chung = scn_bb + scn_btn; let con_chung = con_bb + con_btn;
                 let tyle_chung = kh_chung > 0 ? Number(((th_chung / kh_chung) * 100).toFixed(2)) : 0;
 
-                // BHTN
-                let kh_bhtn = Number(row[17]) || 0;
-                let th_bhtn = Number(row[18]) || 0;
-                let stt_bhtn = Number(row[19]) || 0;
-                let scn_bhtn = Number(row[20]) || 0;
-                let con_bhtn = Number(row[21]) || 0;
+                let kh_bhtn = Number(row[xaColIdx + 16]) || 0; let th_bhtn = Number(row[xaColIdx + 17]) || 0;
+                let stt_bhtn = Number(row[xaColIdx + 18]) || 0; let scn_bhtn = Number(row[xaColIdx + 19]) || 0; let con_bhtn = Number(row[xaColIdx + 20]) || 0;
                 let tyle_bhtn = kh_bhtn > 0 ? Number(((th_bhtn / kh_bhtn) * 100).toFixed(2)) : 0;
 
                 if (tyle_chung >= 100) soXaDat100++;
@@ -453,18 +421,15 @@
                     bhyt: { kh: ds_bhyt, th: th_bhyt, tyle: tyle_bhyt }
                 });
 
-                let opt = document.createElement('option');
-                opt.value = matchFound;
-                opt.innerText = matchFound;
+                let opt = document.createElement('option'); opt.value = matchFound; opt.innerText = matchFound;
                 selectXa.appendChild(opt);
             }
         });
 
-        [8, 9, 10, 11, 12, 13].forEach(idx => {
-            if (rawThuMap[idx]) {
-                thuDataRows.push(rawThuMap[idx]);
-            }
-        });
+        // Xếp dữ liệu mảng Thu theo đúng thứ tự 6 row
+        for (let i = baseRowIdx; i <= baseRowIdx + 5; i++) {
+            if (rawThuMap[i]) thuDataRows.push(rawThuMap[i]);
+        }
 
         if (!noDataStore) {
             noDataStore = { ten: "BHXH cơ sở Cái Nước", tong: 0, no_khong_lai: 0, no_tinh_lai: 0, no_lai: 0, nsnn: 0, so_cham_dong: 0, tyle_kh: "0.00", so_kh: "0.00", cong_tru_kh: "0.00" };
@@ -481,10 +446,7 @@
         document.getElementById('kpiTyLeBHYT').innerText = avgBHYT + "%";
         document.getElementById('kpiSoXaDat').innerText = soXaDat100 + " / 7";
 
-        renderBangChiTieuThu();
-        renderBangSoTienChamDong();
-        renderBangTongHop7Xa();
-        veBieuDo();
+        renderBangChiTieuThu(); renderBangSoTienChamDong(); renderBangTongHop7Xa(); veBieuDo();
         
         document.getElementById('mainDashboard').style.display = 'block';
         document.getElementById('btnPDF').style.display = 'inline-block';
@@ -493,6 +455,10 @@
     function renderBangChiTieuThu() {
         let tbody = document.getElementById('tblChiTieuThu').getElementsByTagName('tbody')[0];
         tbody.innerHTML = '';
+        if(thuDataRows.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">⚠️ Không tìm thấy dữ liệu thu cho kỳ báo cáo này.</td></tr>`;
+            return;
+        }
         thuDataRows.forEach((row, idx) => {
             let isTong = idx === 0;
             let rowClass = isTong ? 'table-secondary fw-bold' : '';
@@ -515,7 +481,6 @@
 
     function renderBangSoTienChamDong() {
         let tbody = document.getElementById('tblSoTienChamDong').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '';
         let n = noDataStore;
         tbody.innerHTML = `
             <tr>
@@ -536,7 +501,10 @@
     function renderBangTongHop7Xa() {
         let tbody = document.getElementById('tblTongHop7Xa').getElementsByTagName('tbody')[0];
         tbody.innerHTML = '';
-        let listToRender = [...rawDataStore];
+        if(rawDataStore.length === 0) {
+             tbody.innerHTML = `<tr><td colspan="25" class="text-center text-muted py-3">⚠️ Không tìm thấy số liệu người tham gia cho kỳ báo cáo này.</td></tr>`;
+             return;
+        }
 
         let sum_kh_chung = 0, sum_th_chung = 0, sum_stt_chung = 0, sum_scn_chung = 0, sum_con_chung = 0;
         let sum_kh_bb = 0, sum_th_bb = 0, sum_stt_bb = 0, sum_scn_bb = 0, sum_con_bb = 0;
@@ -544,12 +512,8 @@
         let sum_kh_bhtn = 0, sum_th_bhtn = 0, sum_stt_bhtn = 0, sum_scn_bhtn = 0, sum_con_bhtn = 0;
         let sum_ds_bhyt = 0, sum_th_bhyt = 0;
 
-        listToRender.forEach((item, index) => {
-            let chung = item.bhxh_chung;
-            let bb = item.bhxh_bb;
-            let tn = item.bhxh_tn;
-            let bhtn = item.bhtn;
-            let bhyt = item.bhyt;
+        rawDataStore.forEach((item, index) => {
+            let chung = item.bhxh_chung; let bb = item.bhxh_bb; let tn = item.bhxh_tn; let bhtn = item.bhtn; let bhyt = item.bhyt;
 
             sum_kh_chung += chung.kh; sum_th_chung += chung.th; sum_stt_chung += chung.stt; sum_scn_chung += chung.scn; sum_con_chung += chung.con;
             sum_kh_bb += bb.kh; sum_th_bb += bb.th; sum_stt_bb += bb.stt; sum_scn_bb += bb.scn; sum_con_bb += bb.con;
@@ -557,50 +521,19 @@
             sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th; sum_stt_bhtn += bhtn.stt; sum_scn_bhtn += bhtn.scn; sum_con_bhtn += bhtn.con;
             sum_ds_bhyt += bhyt.kh; sum_th_bhyt += bhyt.th;
 
-            let badgeClass = 'bg-success text-white';
-            if (chung.tyle < 90) badgeClass = 'bg-danger text-white';
-            else if (chung.tyle < 100) badgeClass = 'bg-warning text-dark';
-
-            let bhytBadgeClass = 'bg-success text-white';
-            if (bhyt.tyle < 90) bhytBadgeClass = 'bg-danger text-white';
-            else if (bhyt.tyle < 100) bhytBadgeClass = 'bg-warning text-dark';
+            let badgeClass = chung.tyle < 90 ? 'bg-danger text-white' : (chung.tyle < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
+            let bhytBadgeClass = bhyt.tyle < 90 ? 'bg-danger text-white' : (bhyt.tyle < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
 
             tbody.innerHTML += `
                 <tr>
                     <td class="text-center fw-bold">${index + 1}</td>
                     <td class="fw-bold">${item.ten}</td>
-                    <!-- Chung -->
-                    <td class="text-end fw-bold">${chung.kh.toLocaleString()}</td>
-                    <td class="text-end fw-bold">${chung.th.toLocaleString()}</td>
-                    <td class="text-end">${chung.stt.toLocaleString()}</td>
-                    <td class="text-end">${chung.scn.toLocaleString()}</td>
-                    <td class="text-end">${chung.con.toLocaleString()}</td>
+                    <td class="text-end fw-bold">${chung.kh.toLocaleString()}</td><td class="text-end fw-bold">${chung.th.toLocaleString()}</td><td class="text-end">${chung.stt.toLocaleString()}</td><td class="text-end">${chung.scn.toLocaleString()}</td><td class="text-end">${chung.con.toLocaleString()}</td>
                     <td class="text-center fw-bold"><span class="badge ${badgeClass}">${chung.tyle.toFixed(2)}</span></td>
-                    <!-- BB -->
-                    <td class="text-end">${bb.kh.toLocaleString()}</td>
-                    <td class="text-end">${bb.th.toLocaleString()}</td>
-                    <td class="text-end">${bb.stt.toLocaleString()}</td>
-                    <td class="text-end">${bb.scn.toLocaleString()}</td>
-                    <td class="text-end">${bb.con.toLocaleString()}</td>
-                    <td class="text-center">${bb.tyle.toFixed(2)}</td>
-                    <!-- TN -->
-                    <td class="text-end">${tn.kh.toLocaleString()}</td>
-                    <td class="text-end">${tn.th.toLocaleString()}</td>
-                    <td class="text-end">${tn.stt.toLocaleString()}</td>
-                    <td class="text-end">${tn.scn.toLocaleString()}</td>
-                    <td class="text-end">${tn.con.toLocaleString()}</td>
-                    <td class="text-center">${tn.tyle.toFixed(2)}</td>
-                    <!-- BHTN -->
-                    <td class="text-end">${bhtn.kh.toLocaleString()}</td>
-                    <td class="text-end">${bhtn.th.toLocaleString()}</td>
-                    <td class="text-end">${bhtn.stt.toLocaleString()}</td>
-                    <td class="text-end">${bhtn.scn.toLocaleString()}</td>
-                    <td class="text-end">${bhtn.con.toLocaleString()}</td>
-                    <td class="text-center">${bhtn.tyle.toFixed(2)}</td>
-                    <!-- BHYT -->
-                    <td class="text-end">${bhyt.kh.toLocaleString()}</td>
-                    <td class="text-end">${bhyt.th.toLocaleString()}</td>
-                    <td class="text-center fw-bold"><span class="badge ${bhytBadgeClass}">${bhyt.tyle.toFixed(2)}</span></td>
+                    <td class="text-end">${bb.kh.toLocaleString()}</td><td class="text-end">${bb.th.toLocaleString()}</td><td class="text-end">${bb.stt.toLocaleString()}</td><td class="text-end">${bb.scn.toLocaleString()}</td><td class="text-end">${bb.con.toLocaleString()}</td><td class="text-center">${bb.tyle.toFixed(2)}</td>
+                    <td class="text-end">${tn.kh.toLocaleString()}</td><td class="text-end">${tn.th.toLocaleString()}</td><td class="text-end">${tn.stt.toLocaleString()}</td><td class="text-end">${tn.scn.toLocaleString()}</td><td class="text-end">${tn.con.toLocaleString()}</td><td class="text-center">${tn.tyle.toFixed(2)}</td>
+                    <td class="text-end">${bhtn.kh.toLocaleString()}</td><td class="text-end">${bhtn.th.toLocaleString()}</td><td class="text-end">${bhtn.stt.toLocaleString()}</td><td class="text-end">${bhtn.scn.toLocaleString()}</td><td class="text-end">${bhtn.con.toLocaleString()}</td><td class="text-center">${bhtn.tyle.toFixed(2)}</td>
+                    <td class="text-end">${bhyt.kh.toLocaleString()}</td><td class="text-end">${bhyt.th.toLocaleString()}</td><td class="text-center fw-bold"><span class="badge ${bhytBadgeClass}">${bhyt.tyle.toFixed(2)}</span></td>
                 </tr>
             `;
         });
@@ -611,72 +544,26 @@
         let totalTyleBHTN = sum_kh_bhtn > 0 ? ((sum_th_bhtn / sum_kh_bhtn) * 100).toFixed(2) : 0;
         let totalTyleBHYT = sum_ds_bhyt > 0 ? ((sum_th_bhyt / sum_ds_bhyt) * 100).toFixed(2) : 0;
 
-        let totalBadgeClass = 'bg-success text-white';
-        if (totalTyleChung < 90) totalBadgeClass = 'bg-danger text-white';
-        else if (totalTyleChung < 100) totalBadgeClass = 'bg-warning text-dark';
-
-        let totalBhytBadgeClass = 'bg-success text-white';
-        if (totalTyleBHYT < 90) totalBhytBadgeClass = 'bg-danger text-white';
-        else if (totalTyleBHYT < 100) totalBhytBadgeClass = 'bg-warning text-dark';
+        let totalBadgeClass = totalTyleChung < 90 ? 'bg-danger text-white' : (totalTyleChung < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
+        let totalBhytBadgeClass = totalTyleBHYT < 90 ? 'bg-danger text-white' : (totalTyleBHYT < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
 
         tbody.innerHTML += `
             <tr class="table-secondary fw-bold">
                 <td colspan="2" class="text-center text-uppercase">TỔNG CỘNG TOÀN CƠ SỞ</td>
-                <!-- Chung -->
-                <td class="text-end">${sum_kh_chung.toLocaleString()}</td>
-                <td class="text-end">${sum_th_chung.toLocaleString()}</td>
-                <td class="text-end">${sum_stt_chung.toLocaleString()}</td>
-                <td class="text-end">${sum_scn_chung.toLocaleString()}</td>
-                <td class="text-end">${sum_con_chung.toLocaleString()}</td>
-                <td class="text-center"><span class="badge ${totalBadgeClass}">${totalTyleChung}</span></td>
-                <!-- BB -->
-                <td class="text-end">${sum_kh_bb.toLocaleString()}</td>
-                <td class="text-end">${sum_th_bb.toLocaleString()}</td>
-                <td class="text-end">${sum_stt_bb.toLocaleString()}</td>
-                <td class="text-end">${sum_scn_bb.toLocaleString()}</td>
-                <td class="text-end">${sum_con_bb.toLocaleString()}</td>
-                <td class="text-center">${totalTyleBB}</td>
-                <!-- TN -->
-                <td class="text-end">${sum_kh_tn.toLocaleString()}</td>
-                <td class="text-end">${sum_th_tn.toLocaleString()}</td>
-                <td class="text-end">${sum_stt_tn.toLocaleString()}</td>
-                <td class="text-end">${sum_scn_tn.toLocaleString()}</td>
-                <td class="text-end">${sum_con_tn.toLocaleString()}</td>
-                <td class="text-center">${totalTyleTN}</td>
-                <!-- BHTN -->
-                <td class="text-end">${sum_kh_bhtn.toLocaleString()}</td>
-                <td class="text-end">${sum_th_bhtn.toLocaleString()}</td>
-                <td class="text-end">${sum_stt_bhtn.toLocaleString()}</td>
-                <td class="text-end">${sum_scn_bhtn.toLocaleString()}</td>
-                <td class="text-end">${sum_con_bhtn.toLocaleString()}</td>
-                <td class="text-center">${totalTyleBHTN}</td>
-                <!-- BHYT -->
-                <td class="text-end">${sum_ds_bhyt.toLocaleString()}</td>
-                <td class="text-end">${sum_th_bhyt.toLocaleString()}</td>
-                <td class="text-center"><span class="badge ${totalBhytBadgeClass}">${totalTyleBHYT}</span></td>
+                <td class="text-end">${sum_kh_chung.toLocaleString()}</td><td class="text-end">${sum_th_chung.toLocaleString()}</td><td class="text-end">${sum_stt_chung.toLocaleString()}</td><td class="text-end">${sum_scn_chung.toLocaleString()}</td><td class="text-end">${sum_con_chung.toLocaleString()}</td><td class="text-center"><span class="badge ${totalBadgeClass}">${totalTyleChung}</span></td>
+                <td class="text-end">${sum_kh_bb.toLocaleString()}</td><td class="text-end">${sum_th_bb.toLocaleString()}</td><td class="text-end">${sum_stt_bb.toLocaleString()}</td><td class="text-end">${sum_scn_bb.toLocaleString()}</td><td class="text-end">${sum_con_bb.toLocaleString()}</td><td class="text-center">${totalTyleBB}</td>
+                <td class="text-end">${sum_kh_tn.toLocaleString()}</td><td class="text-end">${sum_th_tn.toLocaleString()}</td><td class="text-end">${sum_stt_tn.toLocaleString()}</td><td class="text-end">${sum_scn_tn.toLocaleString()}</td><td class="text-end">${sum_con_tn.toLocaleString()}</td><td class="text-center">${totalTyleTN}</td>
+                <td class="text-end">${sum_kh_bhtn.toLocaleString()}</td><td class="text-end">${sum_th_bhtn.toLocaleString()}</td><td class="text-end">${sum_stt_bhtn.toLocaleString()}</td><td class="text-end">${sum_scn_bhtn.toLocaleString()}</td><td class="text-end">${sum_con_bhtn.toLocaleString()}</td><td class="text-center">${totalTyleBHTN}</td>
+                <td class="text-end">${sum_ds_bhyt.toLocaleString()}</td><td class="text-end">${sum_th_bhyt.toLocaleString()}</td><td class="text-center"><span class="badge ${totalBhytBadgeClass}">${totalTyleBHYT}</span></td>
             </tr>
         `;
     }
 
-    function chonXaXem() {
-        let selectedXa = document.getElementById('selectXa').value;
-        xemTheoXaCuThe = (selectedXa !== 'all');
-        veBieuDo();
-    }
-
+    function chonXaXem() { xemTheoXaCuThe = (document.getElementById('selectXa').value !== 'all'); veBieuDo(); }
     function chuyenMuc(muc, btn) {
-        currentMuc = muc;
-        xemTheoXaCuThe = false;
-        document.getElementById('selectXa').value = 'all';
-
-        let buttons = document.querySelectorAll('#chiTieuGroup button');
-        buttons.forEach(b => {
-            b.classList.remove('btn-primary');
-            b.classList.add('btn-outline-secondary');
-        });
-        btn.classList.remove('btn-outline-secondary');
-        btn.classList.add('btn-primary');
-
+        currentMuc = muc; xemTheoXaCuThe = false; document.getElementById('selectXa').value = 'all';
+        document.querySelectorAll('#chiTieuGroup button').forEach(b => { b.classList.remove('btn-primary'); b.classList.add('btn-outline-secondary'); });
+        btn.classList.remove('btn-outline-secondary'); btn.classList.add('btn-primary');
         veBieuDo();
     }
 
@@ -684,82 +571,36 @@
         let selectedXa = document.getElementById('selectXa').value;
         let chartContainer = document.getElementById('chartContainer');
         chartContainer.innerHTML = '';
-
-        let titles = {
-            'bhxh_chung': '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG (BẮT BUỘC + TỰ NGUYỆN)',
-            'bhxh_bb': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC',
-            'bhxh_tn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI TỰ NGUYỆN',
-            'bhtn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP',
-            'bhyt': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ'
-        };
+        let titles = { 'bhxh_chung': '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG', 'bhxh_bb': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC', 'bhxh_tn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI TỰ NGUYỆN', 'bhtn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP', 'bhyt': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ' };
 
         if (!xemTheoXaCuThe || selectedXa === 'all') {
             document.getElementById('chartTitle').innerText = titles[currentMuc];
-
             rawDataStore.forEach(item => {
-                let m = item[currentMuc];
-                let percentWidth = m.tyle > 100 ? 100 : m.tyle;
-                if (percentWidth < 5) percentWidth = 5;
-
-                let colorClass = 'bg-success-custom';
-                if (m.tyle < 90) colorClass = 'bg-danger-custom';
-                else if (m.tyle < 100) colorClass = 'bg-warning-custom';
-
-                let displayValText = `${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)`;
-
+                let m = item[currentMuc]; let percentWidth = Math.max(5, Math.min(100, m.tyle));
+                let colorClass = m.tyle < 90 ? 'bg-danger-custom' : (m.tyle < 100 ? 'bg-warning-custom' : 'bg-success-custom');
                 chartContainer.innerHTML += `
                     <div class="bar-row">
                         <div class="bar-label">${item.ten}</div>
-                        <div class="bar-container">
-                            <div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">
-                                ${displayValText}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                        <div class="bar-container"><div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)</div></div>
+                    </div>`;
             });
         } else {
             let foundItem = rawDataStore.find(x => x.ten === selectedXa);
             if (foundItem) {
                 document.getElementById('chartTitle').innerText = `📊 CHI TIẾT CÁC CHỈ TIÊU TẠI: ${selectedXa.toUpperCase()}`;
-                
-                let keys = [
-                    { key: 'bhxh_chung', name: 'BHXH Chung (BB + TN)' },
-                    { key: 'bhxh_bb', name: 'BHXH Bắt Buộc' },
-                    { key: 'bhxh_tn', name: 'BHXH Tự Nguyện' },
-                    { key: 'bhtn', name: 'Bảo Hiểm Thất Nghiệp' },
-                    { key: 'bhyt', name: 'Bảo Hiểm Y Tế' }
-                ];
-
-                keys.forEach(kObj => {
-                    let m = foundItem[kObj.key];
-                    let percentWidth = m.tyle > 100 ? 100 : m.tyle;
-                    if (percentWidth < 5) percentWidth = 5;
-
-                    let colorClass = 'bg-success-custom';
-                    if (m.tyle < 90) colorClass = 'bg-danger-custom';
-                    else if (m.tyle < 100) colorClass = 'bg-warning-custom';
-
-                    let displayValText = `${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)`;
-
+                [{key: 'bhxh_chung', name: 'BHXH Chung'}, {key: 'bhxh_bb', name: 'BHXH Bắt Buộc'}, {key: 'bhxh_tn', name: 'BHXH Tự Nguyện'}, {key: 'bhtn', name: 'Bảo Hiểm Thất Nghiệp'}, {key: 'bhyt', name: 'Bảo Hiểm Y Tế'}].forEach(kObj => {
+                    let m = foundItem[kObj.key]; let percentWidth = Math.max(5, Math.min(100, m.tyle));
+                    let colorClass = m.tyle < 90 ? 'bg-danger-custom' : (m.tyle < 100 ? 'bg-warning-custom' : 'bg-success-custom');
                     chartContainer.innerHTML += `
                         <div class="bar-row">
                             <div class="bar-label" style="width: 250px;">${kObj.name}</div>
-                            <div class="bar-container">
-                                <div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">
-                                    ${displayValText}
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                            <div class="bar-container"><div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)</div></div>
+                        </div>`;
                 });
             }
         }
     }
-
-    function xuatPDF() {
-        window.print();
-    }
+    function xuatPDF() { window.print(); }
 </script>
 </body>
 </html>
