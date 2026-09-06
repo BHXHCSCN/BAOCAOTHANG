@@ -9,19 +9,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { background-color: #f4f7fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero-header { background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; padding: 25px 20px; border-radius: 0 0 16px 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15); }
-        .kpi-card { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e9ecef; height: 100%; transition: transform 0.2s; }
+        /* Màu nền tổng thể trang nhã, dịu mắt */
+        body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Tiêu đề chính: Màu xanh biển nhạt, sang trọng */
+        .hero-header { background: linear-gradient(135deg, #2b7a78 0%, #3aafa9 100%); color: white; padding: 22px 20px; border-radius: 0 0 16px 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(43, 122, 120, 0.12); }
+        .logo-bhxh { width: 50px; height: 50px; object-fit: contain; background: white; border-radius: 50%; padding: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+
+        .kpi-card { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; height: 100%; transition: transform 0.2s; }
         .kpi-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        .kpi-title { font-size: 0.8rem; color: #6c757d; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
-        .kpi-value { font-size: 1.4rem; font-weight: 700; color: #212529; }
-        .filter-section { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #e9ecef; }
-        .chart-card, .table-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e9ecef; margin-bottom: 20px; }
-        th { background-color: #f8f9fa !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #495057; }
+        .kpi-title { font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+        .kpi-value { font-size: 1.4rem; font-weight: 700; color: #1e293b; }
+        
+        .filter-section { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #e2e8f0; }
+        .chart-card, .table-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        th { background-color: #f1f5f9 !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #334155; }
         td { vertical-align: middle; font-size: 0.82rem; }
         
         #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
-            border-color: #b0bec5 !important;
+            border-color: #cbd5e1 !important;
             border-width: 1.5px !important;
         }
 
@@ -29,28 +35,37 @@
         
         .bar-row { display: flex; align-items: center; margin-bottom: 14px; }
         .bar-label { width: 220px; font-weight: 600; font-size: 0.85rem; color: #333; text-align: right; padding-right: 15px; }
-        .bar-container { flex-grow: 1; position: relative; background: #f1f3f5; border-radius: 6px; height: 38px; display: flex; align-items: center; padding: 0 10px; }
+        .bar-container { flex-grow: 1; position: relative; background: #e2e8f0; border-radius: 6px; height: 38px; display: flex; align-items: center; padding: 0 10px; }
         .bar-actual { height: 26px; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; color: white; font-weight: bold; font-size: 0.85rem; white-space: nowrap; transition: width 0.6s ease; }
-        .bg-success-custom { background-color: #198754 !important; }
-        .bg-warning-custom { background-color: #d39e00 !important; color: #fff !important; }
-        .bg-danger-custom { background-color: #dc3545 !important; }
-        .chart-legend { display: flex; align-items: center; justify-content: flex-end; gap: 20px; font-size: 0.85rem; margin-bottom: 15px; color: #6c757d; }
+        .bg-success-custom { background-color: #2e7d32 !important; }
+        .bg-warning-custom { background-color: #f59e0b !important; color: #fff !important; }
+        .bg-danger-custom { background-color: #d32f2f !important; }
+        .chart-legend { display: flex; align-items: center; justify-content: flex-end; gap: 20px; font-size: 0.85rem; margin-bottom: 15px; color: #64748b; }
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* Chân trang (Footer) chuyên nghiệp */
+        .footer-bhxh { background-color: #1e293b; color: #cbd5e1; padding: 25px 20px; border-radius: 12px; margin-top: 40px; font-size: 0.88rem; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
+        .footer-bhxh strong { color: #ffffff; }
     </style>
 </head>
 <body>
 
 <div class="container-fluid px-4 mb-5">
+    <!-- TIÊU ĐỀ KÈM LOGO BHXH VIỆT NAM -->
     <div class="hero-header">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <div>
-                <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.85;">BHXH Cơ sở Cái Nước</small>
-                <h2 class="fw-bold mt-1 mb-2">Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu</h2>
-                <p class="m-0" style="opacity: 0.9; font-size: 0.95rem;">Hệ thống tự động đồng bộ dữ liệu trực tuyến từ Server.</p>
+            <div class="d-flex align-items-center gap-3">
+                <!-- Logo Bảo hiểm xã hội Việt Nam -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Logo_BHXH_Vi%E1%BB%87t_Nam.png" alt="Logo BHXH VN" class="logo-bhxh">
+                <div>
+                    <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.9;">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</small>
+                    <h2 class="fw-bold mt-1 mb-1" style="font-size: 1.5rem;">Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu</h2>
+                    <p class="m-0" style="opacity: 0.85; font-size: 0.9rem;">Hệ thống tự động đồng bộ dữ liệu trực tuyến từ Server.</p>
+                </div>
             </div>
             <div class="mt-3 mt-md-0">
-                <span class="badge bg-light text-primary px-3 py-2 fw-bold rounded-pill shadow-sm" id="trangThaiLoad">
+                <span class="badge bg-light text-success px-3 py-2 fw-bold rounded-pill shadow-sm" id="trangThaiLoad">
                     ⏳ Đang tải dữ liệu trực tuyến...
                 </span>
             </div>
@@ -223,6 +238,12 @@
             <div id="chartContainer" class="py-2"></div>
         </div>
     </div>
+
+    <!-- CHÂN TRANG (FOOTER) THÔNG TIN ĐỊA CHỈ -->
+    <footer class="footer-bhxh">
+        <p class="mb-1"><strong>BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</strong></p>
+        <p class="mb-0">📍 Địa chỉ: Số 04, đường 19/5, ấp 1, xã Cái Nước, tỉnh Cà Mau</p>
+    </footer>
 </div>
 
 <script>
@@ -252,13 +273,12 @@
                 let selectSheet = document.getElementById('selectSheet');
                 selectSheet.innerHTML = '';
                 
-                // 1. Lọc thông minh: CHỈ hiện những sheet từ tháng 7 trở đi
                 let validSheets = workbookData.SheetNames.filter(name => {
                     let lower = name.toLowerCase().trim();
-                    let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/); // Tìm số sau chữ "tháng"
+                    let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/);
                     if (match) {
                         let month = parseInt(match[1], 10);
-                        return month >= 7 && month <= 12; // Ép điều kiện từ tháng 7 tới 12
+                        return month >= 7 && month <= 12;
                     }
                     return false;
                 });
@@ -272,7 +292,6 @@
                     selectSheet.appendChild(opt);
                 });
 
-                // 2. Chức năng Default: Chọn tháng hiện tại trừ đi 1
                 let currentMonth = new Date().getMonth() + 1; 
                 let targetMonth = currentMonth === 1 ? 12 : currentMonth - 1;
                 
@@ -289,8 +308,8 @@
                 selectSheet.selectedIndex = defaultIndex;
                 let defaultSheetName = validSheets[defaultIndex];
 
-                document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
-                document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
+                document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu';
+                document.getElementById('trangThaiLoad').className = 'badge bg-light text-success px-3 py-2 fw-bold rounded-pill shadow-sm';
 
                 taiVaPhanTichDuLieu(defaultSheetName);
             })
@@ -311,7 +330,6 @@
         let worksheet = workbookData.Sheets[sheetName];
         let jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1, defval: 0});
         
-        // 3. Khóa đồng bộ Tiêu Đề: Đảm bảo toàn bộ tiêu đề các bảng đều nhất quán 100%
         const labelsToUpdate = [
             'lblKyBaoCao', 'lblKyBaoCao2', 'lblKyBaoCaoThu', 'lblKyBaoCaoNo',
             'thLabelChung', 'thLabelBB', 'thLabelTN', 'thLabelBHTN', 'thLabelBHYT'
@@ -331,8 +349,6 @@
         let soXaDat100 = 0;
         let rawThuMap = {};
 
-        // 4. QUÉT VỊ TRÍ ĐỘNG: Không gắn cứng tọa độ dòng/cột nữa. 
-        // File Excel thay đổi form (thêm cột, thêm hàng) code vẫn tự dò đúng dữ liệu.
         let baseRowIdx = 8, thuColIdx = 24, xaColIdx = 1;
         
         for(let r = 0; r < jsonData.length; r++) {
@@ -351,7 +367,6 @@
         }
 
         jsonData.forEach((row, rIdx) => {
-            // -- Lấy dữ liệu BẢNG 1 & 2 (Dựa vào tọa độ động baseRowIdx và thuColIdx) --
             let colThuName = row[thuColIdx] ? row[thuColIdx].toString().trim() : "";
             if (rIdx >= baseRowIdx && rIdx <= baseRowIdx + 5 && colThuName !== "") {
                 let tenKhoanThu = colThuName;
@@ -386,7 +401,6 @@
                 };
             }
 
-            // -- Lấy dữ liệu XÃ (Dựa vào tọa độ động xaColIdx) --
             let tenDonVi = row[xaColIdx] ? row[xaColIdx].toString().trim() : "";
             let matchFound = danhSachXaCaiNuoc.find(x => tenDonVi.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
             
@@ -426,7 +440,6 @@
             }
         });
 
-        // Xếp dữ liệu mảng Thu theo đúng thứ tự 6 row
         for (let i = baseRowIdx; i <= baseRowIdx + 5; i++) {
             if (rawThuMap[i]) thuDataRows.push(rawThuMap[i]);
         }
