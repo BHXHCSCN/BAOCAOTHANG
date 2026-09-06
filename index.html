@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -21,7 +20,6 @@ HTML
         th { background-color: #f8f9fa !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #495057; }
         td { vertical-align: middle; font-size: 0.82rem; }
         
-        /* Tùy chỉnh đường kẻ bảng 3 đậm và rõ hơn giữa các dòng xã */
         #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
             border-color: #b0bec5 !important;
             border-width: 1.5px !important;
@@ -63,7 +61,7 @@ HTML
     <div class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Tháng từ Tháng 7 trở đi):</label>
+                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Mặc định tháng gần nhất):</label>
                 <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
                     <option value="">-- Đang khởi tạo dữ liệu --</option>
                 </select>
@@ -281,37 +279,43 @@ HTML
                 let selectSheet = document.getElementById('selectSheet');
                 selectSheet.innerHTML = '';
                 
-                let validSheets = workbookData.SheetNames.filter(name => {
-                    let lower = name.toLowerCase();
-                    if (lower.includes('thang 12') || lower.includes('tháng 12') && !lower.includes('2026')) {
-                        return false;
-                    }
-                    return lower.includes('tháng 7') || lower.includes('tháng 8') || lower.includes('tháng 9') || lower.includes('tháng 10') || lower.includes('tháng 11') ||
-                           lower.includes('thang 7') || lower.includes('thang 8') || lower.includes('thang 9') || lower.includes('thang 10') || lower.includes('thang 11');
-                });
+                let validSheets = workbookData.SheetNames;
 
                 if (validSheets.length === 0) {
-                    validSheets = workbookData.SheetNames.filter(name => {
-                        let l = name.toLowerCase();
-                        return l.includes('7') || l.includes('8') || l.includes('9');
-                    });
+                    throw new Error("Không tìm thấy sheet hợp lệ trong file!");
+                }
+
+                // TÍNH TOÁN THÁNG HIỆN TẠI TRỪ 1
+                let now = new Date();
+                let thangMacDinh = now.getMonth(); // 0-based: Tháng 9 -> getMonth() = 8 -> tương ứng tháng 8
+                if (thangMacDinh === 0) thangMacDinh = 12; // Trường hợp Tháng 1 -> lùi lại Tháng 12
+
+                // Tìm sheet trong Excel khớp với Tháng Mặc Định
+                let targetSheet = validSheets.find(name => {
+                    let numMatch = name.match(/\d+/);
+                    return numMatch && parseInt(numMatch[0]) === thangMacDinh;
+                });
+
+                // Nếu không thấy sheet tháng lùi 1, fallback lấy sheet cuối cùng trong danh sách
+                if (!targetSheet) {
+                    targetSheet = validSheets[validSheets.length - 1];
                 }
 
                 validSheets.forEach(name => {
                     let opt = document.createElement('option');
                     opt.value = name;
                     opt.innerText = "Kỳ báo cáo: " + name;
+                    if (name === targetSheet) {
+                        opt.selected = true;
+                    }
                     selectSheet.appendChild(opt);
                 });
-
-                if (validSheets.length === 0) {
-                    throw new Error("Không tìm thấy sheet từ Tháng 7 trở đi!");
-                }
 
                 document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
                 document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
 
-                taiVaPhanTichDuLieu(validSheets[0]);
+                // Tải dữ liệu của sheet mặc định được chọn
+                doiKyBaoCao();
             })
             .catch(error => {
                 console.error(error);
@@ -322,8 +326,11 @@ HTML
     });
 
     function doiKyBaoCao() {
-        let sheetName = document.getElementById('selectSheet').value;
-        if (sheetName) taiVaPhanTichDuLieu(sheetName);
+        let selectSheet = document.getElementById('selectSheet');
+        let sheetName = selectSheet.value;
+        if (sheetName && workbookData && workbookData.Sheets[sheetName]) {
+            taiVaPhanTichDuLieu(sheetName);
+        }
     }
 
     function taiVaPhanTichDuLieu(sheetName) {
