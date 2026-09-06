@@ -20,10 +20,17 @@ HTML
         .chart-card, .table-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e9ecef; margin-bottom: 20px; }
         th { background-color: #f8f9fa !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #495057; }
         td { vertical-align: middle; font-size: 0.82rem; }
+        
+        /* Tùy chỉnh đường kẻ bảng 3 đậm và rõ hơn giữa các dòng xã */
+        #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
+            border-color: #b0bec5 !important;
+            border-width: 1.5px !important;
+        }
+
         .btn-tab { border-radius: 20px; font-size: 0.8rem; font-weight: 600; padding: 5px 12px; margin-right: 4px; margin-bottom: 4px; }
         
         .bar-row { display: flex; align-items: center; margin-bottom: 14px; }
-        .bar-label { width: 160px; font-weight: 600; font-size: 0.9rem; color: #333; text-align: right; padding-right: 15px; }
+        .bar-label { width: 220px; font-weight: 600; font-size: 0.85rem; color: #333; text-align: right; padding-right: 15px; }
         .bar-container { flex-grow: 1; position: relative; background: #f1f3f5; border-radius: 6px; height: 38px; display: flex; align-items: center; padding: 0 10px; }
         .bar-actual { height: 26px; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; color: white; font-weight: bold; font-size: 0.85rem; white-space: nowrap; transition: width 0.6s ease; }
         .bg-success-custom { background-color: #198754 !important; }
@@ -40,7 +47,7 @@ HTML
     <div class="hero-header">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
             <div>
-                <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.85;">Báo cáo tuần - BHXH Cơ sở Cái Nước năm 2026</small>
+                <small class="text-uppercase fw-semibold" style="letter-spacing: 1px; opacity: 0.85;">BHXH Cơ sở Cái Nước năm 2026</small>
                 <h2 class="fw-bold mt-1 mb-2">Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu</h2>
                 <p class="m-0" style="opacity: 0.9; font-size: 0.95rem;">Hệ thống tự động đồng bộ dữ liệu trực tuyến từ Server.</p>
             </div>
@@ -56,7 +63,7 @@ HTML
     <div class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Tháng):</label>
+                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Tháng từ Tháng 7 trở đi):</label>
                 <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
                     <option value="">-- Đang khởi tạo dữ liệu --</option>
                 </select>
@@ -101,11 +108,10 @@ HTML
             </div>
         </div>
 
-        <!-- BẢNG 1: CHI TIẾT CÁC KHOẢN THU TÀI CHÍNH -->
+        <!-- BẢNG 1 -->
         <div class="table-card mb-4" id="pdfAreaThu">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-primary m-0">💰 BẢNG 1: CHI TIẾT CHỈ TIÊU THU TÀI CHÍNH - BHXH CƠ SỞ CÁI NƯỚC (<span id="lblKyBaoCaoThu"></span>)</h5>
-                <span class="text-muted small">Phân rã theo các quỹ BHXH, BHYT, BHTN</span>
+                <h5 class="fw-bold text-primary m-0">💰 BẢNG 1: CHI TIẾT SỐ THU BHXH, BHYT, BHTN (<span id="lblKyBaoCaoThu"></span>)</h5>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover align-middle" id="tblChiTieuThu">
@@ -127,11 +133,10 @@ HTML
             </div>
         </div>
 
-        <!-- BẢNG 2: SỐ TIỀN CHẬM ĐÓNG, TRỐN ĐÓNG -->
+        <!-- BẢNG 2 -->
         <div class="table-card mb-4" id="pdfAreaNo">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-danger m-0">⚠️ BẢNG 2: SỐ TIỀN CHẬM ĐÓNG, TRỐN ĐÓNG - BHXH CƠ SỞ CÁI NƯỚC (<span id="lblKyBaoCaoNo"></span>)</h5>
-                <span class="text-muted small">Dữ liệu từ dòng 9 (AH9)</span>
+                <h5 class="fw-bold text-danger m-0">⚠️ BẢNG 2: SỐ TIỀN CHẬM ĐÓNG, TRỐN ĐÓNG (<span id="lblKyBaoCaoNo"></span>)</h5>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover align-middle" id="tblSoTienChamDong">
@@ -154,40 +159,56 @@ HTML
             </div>
         </div>
 
-        <!-- BẢNG 3: TỔNG HỢP MA TRẬN 7 XÃ -->
+        <!-- BẢNG 3 -->
         <div class="table-card mb-4" id="pdfAreaXa">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-primary m-0">📊 BẢNG 3: TỔNG HỢP CHỈ TIÊU PHÁT TRIỂN NGƯỜI THAM GIA 7 XÃ (<span id="lblKyBaoCao"></span>)</h5>
-                <span class="text-muted small">Sắp xếp theo tỷ lệ BHXH chung từ cao xuống thấp</span>
+                <h5 class="fw-bold text-primary m-0">📊 BẢNG 3: TỔNG HỢP CHỈ TIÊU PHÁT TRIỂN NGƯỜI THAM GIA (<span id="lblKyBaoCao"></span>)</h5>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover" id="tblTongHop7Xa">
+                <table class="table table-bordered table-striped table-hover align-middle" id="tblTongHop7Xa">
                     <thead>
                         <tr>
                             <th rowspan="2">STT</th>
-                            <th rowspan="2">Tên Xã / Phường</th>
-                            <th colspan="3">BHXH Chung (BB + TN)</th>
-                            <th colspan="3">BHXH Bắt Buộc</th>
-                            <th colspan="3">BHXH Tự Nguyện</th>
-                            <th colspan="3">Bảo Hiểm Thất Nghiệp</th>
-                            <th colspan="3">BHYT</th>
+                            <th rowspan="2">Xã</th>
+                            <th colspan="6">BHXH Chung (BB + TN)</th>
+                            <th colspan="6">BHXH Bắt Buộc</th>
+                            <th colspan="6">Bảo Hiểm Xã Hội Tự Nguyện</th>
+                            <th colspan="6">Bảo Hiểm Thất Nghiệp</th>
+                            <th colspan="3">Bảo Hiểm Y Tế</th>
                         </tr>
                         <tr>
+                            <!-- BHXH Chung -->
                             <th>Kế hoạch</th>
-                            <th>Thực hiện</th>
-                            <th>Tỷ lệ</th>
+                            <th id="thLabelChung">Thực hiện</th>
+                            <th>So với tháng trước</th>
+                            <th>So với cuối năm 2025</th>
+                            <th>Còn phải thực hiện</th>
+                            <th>Tỷ lệ (%)</th>
+                            <!-- BHXH Bắt buộc -->
                             <th>Kế hoạch</th>
-                            <th>Thực hiện</th>
-                            <th>Tỷ lệ</th>
+                            <th id="thLabelBB">Thực hiện</th>
+                            <th>So với tháng trước</th>
+                            <th>So với cuối năm 2025</th>
+                            <th>Còn phải thực hiện</th>
+                            <th>Tỷ lệ (%)</th>
+                            <!-- BHXH Tự nguyện -->
                             <th>Kế hoạch</th>
-                            <th>Thực hiện</th>
-                            <th>Tỷ lệ</th>
+                            <th id="thLabelTN">Thực hiện</th>
+                            <th>So với tháng trước</th>
+                            <th>So với cuối năm 2025</th>
+                            <th>Còn phải thực hiện</th>
+                            <th>Tỷ lệ (%)</th>
+                            <!-- BHTN -->
                             <th>Kế hoạch</th>
-                            <th>Thực hiện</th>
-                            <th>Tỷ lệ</th>
-                            <th>Dân số</th>
-                            <th>Thực hiện</th>
-                            <th>Tỷ lệ</th>
+                            <th id="thLabelBHTN">Thực hiện</th>
+                            <th>So với tháng trước</th>
+                            <th>So với cuối năm 2025</th>
+                            <th>Còn phải thực hiện</th>
+                            <th>Tỷ lệ (%)</th>
+                            <!-- BHYT -->
+                            <th>Dân số theo Thống kê tỉnh Cà Mau</th>
+                            <th id="thLabelBHYT">Thực hiện</th>
+                            <th>Tỷ lệ (%)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -198,19 +219,19 @@ HTML
         <!-- Bộ lọc mục biểu đồ & xã -->
         <div class="filter-section">
             <div class="row align-items-center g-3">
-                <div class="col-md-7">
+                <div class="col-md-7" id="chiTieuGroupWrapper">
                     <label class="form-label small fw-bold text-muted mb-1">CHỈ TIÊU ĐÁNH GIÁ ĐỂ XEM BIỂU ĐỒ</label>
                     <div id="chiTieuGroup">
-                        <button class="btn btn-sm btn-primary btn-tab active" onclick="chuyenMuc('bhxh_chung', this)">BHXH chung</button>
+                        <button class="btn btn-sm btn-primary btn-tab" onclick="chuyenMuc('bhxh_chung', this)">BHXH chung</button>
                         <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhxh_bb', this)">BHXH bắt buộc</button>
-                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhxh_tn', this)">BHXH tự nguyện</button>
-                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhtn', this)">BHTN</button>
-                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhyt', this)">BHYT</button>
+                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhxh_tn', this)">Bảo hiểm xã hội tự nguyện</button>
+                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhtn', this)">Bảo hiểm thất nghiệp</button>
+                        <button class="btn btn-sm btn-outline-secondary btn-tab" onclick="chuyenMuc('bhyt', this)">Bảo hiểm y tế</button>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <label class="form-label small fw-bold text-muted mb-1">XEM CHI TIẾT THEO XÃ, PHƯỜNG TRÊN BIỂU ĐỒ</label>
-                    <select id="selectXa" class="form-select form-select-sm" onchange="veBieuDo()">
+                    <label class="form-label small fw-bold text-muted mb-1">XEM CHI TIẾT THEO XÃ</label>
+                    <select id="selectXa" class="form-select form-select-sm" onchange="chonXaXem()">
                         <option value="all">-- Tất cả 7 xã, thị trấn --</option>
                     </select>
                 </div>
@@ -239,6 +260,7 @@ HTML
     let thuDataRows = [];
     let noDataStore = null;
     let currentMuc = 'bhxh_chung';
+    let xemTheoXaCuThe = false;
 
     let danhSachXaCaiNuoc = [
         "Xã Cái Nước", "Xã Hưng Mỹ", "Xã Tân Hưng", 
@@ -246,7 +268,6 @@ HTML
         "Xã Nguyễn Việt Khái", "Xã Phú Tân"
     ];
 
-    // Tự động tải file Excel ngay khi mở trang web từ cùng thư mục
     window.addEventListener('DOMContentLoaded', function() {
         let tenFileExcel = 'T07_BHXH, BHTN_2026.xlsx';
         
@@ -260,23 +281,43 @@ HTML
                 let selectSheet = document.getElementById('selectSheet');
                 selectSheet.innerHTML = '';
                 
-                workbookData.SheetNames.forEach(name => {
+                let validSheets = workbookData.SheetNames.filter(name => {
+                    let lower = name.toLowerCase();
+                    if (lower.includes('thang 12') || lower.includes('tháng 12') && !lower.includes('2026')) {
+                        return false;
+                    }
+                    return lower.includes('tháng 7') || lower.includes('tháng 8') || lower.includes('tháng 9') || lower.includes('tháng 10') || lower.includes('tháng 11') ||
+                           lower.includes('thang 7') || lower.includes('thang 8') || lower.includes('thang 9') || lower.includes('thang 10') || lower.includes('thang 11');
+                });
+
+                if (validSheets.length === 0) {
+                    validSheets = workbookData.SheetNames.filter(name => {
+                        let l = name.toLowerCase();
+                        return l.includes('7') || l.includes('8') || l.includes('9');
+                    });
+                }
+
+                validSheets.forEach(name => {
                     let opt = document.createElement('option');
                     opt.value = name;
                     opt.innerText = "Kỳ báo cáo: " + name;
                     selectSheet.appendChild(opt);
                 });
 
+                if (validSheets.length === 0) {
+                    throw new Error("Không tìm thấy sheet từ Tháng 7 trở đi!");
+                }
+
                 document.getElementById('trangThaiLoad').innerHTML = '✅ Đã đồng bộ dữ liệu trực tuyến';
                 document.getElementById('trangThaiLoad').className = 'badge bg-success text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
 
-                taiVaPhanTichDuLieu(workbookData.SheetNames[0]);
+                taiVaPhanTichDuLieu(validSheets[0]);
             })
             .catch(error => {
                 console.error(error);
                 document.getElementById('trangThaiLoad').innerHTML = '❌ Lỗi tải file Excel!';
                 document.getElementById('trangThaiLoad').className = 'badge bg-danger text-white px-3 py-2 fw-bold rounded-pill shadow-sm';
-                alert("Không tìm thấy file '" + tenFileExcel + "' trên hệ thống. Hãy đảm bảo bạn đã đặt file Excel này chung thư mục với file index.html trên GitHub!");
+                alert("Không tìm thấy file hoặc dữ liệu hợp lệ trên hệ thống!");
             });
     });
 
@@ -293,23 +334,37 @@ HTML
         document.getElementById('lblKyBaoCao2').innerText = sheetName;
         document.getElementById('lblKyBaoCaoThu').innerText = sheetName;
         document.getElementById('lblKyBaoCaoNo').innerText = sheetName;
+        
+        document.getElementById('thLabelChung').innerText = sheetName;
+        document.getElementById('thLabelBB').innerText = sheetName;
+        document.getElementById('thLabelTN').innerText = sheetName;
+        document.getElementById('thLabelBHTN').innerText = sheetName;
+        document.getElementById('thLabelBHYT').innerText = sheetName;
 
         rawDataStore = [];
         thuDataRows = [];
         noDataStore = null;
         let selectXa = document.getElementById('selectXa');
         selectXa.innerHTML = '<option value="all">-- Tất cả 7 xã, thị trấn --</option>';
+        xemTheoXaCuThe = false;
 
         let soXaDat100 = 0;
+        let rawThuMap = {};
 
         jsonData.forEach((row, rIdx) => {
             let tenDonVi = row[1] ? row[1].toString().trim() : "";
             let col24Val = row[24] ? row[24].toString().trim() : "";
 
-            // Đọc dữ liệu phần Thu (dòng 7 đến 12)
-            if (rIdx >= 7 && rIdx <= 12 && col24Val !== "") {
-                thuDataRows.push({
-                    noi_dung: col24Val,
+            if (rIdx >= 8 && rIdx <= 13 && col24Val !== "") {
+                let tenKhoanThu = col24Val;
+                if (rIdx === 10 || tenKhoanThu === "BHXH TN") {
+                    tenKhoanThu = "Bảo hiểm xã hội tự nguyện";
+                } else if (rIdx === 11 || tenKhoanThu === "Thu BHTN") {
+                    tenKhoanThu = "Bảo hiểm thất nghiệp";
+                }
+
+                rawThuMap[rIdx] = {
+                    noi_dung: tenKhoanThu,
                     so_kh: Number(row[25]) || 0,
                     luy_ke: Number(row[26]) || 0,
                     lk_truoc: Number(row[27]) || 0,
@@ -318,66 +373,84 @@ HTML
                     tyle_kh: Number(row[30]) ? Number(row[30]).toFixed(2) : "0.00",
                     con_th: Number(row[31]) || 0,
                     thu_cuoi_2025: Number(row[32]) || 0
-                });
-            }
-
-            // Đọc dữ liệu phần Nợ tại dòng số 9 (index 8, tức hàng AH9 trong Excel)
-            if (rIdx === 8) {
-                noDataStore = {
-                    ten: tenDonVi !== "" ? tenDonVi : "BHXH cơ sở Cái Nước",
-                    tong: Number(row[33]) || 0,         // Cột AH
-                    no_khong_lai: Number(row[34]) || 0, // Cột AI
-                    no_tinh_lai: Number(row[35]) || 0,   // Cột AJ
-                    no_lai: Number(row[36]) || 0,       // Cột AK
-                    nsnn: Number(row[37]) || 0,         // Cột AL
-                    so_cham_dong: Number(row[38]) || 0, // Cột AM
-                    tyle_kh: Number(row[39]) ? Number(row[39]).toFixed(2) : "0.00", // Cột AN (Hiển thị nguyên bản dạng 0.34)
-                    so_kh: Number(row[40]) ? Number(row[40]).toFixed(2) : "0.00",         // Cột AO
-                    cong_tru_kh: Number(row[41]) ? Number(row[41]).toFixed(2) : "0.00"   // Cột AP
                 };
             }
 
-            // Xử lý ma trận 7 xã
+            if (rIdx === 8) {
+                noDataStore = {
+                    ten: "BHXH cơ sở Cái Nước",
+                    tong: Number(row[33]) || 0,
+                    no_khong_lai: Number(row[34]) || 0,
+                    no_tinh_lai: Number(row[35]) || 0,
+                    no_lai: Number(row[36]) || 0,
+                    nsnn: Number(row[37]) || 0,
+                    so_cham_dong: Number(row[38]) || 0,
+                    tyle_kh: Number(row[39]) ? Number(row[39]).toFixed(2) : "0.00",
+                    so_kh: Number(row[40]) ? Number(row[40]).toFixed(2) : "0.00",
+                    cong_tru_kh: Number(row[41]) ? Number(row[41]).toFixed(2) : "0.00"
+                };
+            }
+
             let matchFound = danhSachXaCaiNuoc.find(x => tenDonVi.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
             if (matchFound) {
+                // BHYT
                 let ds_bhyt = Number(row[2]) || 0;
                 let th_bhyt = Number(row[3]) || 0;
+                let tyle_bhyt = ds_bhyt > 0 ? Number(((th_bhyt / ds_bhyt) * 100).toFixed(2)) : 0;
 
+                // BHXH Bắt buộc
                 let kh_bb = Number(row[5]) || 0;
                 let th_bb = Number(row[6]) || 0;
+                let stt_bb = Number(row[7]) || 0;
+                let scn_bb = Number(row[8]) || 0;
                 let con_bb = Number(row[9]) || 0;
                 let tyle_bb = kh_bb > 0 ? Number(((th_bb / kh_bb) * 100).toFixed(2)) : 0;
 
+                // BHXH Tự nguyện
                 let kh_btn = Number(row[11]) || 0;
                 let th_btn = Number(row[12]) || 0;
+                let stt_btn = Number(row[13]) || 0;
+                let scn_btn = Number(row[14]) || 0;
                 let con_btn = Number(row[15]) || 0;
                 let tyle_btn = kh_btn > 0 ? Number(((th_btn / kh_btn) * 100).toFixed(2)) : 0;
 
-                let kh_bhtn = Number(row[17]) || 0;
-                let th_bhtn = Number(row[18]) || 0;
-                let tyle_bhtn = kh_bhtn > 0 ? Number(((th_bhtn / kh_bhtn) * 100).toFixed(2)) : 0;
-
+                // BHXH Chung (BB + TN)
                 let kh_chung = kh_bb + kh_btn;
                 let th_chung = th_bb + th_btn;
-                let con_chung = kh_chung - th_chung;
+                let stt_chung = stt_bb + stt_btn;
+                let scn_chung = scn_bb + scn_btn;
+                let con_chung = con_bb + con_btn;
                 let tyle_chung = kh_chung > 0 ? Number(((th_chung / kh_chung) * 100).toFixed(2)) : 0;
-                let tyle_bhyt = ds_bhyt > 0 ? Number(((th_bhyt / ds_bhyt) * 100).toFixed(2)) : 0;
+
+                // BHTN
+                let kh_bhtn = Number(row[17]) || 0;
+                let th_bhtn = Number(row[18]) || 0;
+                let stt_bhtn = Number(row[19]) || 0;
+                let scn_bhtn = Number(row[20]) || 0;
+                let con_bhtn = Number(row[21]) || 0;
+                let tyle_bhtn = kh_bhtn > 0 ? Number(((th_bhtn / kh_bhtn) * 100).toFixed(2)) : 0;
 
                 if (tyle_chung >= 100) soXaDat100++;
 
                 rawDataStore.push({
                     ten: matchFound,
-                    bhxh_chung: { kh: kh_chung, th: th_chung, con: con_chung, tyle: tyle_chung },
-                    bhxh_bb: { kh: kh_bb, th: th_bb, con: con_bb, tyle: tyle_bb },
-                    bhxh_tn: { kh: kh_btn, th: th_btn, con: con_btn, tyle: tyle_btn },
-                    bhtn: { kh: kh_bhtn, th: th_bhtn, con: kh_bhtn - th_bhtn, tyle: tyle_bhtn },
-                    bhyt: { kh: ds_bhyt, th: th_bhyt, con: ds_bhyt - th_bhyt, tyle: tyle_bhyt }
+                    bhxh_chung: { kh: kh_chung, th: th_chung, stt: stt_chung, scn: scn_chung, con: con_chung, tyle: tyle_chung },
+                    bhxh_bb: { kh: kh_bb, th: th_bb, stt: stt_bb, scn: scn_bb, con: con_bb, tyle: tyle_bb },
+                    bhxh_tn: { kh: kh_btn, th: th_btn, stt: stt_btn, scn: scn_btn, con: con_btn, tyle: tyle_btn },
+                    bhtn: { kh: kh_bhtn, th: th_bhtn, stt: stt_bhtn, scn: scn_bhtn, con: con_bhtn, tyle: tyle_bhtn },
+                    bhyt: { kh: ds_bhyt, th: th_bhyt, tyle: tyle_bhyt }
                 });
 
                 let opt = document.createElement('option');
                 opt.value = matchFound;
                 opt.innerText = matchFound;
                 selectXa.appendChild(opt);
+            }
+        });
+
+        [8, 9, 10, 11, 12, 13].forEach(idx => {
+            if (rawThuMap[idx]) {
+                thuDataRows.push(rawThuMap[idx]);
             }
         });
 
@@ -420,7 +493,7 @@ HTML
                     <td class="text-end">${row.lk_truoc.toLocaleString()}</td>
                     <td class="text-end">${row.trong_thang.toLocaleString()}</td>
                     <td class="text-end">${row.so_cuoi_nam.toLocaleString()}</td>
-                    <td class="text-center fw-bold"><span class="badge bg-info text-dark">${row.tyle_kh}%</span></td>
+                    <td class="text-center fw-bold"><span class="badge bg-info text-dark">${row.tyle_kh}</span></td>
                     <td class="text-end">${row.con_th.toLocaleString()}</td>
                     <td class="text-end">${row.thu_cuoi_2025.toLocaleString()}</td>
                 </tr>
@@ -451,50 +524,71 @@ HTML
     function renderBangTongHop7Xa() {
         let tbody = document.getElementById('tblTongHop7Xa').getElementsByTagName('tbody')[0];
         tbody.innerHTML = '';
-        let sortedList = [...rawDataStore].sort((a, b) => b.bhxh_chung.tyle - a.bhxh_chung.tyle);
+        let listToRender = [...rawDataStore];
 
-        let sum_kh_chung = 0, sum_th_chung = 0;
-        let sum_kh_bb = 0, sum_th_bb = 0;
-        let sum_kh_tn = 0, sum_th_tn = 0;
-        let sum_kh_bhtn = 0, sum_th_bhtn = 0;
+        let sum_kh_chung = 0, sum_th_chung = 0, sum_stt_chung = 0, sum_scn_chung = 0, sum_con_chung = 0;
+        let sum_kh_bb = 0, sum_th_bb = 0, sum_stt_bb = 0, sum_scn_bb = 0, sum_con_bb = 0;
+        let sum_kh_tn = 0, sum_th_tn = 0, sum_stt_tn = 0, sum_scn_tn = 0, sum_con_tn = 0;
+        let sum_kh_bhtn = 0, sum_th_bhtn = 0, sum_stt_bhtn = 0, sum_scn_bhtn = 0, sum_con_bhtn = 0;
         let sum_ds_bhyt = 0, sum_th_bhyt = 0;
 
-        sortedList.forEach((item, index) => {
+        listToRender.forEach((item, index) => {
             let chung = item.bhxh_chung;
             let bb = item.bhxh_bb;
             let tn = item.bhxh_tn;
             let bhtn = item.bhtn;
             let bhyt = item.bhyt;
 
-            sum_kh_chung += chung.kh; sum_th_chung += chung.th;
-            sum_kh_bb += bb.kh; sum_th_bb += bb.th;
-            sum_kh_tn += tn.kh; sum_th_tn += tn.th;
-            sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th;
+            sum_kh_chung += chung.kh; sum_th_chung += chung.th; sum_stt_chung += chung.stt; sum_scn_chung += chung.scn; sum_con_chung += chung.con;
+            sum_kh_bb += bb.kh; sum_th_bb += bb.th; sum_stt_bb += bb.stt; sum_scn_bb += bb.scn; sum_con_bb += bb.con;
+            sum_kh_tn += tn.kh; sum_th_tn += tn.th; sum_stt_tn += tn.stt; sum_scn_tn += tn.scn; sum_con_tn += tn.con;
+            sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th; sum_stt_bhtn += bhtn.stt; sum_scn_bhtn += bhtn.scn; sum_con_bhtn += bhtn.con;
             sum_ds_bhyt += bhyt.kh; sum_th_bhyt += bhyt.th;
 
             let badgeClass = 'bg-success text-white';
             if (chung.tyle < 90) badgeClass = 'bg-danger text-white';
             else if (chung.tyle < 100) badgeClass = 'bg-warning text-dark';
 
+            let bhytBadgeClass = 'bg-success text-white';
+            if (bhyt.tyle < 90) bhytBadgeClass = 'bg-danger text-white';
+            else if (bhyt.tyle < 100) bhytBadgeClass = 'bg-warning text-dark';
+
             tbody.innerHTML += `
                 <tr>
                     <td class="text-center fw-bold">${index + 1}</td>
                     <td class="fw-bold">${item.ten}</td>
+                    <!-- Chung -->
                     <td class="text-end fw-bold">${chung.kh.toLocaleString()}</td>
                     <td class="text-end fw-bold">${chung.th.toLocaleString()}</td>
-                    <td class="text-center fw-bold"><span class="badge ${badgeClass}">${chung.tyle.toFixed(2)}%</span></td>
+                    <td class="text-end">${chung.stt.toLocaleString()}</td>
+                    <td class="text-end">${chung.scn.toLocaleString()}</td>
+                    <td class="text-end">${chung.con.toLocaleString()}</td>
+                    <td class="text-center fw-bold"><span class="badge ${badgeClass}">${chung.tyle.toFixed(2)}</span></td>
+                    <!-- BB -->
                     <td class="text-end">${bb.kh.toLocaleString()}</td>
                     <td class="text-end">${bb.th.toLocaleString()}</td>
-                    <td class="text-center">${bb.tyle.toFixed(2)}%</td>
+                    <td class="text-end">${bb.stt.toLocaleString()}</td>
+                    <td class="text-end">${bb.scn.toLocaleString()}</td>
+                    <td class="text-end">${bb.con.toLocaleString()}</td>
+                    <td class="text-center">${bb.tyle.toFixed(2)}</td>
+                    <!-- TN -->
                     <td class="text-end">${tn.kh.toLocaleString()}</td>
                     <td class="text-end">${tn.th.toLocaleString()}</td>
-                    <td class="text-center">${tn.tyle.toFixed(2)}%</td>
+                    <td class="text-end">${tn.stt.toLocaleString()}</td>
+                    <td class="text-end">${tn.scn.toLocaleString()}</td>
+                    <td class="text-end">${tn.con.toLocaleString()}</td>
+                    <td class="text-center">${tn.tyle.toFixed(2)}</td>
+                    <!-- BHTN -->
                     <td class="text-end">${bhtn.kh.toLocaleString()}</td>
                     <td class="text-end">${bhtn.th.toLocaleString()}</td>
-                    <td class="text-center">${bhtn.tyle.toFixed(2)}%</td>
+                    <td class="text-end">${bhtn.stt.toLocaleString()}</td>
+                    <td class="text-end">${bhtn.scn.toLocaleString()}</td>
+                    <td class="text-end">${bhtn.con.toLocaleString()}</td>
+                    <td class="text-center">${bhtn.tyle.toFixed(2)}</td>
+                    <!-- BHYT -->
                     <td class="text-end">${bhyt.kh.toLocaleString()}</td>
                     <td class="text-end">${bhyt.th.toLocaleString()}</td>
-                    <td class="text-center">${bhyt.tyle.toFixed(2)}%</td>
+                    <td class="text-center fw-bold"><span class="badge ${bhytBadgeClass}">${bhyt.tyle.toFixed(2)}</span></td>
                 </tr>
             `;
         });
@@ -509,30 +603,60 @@ HTML
         if (totalTyleChung < 90) totalBadgeClass = 'bg-danger text-white';
         else if (totalTyleChung < 100) totalBadgeClass = 'bg-warning text-dark';
 
+        let totalBhytBadgeClass = 'bg-success text-white';
+        if (totalTyleBHYT < 90) totalBhytBadgeClass = 'bg-danger text-white';
+        else if (totalTyleBHYT < 100) totalBhytBadgeClass = 'bg-warning text-dark';
+
         tbody.innerHTML += `
             <tr class="table-secondary fw-bold">
                 <td colspan="2" class="text-center text-uppercase">TỔNG CỘNG TOÀN CƠ SỞ</td>
+                <!-- Chung -->
                 <td class="text-end">${sum_kh_chung.toLocaleString()}</td>
                 <td class="text-end">${sum_th_chung.toLocaleString()}</td>
-                <td class="text-center"><span class="badge ${totalBadgeClass}">${totalTyleChung}%</span></td>
+                <td class="text-end">${sum_stt_chung.toLocaleString()}</td>
+                <td class="text-end">${sum_scn_chung.toLocaleString()}</td>
+                <td class="text-end">${sum_con_chung.toLocaleString()}</td>
+                <td class="text-center"><span class="badge ${totalBadgeClass}">${totalTyleChung}</span></td>
+                <!-- BB -->
                 <td class="text-end">${sum_kh_bb.toLocaleString()}</td>
                 <td class="text-end">${sum_th_bb.toLocaleString()}</td>
-                <td class="text-center">${totalTyleBB}%</td>
+                <td class="text-end">${sum_stt_bb.toLocaleString()}</td>
+                <td class="text-end">${sum_scn_bb.toLocaleString()}</td>
+                <td class="text-end">${sum_con_bb.toLocaleString()}</td>
+                <td class="text-center">${totalTyleBB}</td>
+                <!-- TN -->
                 <td class="text-end">${sum_kh_tn.toLocaleString()}</td>
                 <td class="text-end">${sum_th_tn.toLocaleString()}</td>
-                <td class="text-center">${totalTyleTN}%</td>
+                <td class="text-end">${sum_stt_tn.toLocaleString()}</td>
+                <td class="text-end">${sum_scn_tn.toLocaleString()}</td>
+                <td class="text-end">${sum_con_tn.toLocaleString()}</td>
+                <td class="text-center">${totalTyleTN}</td>
+                <!-- BHTN -->
                 <td class="text-end">${sum_kh_bhtn.toLocaleString()}</td>
                 <td class="text-end">${sum_th_bhtn.toLocaleString()}</td>
-                <td class="text-center">${totalTyleBHTN}%</td>
+                <td class="text-end">${sum_stt_bhtn.toLocaleString()}</td>
+                <td class="text-end">${sum_scn_bhtn.toLocaleString()}</td>
+                <td class="text-end">${sum_con_bhtn.toLocaleString()}</td>
+                <td class="text-center">${totalTyleBHTN}</td>
+                <!-- BHYT -->
                 <td class="text-end">${sum_ds_bhyt.toLocaleString()}</td>
                 <td class="text-end">${sum_th_bhyt.toLocaleString()}</td>
-                <td class="text-center">${totalTyleBHYT}%</td>
+                <td class="text-center"><span class="badge ${totalBhytBadgeClass}">${totalTyleBHYT}</span></td>
             </tr>
         `;
     }
 
+    function chonXaXem() {
+        let selectedXa = document.getElementById('selectXa').value;
+        xemTheoXaCuThe = (selectedXa !== 'all');
+        veBieuDo();
+    }
+
     function chuyenMuc(muc, btn) {
         currentMuc = muc;
+        xemTheoXaCuThe = false;
+        document.getElementById('selectXa').value = 'all';
+
         let buttons = document.querySelectorAll('#chiTieuGroup button');
         buttons.forEach(b => {
             b.classList.remove('btn-primary');
@@ -541,93 +665,88 @@ HTML
         btn.classList.remove('btn-outline-secondary');
         btn.classList.add('btn-primary');
 
-        let titles = {
-            'bhxh_chung': '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG (BẮT BUỘC + TỰ NGUYỆN)',
-            'bhxh_bb': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC',
-            'bhxh_tn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI TỰ NGUYỆN',
-            'bhtn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP (BHTN)',
-            'bhyt': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ (BHYT)'
-        };
-        document.getElementById('chartTitle').innerText = titles[muc];
         veBieuDo();
     }
 
     function veBieuDo() {
         let selectedXa = document.getElementById('selectXa').value;
-        let dataToProcess = [...rawDataStore];
-
-        if (selectedXa !== 'all') {
-            dataToProcess = dataToProcess.filter(item => item.ten === selectedXa);
-        }
-
-        dataToProcess.sort((a, b) => b[currentMuc].tyle - a[currentMuc].tyle);
         let chartContainer = document.getElementById('chartContainer');
         chartContainer.innerHTML = '';
 
-        if (dataToProcess.length === 0) {
-            chartContainer.innerHTML = '<p class="text-center text-muted">Không có dữ liệu</p>';
-            return;
-        }
+        let titles = {
+            'bhxh_chung': '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG (BẮT BUỘC + TỰ NGUYỆN)',
+            'bhxh_bb': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC',
+            'bhxh_tn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI TỰ NGUYỆN',
+            'bhtn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP',
+            'bhyt': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ'
+        };
 
-        dataToProcess.forEach(item => {
-            let m = item[currentMuc];
-            let percentWidth = m.tyle > 100 ? 100 : m.tyle;
-            if (percentWidth < 5) percentWidth = 5;
+        if (!xemTheoXaCuThe || selectedXa === 'all') {
+            document.getElementById('chartTitle').innerText = titles[currentMuc];
 
-            let colorClass = 'bg-success-custom';
-            if (m.tyle < 90) colorClass = 'bg-danger-custom';
-            else if (m.tyle < 100) colorClass = 'bg-warning-custom';
+            rawDataStore.forEach(item => {
+                let m = item[currentMuc];
+                let percentWidth = m.tyle > 100 ? 100 : m.tyle;
+                if (percentWidth < 5) percentWidth = 5;
 
-            let displayValText = `${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)`;
+                let colorClass = 'bg-success-custom';
+                if (m.tyle < 90) colorClass = 'bg-danger-custom';
+                else if (m.tyle < 100) colorClass = 'bg-warning-custom';
 
-            chartContainer.innerHTML += `
-                <div class="bar-row">
-                    <div class="bar-label">${item.ten}</div>
-                    <div class="bar-container">
-                        <div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">
-                            ${displayValText}
+                let displayValText = `${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)`;
+
+                chartContainer.innerHTML += `
+                    <div class="bar-row">
+                        <div class="bar-label">${item.ten}</div>
+                        <div class="bar-container">
+                            <div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">
+                                ${displayValText}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-        });
+                `;
+            });
+        } else {
+            let foundItem = rawDataStore.find(x => x.ten === selectedXa);
+            if (foundItem) {
+                document.getElementById('chartTitle').innerText = `📊 CHI TIẾT CÁC CHỈ TIÊU TẠI: ${selectedXa.toUpperCase()}`;
+                
+                let keys = [
+                    { key: 'bhxh_chung', name: 'BHXH Chung (BB + TN)' },
+                    { key: 'bhxh_bb', name: 'BHXH Bắt Buộc' },
+                    { key: 'bhxh_tn', name: 'BHXH Tự Nguyện' },
+                    { key: 'bhtn', name: 'Bảo Hiểm Thất Nghiệp' },
+                    { key: 'bhyt', name: 'Bảo Hiểm Y Tế' }
+                ];
+
+                keys.forEach(kObj => {
+                    let m = foundItem[kObj.key];
+                    let percentWidth = m.tyle > 100 ? 100 : m.tyle;
+                    if (percentWidth < 5) percentWidth = 5;
+
+                    let colorClass = 'bg-success-custom';
+                    if (m.tyle < 90) colorClass = 'bg-danger-custom';
+                    else if (m.tyle < 100) colorClass = 'bg-warning-custom';
+
+                    let displayValText = `${m.th.toLocaleString()} / ${m.kh.toLocaleString()} (${m.tyle.toFixed(2)}%)`;
+
+                    chartContainer.innerHTML += `
+                        <div class="bar-row">
+                            <div class="bar-label" style="width: 250px;">${kObj.name}</div>
+                            <div class="bar-container">
+                                <div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">
+                                    ${displayValText}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
     }
 
-    async function xuatPDF() {
-        const { jsPDF } = window.jspdf;
-        let area = document.getElementById('mainDashboard');
-
-        let printArea = document.createElement('div');
-        printArea.style.padding = '20px';
-        printArea.style.backgroundColor = '#ffffff';
-        printArea.style.width = '1300px';
-        printArea.innerHTML = `
-            <div style="text-align: center; margin-bottom: 20px; font-family: Arial, sans-serif;">
-                <h3 style="margin: 0; font-weight: bold; color: #0d6efd;">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h3>
-                <h4 style="margin: 5px 0; font-weight: bold;">BÁO CÁO TỔNG HỢP CHỈ TIÊU THU, NỢ VÀ PHÁT TRIỂN NGƯỜI THAM GIA</h4>
-                <p style="margin: 0; font-style: italic; color: #555;">Kỳ báo cáo: ${document.getElementById('selectSheet').value}</p>
-            </div>
-        `;
-        let clone = area.cloneNode(true);
-        printArea.appendChild(clone);
-        printArea.style.position = 'absolute';
-        printArea.style.left = '-9999px';
-        document.body.appendChild(printArea);
-
-        try {
-            let canvas = await html2canvas(printArea, { scale: 2, useCORS: true });
-            let imgData = canvas.toDataURL('image/png');
-            let pdf = new jsPDF('l', 'mm', 'a4');
-            let pdfWidth = pdf.internal.pageSize.getWidth();
-            let pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
-            pdf.save("BaoCao_TongHop_ThuNoVaPhatTrien_CaiNuoc.pdf");
-        } catch (err) {
-            console.error(err);
-            alert("Lỗi khi xuất PDF!");
-        } finally {
-            document.body.removeChild(printArea);
-        }
+    function xuatPDF() {
+        window.print();
     }
 </script>
 </body>
