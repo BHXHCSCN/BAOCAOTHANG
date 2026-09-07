@@ -310,29 +310,22 @@
             <div id="chartContainer" class="py-2"></div>
         </div>
 
-        <!-- ================= KHU VỰC NỢ NSNN ĐƯỢC CHUYỂN XUỐNG DƯỚI CÙNG & CHIA 2 CỘT ================= -->
-        <div class="row g-3">
-            <!-- Cột Trái: Tiêu đề & Dropdown chọn xã -->
-            <div class="col-lg-4">
-                <div class="table-card h-100 mb-0">
-                    <h5 class="fw-bold text-primary mb-3">📍 CHI TIẾT NỢ NSNN THEO TỪNG XÃ</h5>
-                    <div class="mb-3">
-                        <label for="xaSelectNsnn" class="form-label fw-bold text-secondary">Chọn xã xem chi tiết NSNN:</label>
-                        <select id="xaSelectNsnn" class="form-select" onchange="hienThiNoNsnnTheoLuaChon()">
-                            <option value="tong_hop">📊 Tổng hợp (Toàn đơn vị)</option>
-                        </select>
-                    </div>
-                    <p class="text-muted small mb-0">💡 <em>Chọn "Tổng hợp" để quay lại bảng BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP) ban đầu.</em></p>
+        <!-- ================= KHU VỰC NỢ NSNN (ĐẶT Ở DƯỚI CÙNG, HIỆN FULL, NÚT CHỌN BÊN PHẢI) ================= -->
+        <div class="table-card mb-4">
+            <!-- Header kết hợp tiêu đề bên trái và dropdown lựa chọn bên phải -->
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h5 class="fw-bold text-primary m-0" id="nsnnCardTitle">CHI TIẾT NỢ NSNN THEO TỪNG XÃ</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <label for="xaSelectNsnn" class="form-label fw-bold text-secondary mb-0 text-nowrap">Chọn xã xem NSNN:</label>
+                    <select id="xaSelectNsnn" class="form-select form-select-sm" style="width: 240px;" onchange="hienThiNoNsnnTheoLuaChon()">
+                        <option value="tong_hop">📊 Tổng hợp (Toàn đơn vị)</option>
+                    </select>
                 </div>
             </div>
-
-            <!-- Cột Phải: Hiển thị bảng Tổng hợp hoặc Bảng Chi tiết xã -->
-            <div class="col-lg-8">
-                <div class="table-card h-100 mb-0">
-                    <div id="nsnnDisplayArea">
-                        <!-- Nội dung bảng sẽ được render linh hoạt bằng JavaScript tại đây -->
-                    </div>
-                </div>
+            
+            <!-- Khu vực hiển thị bảng full mặc định -->
+            <div id="nsnnDisplayArea">
+                <!-- Nội dung bảng sẽ được render linh hoạt bằng JavaScript tại đây -->
             </div>
         </div>
         <!-- ================= KẾT THÚC KHU VỰC NỢ NSNN ================= -->
@@ -774,7 +767,7 @@
     }
     function xuatPDF() { window.print(); }
 
-    /* ================= SCRIPT NỢ NSNN (ĐÃ CẬP NHẬT GIAO DIỆN 2 CỘT & LỰA CHỌN TỔNG HỢP) ================= */
+    /* ================= SCRIPT NỢ NSNN ================= */
     let globalNsnnWorkbook = null;
     const EXCEL_FILE_NSNN_URL = 'CHI TIET XA NO NSNN.xlsx';
 
@@ -805,6 +798,7 @@
         }
         let sheet = globalNsnnWorkbook.Sheets['TỔNG HỢP'];
         let htmlData = XLSX.utils.sheet_to_html(sheet, { header: 1 });
+        document.getElementById('nsnnCardTitle').innerText = "CHI TIẾT NỢ NSNN THEO TỪNG XÃ";
         document.getElementById('nsnnDisplayArea').innerHTML = `
             <h6 class="fw-bold text-primary mb-3">BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP)</h6>
             <div class="table-responsive">${htmlData}</div>
