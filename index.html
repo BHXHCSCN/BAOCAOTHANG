@@ -9,13 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Màu nền tổng thể trang nhã, dịu mắt */
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
         /* Tiêu đề tích hợp hình nền trống đồng và logo mới */
         .hero-header { 
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.92) 0%, rgba(187, 222, 251, 0.92) 100%), 
-                        url('anh-mo-ta.jpg');
+                        url('anh-nen.jpg');
             background-size: cover, 350px 350px;
             background-position: center, right center;
             background-repeat: no-repeat, no-repeat;
@@ -38,17 +37,16 @@
             margin: 0 0 2px 0;
         }
 
-        /* Chỉnh font tô đậm và kéo cao hơn theo yêu cầu */
         .brand-title {
             color: #b71c1c;
-            font-weight: 800; /* Tô đậm chữ */
+            font-weight: 800;
             font-size: 1.5rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             line-height: 1.2;
             margin: 0;
             display: inline-block;
-            transform: scaleY(1.25); /* Kéo giãn chiều cao chữ cao hơn */
+            transform: scaleY(1.25);
             transform-origin: left bottom;
         }
 
@@ -78,7 +76,6 @@
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
 
-        /* Chân trang (Footer) chuyên nghiệp */
         .footer-bhxh { background-color: #1e293b; color: #cbd5e1; padding: 25px 20px; border-radius: 12px; margin-top: 40px; font-size: 0.88rem; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
         .footer-bhxh strong { color: #ffffff; }
     </style>
@@ -86,10 +83,10 @@
 <body>
 
 <div class="container-fluid px-4 mb-5">
-    <!-- TIÊU ĐỀ TÍCH HỢP HÌNH NỀN VÀ LOGO MỚI -->
+    <!-- TIÊU ĐỀ TÍCH HỢP HÌNH NỀN VÀ LOGO -->
     <div class="hero-header">
         <div class="d-flex align-items-center gap-3">
-            <img src="Bảo hiểm xã hội tỉnh Bến Tre Thông báo lịch chi trả lương hưu, trợ cấp bảo hiểm xã hội tháng 92024 như sau_20241001103252AM.jpg" alt="Logo BHXH" class="logo-bhxh">
+            <img src="logo.jpg" alt="Logo BHXH" class="logo-bhxh">
             <div>
                 <p class="brand-top-sub">BẢO HIỂM XÃ HỘI TỈNH CÀ MAU</p>
                 <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
@@ -264,7 +261,7 @@
         </div>
     </div>
 
-    <!-- CHÂN TRANG (FOOTER) THÔNG TIN ĐỊA CHỈ -->
+    <!-- CHÂN TRANG (FOOTER) -->
     <footer class="footer-bhxh">
         <p class="mb-1"><strong>BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</strong></p>
         <p class="mb-0">📍 Địa chỉ: Số 04, đường 19/5, ấp 1, xã Cái Nước, tỉnh Cà Mau</p>
@@ -337,7 +334,7 @@
             })
             .catch(error => {
                 console.error(error);
-                alert("Không tìm thấy file! Hãy chắc chắn file Excel nằm cùng thư mục gốc.");
+                alert("Không tìm thấy file Excel! Hãy chắc chắn file Excel nằm cùng thư mục gốc.");
             });
     });
 
