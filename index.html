@@ -12,10 +12,10 @@
         /* Màu nền tổng thể trang nhã, dịu mắt */
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Tiêu đề tích hợp hình nền trống đồng và logo mới */
+        /* Tiêu đề tích hợp hình nền mới (anhbia.jpg) và logo mới (logo.jpg) */
         .hero-header { 
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.92) 0%, rgba(187, 222, 251, 0.92) 100%), 
-                        url('anh-mo-ta.jpg');
+                        url('anhbia.jpg');
             background-size: cover, 350px 350px;
             background-position: center, right center;
             background-repeat: no-repeat, no-repeat;
@@ -41,14 +41,14 @@
         /* Chỉnh font ốm hơn (mảnh hơn) và kéo cao hơn */
         .brand-title {
             color: #b71c1c;
-            font-weight: 600; /* Làm chữ ốm/thanh hơn thay vì siêu dày */
+            font-weight: 600; 
             font-size: 1.5rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             line-height: 1.2;
             margin: 0;
             display: inline-block;
-            transform: scaleY(1.25); /* Kéo giãn chiều cao chữ cao hơn */
+            transform: scaleY(1.25);
             transform-origin: left bottom;
         }
 
@@ -86,11 +86,10 @@
 <body>
 
 <div class="container-fluid px-4 mb-5">
-    <!-- TIÊU ĐỀ TÍCH HỢP HÌNH NỀN VÀ LOGO MỚI -->
+    <!-- TIÊU ĐỀ TÍCH HỢP HÌNH NỀN (anhbia.jpg) VÀ LOGO (logo.jpg) -->
     <div class="hero-header">
         <div class="d-flex align-items-center gap-3">
-            <!-- Sử dụng hình ảnh logo bạn vừa cung cấp -->
-            <img src="Bảo hiểm xã hội tỉnh Bến Tre Thông báo lịch chi trả lương hưu, trợ cấp bảo hiểm xã hội tháng 92024 như sau_20241001103252AM.jpg" alt="Logo BHXH" class="logo-bhxh">
+            <img src="logo.jpg" alt="Logo BHXH" class="logo-bhxh">
             <div>
                 <p class="brand-top-sub">BẢO HIỂM XÃ HỘI TỈNH CÀ MAU</p>
                 <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
