@@ -13,7 +13,7 @@
     <style>
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Tiêu đề: Mở rộng chiều cao thêm ~1cm */
+        /* Tiêu đề: Mở rộng chiều cao và không gian */
         .hero-header { 
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.85) 0%, rgba(187, 222, 251, 0.85) 100%), 
                         url('anh-nen.jpg');
@@ -21,7 +21,7 @@
             background-position: center;     
             background-repeat: no-repeat;    
             color: #1e293b; 
-            padding: 35px 30px; 
+            padding: 45px 30px; 
             border-radius: 0 0 16px 16px; 
             margin-bottom: 20px; 
             box-shadow: 0 4px 12px rgba(33, 150, 243, 0.12);
@@ -29,32 +29,32 @@
         }
         
         .logo-bhxh { 
-            width: 75px; 
-            height: 75px; 
+            width: 90px; 
+            height: 90px; 
             object-fit: contain; 
             flex-shrink: 0; 
             mix-blend-mode: multiply; 
         }
 
-        /* Dòng chữ cấp trên: Làm lớn thêm một chút và thêm khoảng cách giãn */
+        /* Dòng chữ cấp trên: Làm lớn hơn tương xứng */
         .brand-top-sub {
             color: #0f172a;
             font-weight: 800;
-            font-size: 1.05rem;
+            font-size: 1.25rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin: 0 0 10px 0; /* Tăng khoảng cách giãn với dòng dưới */
+            margin: 0 0 12px 0; 
         }
 
-        /* Dòng chữ chính: Font Geometric Sans-serif dày bản chuẩn nhận diện */
+        /* Dòng chữ chính: Tăng kích thước lớn hơn khoảng 1.5 lần (từ ~1.85rem lên 2.8rem) */
         .brand-title {
             font-family: 'Montserrat', sans-serif;
             color: #b71c1c;
             font-weight: 900;
-            font-size: 1.85rem;
+            font-size: 2.8rem;
             letter-spacing: 0.8px;
             text-transform: uppercase;
-            line-height: 1.2;
+            line-height: 1.15;
             margin: 0;
         }
 
@@ -139,7 +139,7 @@
 <div class="container-fluid px-4 mb-5">
     <!-- TIÊU ĐỀ -->
     <div class="hero-header">
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-4">
             <img src="logo.jpg" alt="Logo BHXH" class="logo-bhxh">
             <div>
                 <p class="brand-top-sub">BẢO HIỂM XÃ HỘI TỈNH CÀ MAU</p>
