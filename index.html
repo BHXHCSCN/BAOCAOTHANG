@@ -125,6 +125,7 @@
 
         .footer-bhxh { background-color: #1e293b; color: #cbd5e1; padding: 25px 20px; border-radius: 12px; margin-top: 40px; font-size: 0.88rem; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
         .footer-bhxh strong { color: #ffffff; }
+        .alert-offline { background: #fff3cd; color: #856404; padding: 12px 15px; border: 1px solid #ffeeba; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -139,6 +140,12 @@
                 <h1 class="brand-title">BẢO HIỂM XÃ HỘI CƠ SỞ CÁI NƯỚC</h1>
             </div>
         </div>
+    </div>
+
+    <!-- Khung chọn file dự phòng khi chạy offline (file:///) trực tiếp từ máy -->
+    <div id="manualUploadBox" class="alert-offline" style="display: none;">
+        <strong>⚠️ Đang chạy ở chế độ Offline (file:///):</strong> Trình duyệt bảo mật chặn tự động đọc file cục bộ. Vui lòng chọn file <strong>T07_BHXH, BHTN_2026.xlsx</strong> để hiển thị dữ liệu:
+        <input type="file" id="excelFileManual" class="form-control form-control-sm mt-2" accept=".xlsx, .xls" onchange="xuLyFileThuCong(event)">
     </div>
 
     <!-- Thanh chuyển đổi kỳ báo cáo -->
@@ -329,61 +336,86 @@
         "Xã Nguyễn Việt Khái", "Xã Phú Tân"
     ];
 
+    const tenFileExcel = 'T07_BHXH, BHTN_2026.xlsx';
+
     window.addEventListener('DOMContentLoaded', function() {
-        let tenFileExcel = 'T07_BHXH, BHTN_2026.xlsx';
-        
-        fetch(tenFileExcel)
+        // Kiểm tra môi trường: nếu chạy trực tiếp file:// từ ổ cứng thì hiện khung chọn file thủ công tránh lỗi CORS
+        if (window.location.protocol === 'file:') {
+            document.getElementById('manualUploadBox').style.display = 'block';
+        } else {
+            // Nếu chạy trên Server/Hosting online: Tự động fetch file ngầm
+            taiFileTuServer(tenFileExcel);
+        }
+    });
+
+    function taiFileTuServer(url) {
+        fetch(url)
             .then(response => {
                 if (!response.ok) throw new Error("Không tìm thấy file Excel trên server");
                 return response.arrayBuffer();
             })
             .then(data => {
-                workbookData = XLSX.read(new Uint8Array(data), {type: 'array'});
-                let selectSheet = document.getElementById('selectSheet');
-                selectSheet.innerHTML = '';
-                
-                let validSheets = workbookData.SheetNames.filter(name => {
-                    let lower = name.toLowerCase().trim();
-                    let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/);
-                    if (match) {
-                        let month = parseInt(match[1], 10);
-                        return month >= 7 && month <= 12;
-                    }
-                    return false;
-                });
-
-                if (validSheets.length === 0) validSheets = workbookData.SheetNames; 
-
-                validSheets.forEach(name => {
-                    let opt = document.createElement('option');
-                    opt.value = name;
-                    opt.innerText = "Kỳ báo cáo: " + name;
-                    selectSheet.appendChild(opt);
-                });
-
-                let currentMonth = new Date().getMonth() + 1; 
-                let targetMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-                
-                let defaultIndex = 0;
-                for (let i = 0; i < validSheets.length; i++) {
-                    let nameLower = validSheets[i].toLowerCase();
-                    let regex = new RegExp(`(tháng|thang)\\s*0?${targetMonth}([^0-9]|$)`, 'i');
-                    if (regex.test(nameLower)) {
-                        defaultIndex = i;
-                        break;
-                    }
-                }
-
-                selectSheet.selectedIndex = defaultIndex;
-                let defaultSheetName = validSheets[defaultIndex];
-
-                taiVaPhanTichDuLieu(defaultSheetName);
+                khoiTaoDuLieuExcel(data);
             })
             .catch(error => {
                 console.error(error);
-                alert("Không tìm thấy file Excel! Hãy chắc chắn file Excel nằm cùng thư mục gốc.");
+                alert("Không thể tự động tải file Excel từ server! Hãy kiểm tra lại tên file hoặc đường dẫn.");
             });
-    });
+    }
+
+    function xuLyFileThuCong(event) {
+        let file = event.target.files[0];
+        if (!file) return;
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let data = new Uint8Array(e.target.result);
+            khoiTaoDuLieuExcel(data);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function khoiTaoDuLieuExcel(dataBuffer) {
+        workbookData = XLSX.read(dataBuffer, {type: 'array'});
+        let selectSheet = document.getElementById('selectSheet');
+        selectSheet.innerHTML = '';
+        
+        let validSheets = workbookData.SheetNames.filter(name => {
+            let lower = name.toLowerCase().trim();
+            let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/);
+            if (match) {
+                let month = parseInt(match[1], 10);
+                return month >= 7 && month <= 12;
+            }
+            return false;
+        });
+
+        if (validSheets.length === 0) validSheets = workbookData.SheetNames; 
+
+        validSheets.forEach(name => {
+            let opt = document.createElement('option');
+            opt.value = name;
+            opt.innerText = "Kỳ báo cáo: " + name;
+            selectSheet.appendChild(opt);
+        });
+
+        let currentMonth = new Date().getMonth() + 1; 
+        let targetMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+        
+        let defaultIndex = 0;
+        for (let i = 0; i < validSheets.length; i++) {
+            let nameLower = validSheets[i].toLowerCase();
+            let regex = new RegExp(`(tháng|thang)\\s*0?${targetMonth}([^0-9]|$)`, 'i');
+            if (regex.test(nameLower)) {
+                defaultIndex = i;
+                break;
+            }
+        }
+
+        selectSheet.selectedIndex = defaultIndex;
+        let defaultSheetName = validSheets[defaultIndex];
+
+        taiVaPhanTichDuLieu(defaultSheetName);
+    }
 
     function doiKyBaoCao() {
         let sheetName = document.getElementById('selectSheet').value;
