@@ -15,9 +15,9 @@
         .hero-header { 
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.85) 0%, rgba(187, 222, 251, 0.85) 100%), 
                         url('anh-nen.jpg');
-            background-size: cover;          /* Phủ kín toàn bộ chiều rộng và chiều cao khung */
-            background-position: center;     /* Căn giữa hình nền */
-            background-repeat: no-repeat;    /* Không lặp lại ảnh */
+            background-size: cover;          
+            background-position: center;     
+            background-repeat: no-repeat;    
             color: #1e293b; 
             padding: 22px 25px; 
             border-radius: 0 0 16px 16px; 
@@ -31,7 +31,7 @@
             height: 65px; 
             object-fit: contain; 
             flex-shrink: 0; 
-            mix-blend-mode: multiply; /* Tự động lọc bỏ nền trắng của ảnh */
+            mix-blend-mode: multiply; 
         }
 
         .brand-top-sub {
@@ -40,7 +40,7 @@
             font-size: 0.85rem;
             letter-spacing: 1.2px;
             text-transform: uppercase;
-            margin: 0 0 8px 0; /* Khoảng cách giữa 2 dòng chữ */
+            margin: 0 0 8px 0; 
         }
 
         .brand-title {
@@ -71,19 +71,16 @@
             border-width: 1.5px !important;
         }
 
-        /* Phân màu nền theo từng khối bảo hiểm để phân tách rõ ràng */
         .group-chung { background-color: #f0f7ff !important; }
         .group-bb { background-color: #f8fafc !important; }
         .group-tn { background-color: #f2fbf4 !important; }
         .group-bhtn { background-color: #fffdf0 !important; }
         .group-bhyt { background-color: #faf5ff !important; }
 
-        /* Đường ranh giới đậm phân tách giữa các khối */
         .border-group-end {
             border-right: 2.5px solid #94a3b8 !important;
         }
 
-        /* Cố định cột STT và Tên Xã khi cuộn ngang */
         .sticky-col-stt {
             position: sticky;
             left: 0;
@@ -98,7 +95,6 @@
             box-shadow: 2px 0 5px rgba(0,0,0,0.05);
         }
 
-        /* Mini Progress Bar trong ô tỷ lệ */
         .mini-progress {
             background-color: #e2e8f0;
             border-radius: 4px;
@@ -278,28 +274,6 @@
             </div>
         </div>
 
-        <!-- ================= BỔ SUNG: BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN) ================= -->
-        <div class="table-card mb-4" id="pdfAreaNoNsnn">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-primary m-0">🏛️ BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP)</h5>
-            </div>
-            <div id="table-tong-hop-nsnn-container" class="table-responsive text-primary fw-bold">Đang tải dữ liệu nợ NSNN tự động...</div>
-        </div>
-
-        <div class="table-card mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-primary m-0">📍 CHI TIẾT NỢ NSNN THEO TỪNG XÃ / PHƯỜNG</h5>
-            </div>
-            <div class="controls mb-3">
-                <label for="xaSelectNsnn"><strong>Chọn xã xem chi tiết NSNN: </strong></label>
-                <select id="xaSelectNsnn" class="form-select form-select-sm mt-1" onchange="hienThiChiTietXaNsnn()">
-                    <option value="">-- Chọn xã / phường --</option>
-                </select>
-            </div>
-            <div id="table-chi-tiet-nsnn-container" class="table-responsive text-muted">Vui lòng chọn xã để xem số liệu chi tiết nợ NSNN.</div>
-        </div>
-        <!-- ================= KẾT THÚC PHẦN BỔ SUNG NSNN ================= -->
-
         <!-- Bộ lọc mục biểu đồ & xã -->
         <div class="filter-section">
             <div class="row align-items-center g-3">
@@ -323,7 +297,7 @@
         </div>
 
         <!-- Khu vực Biểu đồ -->
-        <div class="chart-card">
+        <div class="chart-card mb-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h5 class="fw-bold text-primary m-0" id="chartTitle">📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG (<span id="lblKyBaoCao2"></span>)</h5>
                 <div class="chart-legend">
@@ -335,6 +309,33 @@
             <hr class="text-muted">
             <div id="chartContainer" class="py-2"></div>
         </div>
+
+        <!-- ================= KHU VỰC NỢ NSNN ĐƯỢC CHUYỂN XUỐNG DƯỚI CÙNG & CHIA 2 CỘT ================= -->
+        <div class="row g-3">
+            <!-- Cột Trái: Tiêu đề & Dropdown chọn xã -->
+            <div class="col-lg-4">
+                <div class="table-card h-100 mb-0">
+                    <h5 class="fw-bold text-primary mb-3">📍 CHI TIẾT NỢ NSNN THEO TỪNG XÃ</h5>
+                    <div class="mb-3">
+                        <label for="xaSelectNsnn" class="form-label fw-bold text-secondary">Chọn xã xem chi tiết NSNN:</label>
+                        <select id="xaSelectNsnn" class="form-select" onchange="hienThiNoNsnnTheoLuaChon()">
+                            <option value="tong_hop">📊 Tổng hợp (Toàn đơn vị)</option>
+                        </select>
+                    </div>
+                    <p class="text-muted small mb-0">💡 <em>Chọn "Tổng hợp" để quay lại bảng BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP) ban đầu.</em></p>
+                </div>
+            </div>
+
+            <!-- Cột Phải: Hiển thị bảng Tổng hợp hoặc Bảng Chi tiết xã -->
+            <div class="col-lg-8">
+                <div class="table-card h-100 mb-0">
+                    <div id="nsnnDisplayArea">
+                        <!-- Nội dung bảng sẽ được render linh hoạt bằng JavaScript tại đây -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ================= KẾT THÚC KHU VỰC NỢ NSNN ================= -->
     </div>
 
     <!-- CHÂN TRANG (FOOTER) -->
@@ -773,7 +774,7 @@
     }
     function xuatPDF() { window.print(); }
 
-    /* ================= SCRIPT BỔ SUNG: XỬ LÝ DỮ LIỆU NỢ NSNN ================= */
+    /* ================= SCRIPT NỢ NSNN (ĐÃ CẬP NHẬT GIAO DIỆN 2 CỘT & LỰA CHỌN TỔNG HỢP) ================= */
     let globalNsnnWorkbook = null;
     const EXCEL_FILE_NSNN_URL = 'CHI TIET XA NO NSNN.xlsx';
 
@@ -790,7 +791,7 @@
             khoiTaoDropdownXaNsnn();
         } catch (error) {
             console.error("Lỗi tải file NSNN:", error);
-            let errEl = document.getElementById('table-tong-hop-nsnn-container');
+            let errEl = document.getElementById('nsnnDisplayArea');
             if(errEl) {
                 errEl.innerHTML = `<span class="text-danger">⚠️ Lỗi: Không tìm thấy file "${EXCEL_FILE_NSNN_URL}" trên server. Hãy đảm bảo file đã được upload cùng thư mục!</span>`;
             }
@@ -799,12 +800,15 @@
 
     function hienThiBangTongHopNsnn() {
         if (!globalNsnnWorkbook || !globalNsnnWorkbook.Sheets['TỔNG HỢP']) {
-            document.getElementById('table-tong-hop-nsnn-container').innerHTML = '<span class="text-danger">Không tìm thấy Sheet "TỔNG HỢP" trong file Excel NSNN!</span>';
+            document.getElementById('nsnnDisplayArea').innerHTML = '<span class="text-danger">Không tìm thấy Sheet "TỔNG HỢP" trong file Excel NSNN!</span>';
             return;
         }
         let sheet = globalNsnnWorkbook.Sheets['TỔNG HỢP'];
         let htmlData = XLSX.utils.sheet_to_html(sheet, { header: 1 });
-        document.getElementById('table-tong-hop-nsnn-container').innerHTML = htmlData;
+        document.getElementById('nsnnDisplayArea').innerHTML = `
+            <h6 class="fw-bold text-primary mb-3">BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP)</h6>
+            <div class="table-responsive">${htmlData}</div>
+        `;
         styleNsnnTables();
     }
 
@@ -821,19 +825,22 @@
         });
     }
 
-    function hienThiChiTietXaNsnn() {
+    function hienThiNoNsnnTheoLuaChon() {
         let selectValue = document.getElementById('xaSelectNsnn').value;
-        let container = document.getElementById('table-chi-tiet-nsnn-container');
+        let container = document.getElementById('nsnnDisplayArea');
         
-        if (!selectValue) {
-            container.innerHTML = 'Vui lòng chọn xã để xem số liệu chi tiết.';
+        if (selectValue === 'tong_hop') {
+            hienThiBangTongHopNsnn();
             return;
         }
 
         let sheet = globalNsnnWorkbook.Sheets[selectValue];
         if (sheet) {
             let htmlData = XLSX.utils.sheet_to_html(sheet, { header: 1 });
-            container.innerHTML = htmlData;
+            container.innerHTML = `
+                <h6 class="fw-bold text-primary mb-3">CHI TIẾT NỢ NSNN: ${selectValue.toUpperCase()}</h6>
+                <div class="table-responsive">${htmlData}</div>
+            `;
             styleNsnnTables();
         } else {
             container.innerHTML = '<span class="text-danger">Không tìm thấy dữ liệu cho xã này.</span>';
@@ -841,11 +848,11 @@
     }
 
     function styleNsnnTables() {
-        document.querySelectorAll('#table-tong-hop-nsnn-container table, #table-chi-tiet-nsnn-container table').forEach(table => {
+        document.querySelectorAll('#nsnnDisplayArea table').forEach(table => {
             table.className = 'table table-bordered table-striped table-hover align-middle';
         });
     }
-    /* ================= KẾT THÚC SCRIPT BỔ SUNG NSNN ================= */
+    /* ================= KẾT THÚC SCRIPT NỢ NSNN ================= */
 </script>
 </body>
 </html>
