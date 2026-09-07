@@ -278,6 +278,28 @@
             </div>
         </div>
 
+        <!-- ================= BỔ SUNG: BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN) ================= -->
+        <div class="table-card mb-4" id="pdfAreaNoNsnn">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-primary m-0">🏛️ BẢNG QUẢN LÝ NỢ NGÂN SÁCH NHÀ NƯỚC (NSNN - TỔNG HỢP)</h5>
+            </div>
+            <div id="table-tong-hop-nsnn-container" class="table-responsive text-primary fw-bold">Đang tải dữ liệu nợ NSNN tự động...</div>
+        </div>
+
+        <div class="table-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-primary m-0">📍 CHI TIẾT NỢ NSNN THEO TỪNG XÃ / PHƯỜNG</h5>
+            </div>
+            <div class="controls mb-3">
+                <label for="xaSelectNsnn"><strong>Chọn xã xem chi tiết NSNN: </strong></label>
+                <select id="xaSelectNsnn" class="form-select form-select-sm mt-1" onchange="hienThiChiTietXaNsnn()">
+                    <option value="">-- Chọn xã / phường --</option>
+                </select>
+            </div>
+            <div id="table-chi-tiet-nsnn-container" class="table-responsive text-muted">Vui lòng chọn xã để xem số liệu chi tiết nợ NSNN.</div>
+        </div>
+        <!-- ================= KẾT THÚC PHẦN BỔ SUNG NSNN ================= -->
+
         <!-- Bộ lọc mục biểu đồ & xã -->
         <div class="filter-section">
             <div class="row align-items-center g-3">
@@ -344,6 +366,9 @@
         } else {
             taiFileTuServer(tenFileExcel);
         }
+        
+        // Tự động nạp file dữ liệu Nợ NSNN bổ sung
+        taiFileNsnn();
     });
 
     function taiFileTuServer(url) {
@@ -628,7 +653,6 @@
             sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th; sum_stt_bhtn += bhtn.stt; sum_scn_bhtn += bhtn.scn; sum_con_bhtn += bhtn.con;
             sum_ds_bhyt += bhyt.kh; sum_th_bhyt += bhyt.th;
 
-            // Hàm phụ hỗ trợ tạo badge và mini progress bar cho từng tỷ lệ
             function getBadgeAndProgress(tyleVal) {
                 let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
                 let progressColor = tyleVal < 90 ? '#d32f2f' : (tyleVal < 100 ? '#f59e0b' : '#2e7d32');
@@ -748,6 +772,80 @@
         }
     }
     function xuatPDF() { window.print(); }
+
+    /* ================= SCRIPT BỔ SUNG: XỬ LÝ DỮ LIỆU NỢ NSNN ================= */
+    let globalNsnnWorkbook = null;
+    const EXCEL_FILE_NSNN_URL = 'CHI TIET XA NO NSNN.xlsx';
+
+    async function taiFileNsnn() {
+        try {
+            let responseNsnn = await fetch(EXCEL_FILE_NSNN_URL);
+            if (!responseNsnn.ok) {
+                throw new Error(`Không thể kết nối đến file NSNN (Mã lỗi: ${responseNsnn.status})`);
+            }
+            let bufferNsnn = await responseNsnn.arrayBuffer();
+            globalNsnnWorkbook = XLSX.read(bufferNsnn, { type: 'array' });
+            
+            hienThiBangTongHopNsnn();
+            khoiTaoDropdownXaNsnn();
+        } catch (error) {
+            console.error("Lỗi tải file NSNN:", error);
+            let errEl = document.getElementById('table-tong-hop-nsnn-container');
+            if(errEl) {
+                errEl.innerHTML = `<span class="text-danger">⚠️ Lỗi: Không tìm thấy file "${EXCEL_FILE_NSNN_URL}" trên server. Hãy đảm bảo file đã được upload cùng thư mục!</span>`;
+            }
+        }
+    }
+
+    function hienThiBangTongHopNsnn() {
+        if (!globalNsnnWorkbook || !globalNsnnWorkbook.Sheets['TỔNG HỢP']) {
+            document.getElementById('table-tong-hop-nsnn-container').innerHTML = '<span class="text-danger">Không tìm thấy Sheet "TỔNG HỢP" trong file Excel NSNN!</span>';
+            return;
+        }
+        let sheet = globalNsnnWorkbook.Sheets['TỔNG HỢP'];
+        let htmlData = XLSX.utils.sheet_to_html(sheet, { header: 1 });
+        document.getElementById('table-tong-hop-nsnn-container').innerHTML = htmlData;
+        styleNsnnTables();
+    }
+
+    function khoiTaoDropdownXaNsnn() {
+        if (!globalNsnnWorkbook) return;
+        let select = document.getElementById('xaSelectNsnn');
+        let sheetNames = globalNsnnWorkbook.SheetNames.filter(name => name !== 'TỔNG HỢP');
+        
+        sheetNames.forEach(name => {
+            let opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            select.appendChild(opt);
+        });
+    }
+
+    function hienThiChiTietXaNsnn() {
+        let selectValue = document.getElementById('xaSelectNsnn').value;
+        let container = document.getElementById('table-chi-tiet-nsnn-container');
+        
+        if (!selectValue) {
+            container.innerHTML = 'Vui lòng chọn xã để xem số liệu chi tiết.';
+            return;
+        }
+
+        let sheet = globalNsnnWorkbook.Sheets[selectValue];
+        if (sheet) {
+            let htmlData = XLSX.utils.sheet_to_html(sheet, { header: 1 });
+            container.innerHTML = htmlData;
+            styleNsnnTables();
+        } else {
+            container.innerHTML = '<span class="text-danger">Không tìm thấy dữ liệu cho xã này.</span>';
+        }
+    }
+
+    function styleNsnnTables() {
+        document.querySelectorAll('#table-tong-hop-nsnn-container table, #table-chi-tiet-nsnn-container table').forEach(table => {
+            table.className = 'table table-bordered table-striped table-hover align-middle';
+        });
+    }
+    /* ================= KẾT THÚC SCRIPT BỔ SUNG NSNN ================= */
 </script>
 </body>
 </html>
