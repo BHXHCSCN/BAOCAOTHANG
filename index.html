@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu - BHXH Cơ sở Cái Nước</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import font Geometric Sans-serif chuẩn -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Tiêu đề: Mở rộng chiều cao thêm ~1cm (padding tăng lên) */
+        /* Tiêu đề: Mở rộng chiều cao thêm ~1cm */
         .hero-header { 
             background: linear-gradient(135deg, rgba(227, 242, 253, 0.85) 0%, rgba(187, 222, 251, 0.85) 100%), 
                         url('anh-nen.jpg');
@@ -19,7 +21,7 @@
             background-position: center;     
             background-repeat: no-repeat;    
             color: #1e293b; 
-            padding: 35px 30px; /* Tăng padding để cao hơn khoảng 1cm */
+            padding: 35px 30px; 
             border-radius: 0 0 16px 16px; 
             margin-bottom: 20px; 
             box-shadow: 0 4px 12px rgba(33, 150, 243, 0.12);
@@ -34,27 +36,26 @@
             mix-blend-mode: multiply; 
         }
 
+        /* Dòng chữ cấp trên: Làm lớn thêm một chút và thêm khoảng cách giãn */
         .brand-top-sub {
-            color: #1e293b;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1.2px;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin: 0 0 6px 0; 
+            margin: 0 0 10px 0; /* Tăng khoảng cách giãn với dòng dưới */
         }
 
-        /* Làm chữ to cao hơn một chút */
+        /* Dòng chữ chính: Font Geometric Sans-serif dày bản chuẩn nhận diện */
         .brand-title {
+            font-family: 'Montserrat', sans-serif;
             color: #b71c1c;
             font-weight: 900;
-            font-size: 1.75rem;
-            letter-spacing: 1px;
+            font-size: 1.85rem;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
-            line-height: 1.25;
+            line-height: 1.2;
             margin: 0;
-            display: inline-block;
-            transform: scaleY(1.3);
-            transform-origin: left bottom;
         }
 
         .kpi-card { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; height: 100%; transition: transform 0.2s; }
@@ -67,8 +68,9 @@
         th { background-color: #f1f5f9 !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #334155; }
         td { vertical-align: middle; font-size: 0.82rem; }
         
+        /* Làm đậm đường viền line giữa các xã rõ hơn */
         #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
-            border-color: #cbd5e1 !important;
+            border-color: #94a3b8 !important;
             border-width: 1.5px !important;
         }
 
@@ -79,9 +81,10 @@
         .group-bhyt { background-color: #faf5ff !important; }
 
         .border-group-end {
-            border-right: 2.5px solid #94a3b8 !important;
+            border-right: 2.5px solid #64748b !important;
         }
 
+        /* Chỉ cố định cột STT và Xã cho các dòng dữ liệu xã, hàng tổng cộng không cố định để tránh đè số liệu */
         .sticky-col-stt {
             position: sticky;
             left: 0;
@@ -89,7 +92,6 @@
             background-color: #ffffff !important;
             width: 45px;
         }
-        /* Mở rộng cột xã ở Bảng 3 để tránh bị đè chữ Tổng cộng */
         .sticky-col-xa {
             position: sticky;
             left: 45px;
@@ -127,7 +129,6 @@
         .footer-bhxh strong { color: #ffffff; }
         .alert-offline { background: #fff3cd; color: #856404; padding: 12px 15px; border: 1px solid #ffeeba; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
         
-        /* Làm đậm các đường viền line giữa các xã trong bảng Nợ NSNN */
         #nsnnDisplayArea table, #nsnnDisplayArea th, #nsnnDisplayArea td {
             border: 1.5px solid #94a3b8 !important;
         }
@@ -583,7 +584,6 @@
         document.getElementById('btnPDF').style.display = 'inline-block';
     }
 
-    // Hàm chuyển đổi số sang định dạng dấu chấm (.) phân cách hàng nghìn
     function formatDauCham(num) {
         if (num === null || num === undefined || isNaN(num)) return "-";
         if (typeof num === 'string') {
@@ -728,10 +728,10 @@
             return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>`;
         }
 
-        // Đổi thành "TỔNG CỘNG" (bỏ chữ "toàn cơ sở" để không bị đè số liệu)
+        // Hàng tổng cộng không dùng sticky-col để tránh che cột số liệu khi cuộn ngang
         tbody.innerHTML += `
             <tr class="table-secondary fw-bold">
-                <td colspan="2" class="text-center text-uppercase sticky-col-xa" style="background-color: #e2e8f0 !important;">TỔNG CỘNG</td>
+                <td colspan="2" class="text-center text-uppercase" style="background-color: #e2e8f0 !important;">TỔNG CỘNG</td>
                 <td class="text-end group-chung">${formatDauCham(sum_kh_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_th_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_stt_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_scn_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_con_chung)}</td><td class="text-center group-chung border-group-end">${getBadgeOnly(totalTyleChung)}</td>
                 <td class="text-end group-bb">${formatDauCham(sum_kh_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_th_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_stt_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_scn_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_con_bb)}</td><td class="text-center group-bb border-group-end">${getBadgeOnly(totalTyleBB)}</td>
                 <td class="text-end group-tn">${formatDauCham(sum_kh_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_th_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_stt_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_scn_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_con_tn)}</td><td class="text-center group-tn border-group-end">${getBadgeOnly(totalTyleTN)}</td>
@@ -808,7 +808,6 @@
         }
     }
 
-    // Hàm tùy chỉnh và làm sạch bảng NSNN (xóa số "1", thêm chữ "Tổng cộng", định dạng dấu chấm)
     function cleanAndFormatNsnnHtml(htmlString) {
         let parser = new DOMParser();
         let doc = parser.parseFromString(htmlString, 'text/html');
@@ -817,29 +816,24 @@
         tables.forEach(table => {
             table.className = 'table table-bordered table-striped table-hover align-middle';
             
-            // Xóa thẻ p hoặc text node đầu tiên nếu chỉ chứa số "1"
             let firstChildElem = table.previousElementSibling;
             if (firstChildElem && firstChildElem.textContent.trim() === "1") {
                 firstChildElem.remove();
             }
             
-            // Duyệt qua các hàng để thay thế dấu phẩy số liệu bằng dấu chấm và thêm chữ "Tổng cộng" vào dòng cuối trống
             let rows = table.querySelectorAll('tr');
             if (rows.length > 0) {
                 rows.forEach((row, rIdx) => {
                     let cells = row.querySelectorAll('th, td');
                     
-                    // Nếu là hàng cuối cùng và ô đầu tiên trống -> Điền chữ "Tổng cộng"
                     if (rIdx === rows.length - 1 && cells.length > 0 && cells[0].textContent.trim() === "") {
                         cells[0].textContent = "Tổng cộng";
                         cells[0].style.fontWeight = "bold";
                         cells[0].style.textAlign = "center";
                     }
 
-                    // Format số liệu (chuyển dấu phẩy thành dấu chấm)
                     cells.forEach(cell => {
                         let text = cell.textContent.trim();
-                        // Kiểm tra nếu chuỗi là dạng số có chứa dấu phẩy (ví dụ: 66,138,300)
                         if (/^[\d,.-]+$/.test(text) && text.includes(',')) {
                             let cleanedNum = text.replace(/,/g, '');
                             let numVal = parseFloat(cleanedNum);
@@ -852,7 +846,6 @@
             }
         });
 
-        // Xóa các node text độc lập chứa số "1" ngoài bảng nếu có
         doc.body.childNodes.forEach(node => {
             if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() === "1") {
                 node.remove();
@@ -910,7 +903,6 @@
             container.innerHTML = '<span class="text-danger">Không tìm thấy dữ liệu cho xã này.</span>';
         }
     }
-    /* ================= KẾT THÚC SCRIPT NỢ NSNN ================= */
 </script>
 </body>
 </html>
