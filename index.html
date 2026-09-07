@@ -339,11 +339,9 @@
     const tenFileExcel = 'T07_BHXH, BHTN_2026.xlsx';
 
     window.addEventListener('DOMContentLoaded', function() {
-        // Kiểm tra môi trường: nếu chạy trực tiếp file:// từ ổ cứng thì hiện khung chọn file thủ công tránh lỗi CORS
         if (window.location.protocol === 'file:') {
             document.getElementById('manualUploadBox').style.display = 'block';
         } else {
-            // Nếu chạy trên Server/Hosting online: Tự động fetch file ngầm
             taiFileTuServer(tenFileExcel);
         }
     });
@@ -630,13 +628,20 @@
             sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th; sum_stt_bhtn += bhtn.stt; sum_scn_bhtn += bhtn.scn; sum_con_bhtn += bhtn.con;
             sum_ds_bhyt += bhyt.kh; sum_th_bhyt += bhyt.th;
 
-            let badgeClass = chung.tyle < 90 ? 'bg-danger text-white' : (chung.tyle < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-            let progressColor = chung.tyle < 90 ? '#d32f2f' : (chung.tyle < 100 ? '#f59e0b' : '#2e7d32');
-            let progressWidth = Math.min(100, chung.tyle);
+            // Hàm phụ hỗ trợ tạo badge và mini progress bar cho từng tỷ lệ
+            function getBadgeAndProgress(tyleVal) {
+                let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
+                let progressColor = tyleVal < 90 ? '#d32f2f' : (tyleVal < 100 ? '#f59e0b' : '#2e7d32');
+                let progressWidth = Math.min(100, tyleVal);
+                return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>
+                        <div class="mini-progress"><div class="mini-progress-bar" style="width: ${progressWidth}%; background-color: ${progressColor};"></div></div>`;
+            }
 
-            let bhytBadgeClass = bhyt.tyle < 90 ? 'bg-danger text-white' : (bhyt.tyle < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-            let bhytProgressColor = bhyt.tyle < 90 ? '#d32f2f' : (bhyt.tyle < 100 ? '#f59e0b' : '#2e7d32');
-            let bhytProgressWidth = Math.min(100, bhyt.tyle);
+            let htmlChung = getBadgeAndProgress(chung.tyle);
+            let htmlBB = getBadgeAndProgress(bb.tyle);
+            let htmlTN = getBadgeAndProgress(tn.tyle);
+            let htmlBHTN = getBadgeAndProgress(bhtn.tyle);
+            let htmlBHYT = getBadgeAndProgress(bhyt.tyle);
 
             tbody.innerHTML += `
                 <tr>
@@ -648,59 +653,55 @@
                     <td class="text-end group-chung">${chung.stt.toLocaleString()}</td>
                     <td class="text-end group-chung">${chung.scn.toLocaleString()}</td>
                     <td class="text-end group-chung">${chung.con.toLocaleString()}</td>
-                    <td class="text-center group-chung border-group-end">
-                        <span class="badge ${badgeClass}">${chung.tyle.toFixed(2)}%</span>
-                        <div class="mini-progress"><div class="mini-progress-bar" style="width: ${progressWidth}%; background-color: ${progressColor};"></div></div>
-                    </td>
+                    <td class="text-center group-chung border-group-end">${htmlChung}</td>
                     <!-- BHXH Bắt buộc -->
                     <td class="text-end group-bb">${bb.kh.toLocaleString()}</td>
                     <td class="text-end group-bb">${bb.th.toLocaleString()}</td>
                     <td class="text-end group-bb">${bb.stt.toLocaleString()}</td>
                     <td class="text-end group-bb">${bb.scn.toLocaleString()}</td>
                     <td class="text-end group-bb">${bb.con.toLocaleString()}</td>
-                    <td class="text-center group-bb border-group-end">${bb.tyle.toFixed(2)}%</td>
+                    <td class="text-center group-bb border-group-end">${htmlBB}</td>
                     <!-- BHXH Tự nguyện -->
                     <td class="text-end group-tn">${tn.kh.toLocaleString()}</td>
                     <td class="text-end group-tn">${tn.th.toLocaleString()}</td>
                     <td class="text-end group-tn">${tn.stt.toLocaleString()}</td>
                     <td class="text-end group-tn">${tn.scn.toLocaleString()}</td>
                     <td class="text-end group-tn">${tn.con.toLocaleString()}</td>
-                    <td class="text-center group-tn border-group-end">${tn.tyle.toFixed(2)}%</td>
+                    <td class="text-center group-tn border-group-end">${htmlTN}</td>
                     <!-- BHTN -->
                     <td class="text-end group-bhtn">${bhtn.kh.toLocaleString()}</td>
                     <td class="text-end group-bhtn">${bhtn.th.toLocaleString()}</td>
                     <td class="text-end group-bhtn">${bhtn.stt.toLocaleString()}</td>
                     <td class="text-end group-bhtn">${bhtn.scn.toLocaleString()}</td>
                     <td class="text-end group-bhtn">${bhtn.con.toLocaleString()}</td>
-                    <td class="text-center group-bhtn border-group-end">${bhtn.tyle.toFixed(2)}%</td>
+                    <td class="text-center group-bhtn border-group-end">${htmlBHTN}</td>
                     <!-- BHYT -->
                     <td class="text-end group-bhyt">${bhyt.kh.toLocaleString()}</td>
                     <td class="text-end group-bhyt">${bhyt.th.toLocaleString()}</td>
-                    <td class="text-center group-bhyt">
-                        <span class="badge ${bhytBadgeClass}">${bhyt.tyle.toFixed(2)}%</span>
-                        <div class="mini-progress"><div class="mini-progress-bar" style="width: ${bhytProgressWidth}%; background-color: ${bhytProgressColor};"></div></div>
-                    </td>
+                    <td class="text-center group-bhyt">${htmlBHYT}</td>
                 </tr>
             `;
         });
 
-        let totalTyleChung = sum_kh_chung > 0 ? ((sum_th_chung / sum_kh_chung) * 100).toFixed(2) : 0;
-        let totalTyleBB = sum_kh_bb > 0 ? ((sum_th_bb / sum_kh_bb) * 100).toFixed(2) : 0;
-        let totalTyleTN = sum_kh_tn > 0 ? ((sum_th_tn / sum_kh_tn) * 100).toFixed(2) : 0;
-        let totalTyleBHTN = sum_kh_bhtn > 0 ? ((sum_th_bhtn / sum_kh_bhtn) * 100).toFixed(2) : 0;
-        let totalTyleBHYT = sum_ds_bhyt > 0 ? ((sum_th_bhyt / sum_ds_bhyt) * 100).toFixed(2) : 0;
+        let totalTyleChung = sum_kh_chung > 0 ? ((sum_th_chung / sum_kh_chung) * 100) : 0;
+        let totalTyleBB = sum_kh_bb > 0 ? ((sum_th_bb / sum_kh_bb) * 100) : 0;
+        let totalTyleTN = sum_kh_tn > 0 ? ((sum_th_tn / sum_kh_tn) * 100) : 0;
+        let totalTyleBHTN = sum_kh_bhtn > 0 ? ((sum_th_bhtn / sum_kh_bhtn) * 100) : 0;
+        let totalTyleBHYT = sum_ds_bhyt > 0 ? ((sum_th_bhyt / sum_ds_bhyt) * 100) : 0;
 
-        let totalBadgeClass = totalTyleChung < 90 ? 'bg-danger text-white' : (totalTyleChung < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-        let totalBhytBadgeClass = totalTyleBHYT < 90 ? 'bg-danger text-white' : (totalTyleBHYT < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
+        function getBadgeOnly(tyleVal) {
+            let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
+            return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>`;
+        }
 
         tbody.innerHTML += `
             <tr class="table-secondary fw-bold">
                 <td colspan="2" class="text-center text-uppercase sticky-col-xa" style="background-color: #e2e8f0 !important;">TỔNG CỘNG TOÀN CƠ SỞ</td>
-                <td class="text-end group-chung">${sum_kh_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_th_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_stt_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_scn_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_con_chung.toLocaleString()}</td><td class="text-center group-chung border-group-end"><span class="badge ${totalBadgeClass}">${totalTyleChung}%</span></td>
-                <td class="text-end group-bb">${sum_kh_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_th_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_stt_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_scn_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_con_bb.toLocaleString()}</td><td class="text-center group-bb border-group-end">${totalTyleBB}%</td>
-                <td class="text-end group-tn">${sum_kh_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_th_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_stt_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_scn_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_con_tn.toLocaleString()}</td><td class="text-center group-tn border-group-end">${totalTyleTN}%</td>
-                <td class="text-end group-bhtn">${sum_kh_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_th_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_stt_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_scn_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_con_bhtn.toLocaleString()}</td><td class="text-center group-bhtn border-group-end">${totalTyleBHTN}%</td>
-                <td class="text-end group-bhyt">${sum_ds_bhyt.toLocaleString()}</td><td class="text-end group-bhyt">${sum_th_bhyt.toLocaleString()}</td><td class="text-center group-bhyt"><span class="badge ${totalBhytBadgeClass}">${totalTyleBHYT}%</span></td>
+                <td class="text-end group-chung">${sum_kh_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_th_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_stt_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_scn_chung.toLocaleString()}</td><td class="text-end group-chung">${sum_con_chung.toLocaleString()}</td><td class="text-center group-chung border-group-end">${getBadgeOnly(totalTyleChung)}</td>
+                <td class="text-end group-bb">${sum_kh_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_th_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_stt_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_scn_bb.toLocaleString()}</td><td class="text-end group-bb">${sum_con_bb.toLocaleString()}</td><td class="text-center group-bb border-group-end">${getBadgeOnly(totalTyleBB)}</td>
+                <td class="text-end group-tn">${sum_kh_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_th_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_stt_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_scn_tn.toLocaleString()}</td><td class="text-end group-tn">${sum_con_tn.toLocaleString()}</td><td class="text-center group-tn border-group-end">${getBadgeOnly(totalTyleTN)}</td>
+                <td class="text-end group-bhtn">${sum_kh_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_th_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_stt_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_scn_bhtn.toLocaleString()}</td><td class="text-end group-bhtn">${sum_con_bhtn.toLocaleString()}</td><td class="text-center group-bhtn border-group-end">${getBadgeOnly(totalTyleBHTN)}</td>
+                <td class="text-end group-bhyt">${sum_ds_bhyt.toLocaleString()}</td><td class="text-end group-bhyt">${sum_th_bhyt.toLocaleString()}</td><td class="text-center group-bhyt">${getBadgeOnly(totalTyleBHYT)}</td>
             </tr>
         `;
     }
