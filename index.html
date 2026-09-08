@@ -50,9 +50,9 @@
         .brand-title {
             font-family: 'Montserrat', sans-serif;
             color: #b71c1c;
-            font-weight: 800;
-            font-size: 3.4rem;
-            letter-spacing: 0.3px;
+            font-weight: 700;
+            font-size: 2.8rem;
+            letter-spacing: 0.2px;
             text-transform: uppercase;
             line-height: 1.2;
    	    margin: 0;
@@ -101,19 +101,6 @@
             background-color: #ffffff !important;
             box-shadow: 2px 0 5px rgba(0,0,0,0.05);
             min-width: 160px;
-        }
-
-        .mini-progress {
-            background-color: #e2e8f0;
-            border-radius: 4px;
-            height: 5px;
-            width: 100%;
-            margin-top: 4px;
-            overflow: hidden;
-        }
-        .mini-progress-bar {
-            height: 100%;
-            border-radius: 4px;
         }
         
         .bar-row { display: flex; align-items: center; margin-bottom: 14px; }
@@ -667,10 +654,7 @@
 
             function getBadgeAndProgress(tyleVal) {
                 let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-                let progressColor = tyleVal < 90 ? '#d32f2f' : (tyleVal < 100 ? '#f59e0b' : '#2e7d32');
-                let progressWidth = Math.min(100, tyleVal);
-                return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>
-                        <div class="mini-progress"><div class="mini-progress-bar" style="width: ${progressWidth}%; background-color: ${progressColor};"></div></div>`;
+                return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>`;
             }
 
             let htmlChung = getBadgeAndProgress(chung.tyle);
