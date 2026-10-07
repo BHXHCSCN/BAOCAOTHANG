@@ -135,6 +135,137 @@
             text-align: left;
         }
 
+        /* CHUYỂN CHẾ ĐỘ THÁNG / TUẦN */
+        .mode-switch {
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-bottom:16px;
+        }
+        .mode-btn {
+            border:1px solid #cbd5e1;
+            background:#fff;
+            color:#334155;
+            border-radius:10px;
+            padding:9px 18px;
+            font-weight:800;
+            cursor:pointer;
+        }
+        .mode-btn.active {
+            color:#fff;
+            background:#0d6efd;
+            border-color:#0d6efd;
+        }
+        .mode-btn.week-active {
+            background:#0f766e;
+            border-color:#0f766e;
+            color:#fff;
+        }
+        #weeklyDashboard {
+            display:none;
+        }
+        .weekly-controls {
+            background:#fff;
+            border-radius:12px;
+            padding:15px 18px;
+            box-shadow:0 2px 8px rgba(0,0,0,.04);
+            border:1px solid #e2e8f0;
+            margin-bottom:20px;
+        }
+        .weekly-summary-card {
+            background:#fff;
+            border-radius:12px;
+            padding:18px;
+            box-shadow:0 2px 8px rgba(0,0,0,.04);
+            border:1px solid #e2e8f0;
+            height:100%;
+        }
+        .weekly-summary-label {
+            font-size:.8rem;
+            color:#64748b;
+            font-weight:700;
+            text-transform:uppercase;
+            margin-bottom:6px;
+        }
+        .weekly-summary-value {
+            font-size:1.35rem;
+            font-weight:800;
+        }
+        .weekly-table-card {
+            background:#fff;
+            border-radius:12px;
+            padding:16px;
+            box-shadow:0 2px 8px rgba(0,0,0,.04);
+            border:1px solid #e2e8f0;
+            margin-bottom:20px;
+            overflow:hidden;
+        }
+        .weekly-table-wrap {
+            overflow:auto;
+        }
+        .weekly-table {
+            border-collapse:collapse;
+            width:100%;
+            min-width:1250px;
+            font-family:"Times New Roman",Times,serif;
+            font-size:16px;
+        }
+        .weekly-table th,.weekly-table td {
+            border:1px solid #dbe3ec;
+            padding:8px 7px;
+            text-align:center;
+            white-space:nowrap;
+            vertical-align:middle;
+        }
+        .weekly-table th {
+            background:#e7edf4;
+            font-weight:800;
+        }
+        .weekly-table th.name,.weekly-table td.name {
+            position:sticky;
+            left:0;
+            z-index:2;
+        }
+        .weekly-table th.name {
+            z-index:4;
+        }
+        .weekly-table td.name {
+            text-align:left;
+            font-weight:700;
+            background:#fff;
+            min-width:160px;
+        }
+        .weekly-table tfoot td {
+            background:#e7edf4;
+            font-weight:900;
+            border-top:2px solid #94a3b8;
+        }
+        .weekly-title {
+            font-weight:900;
+        }
+        .weekly-date {
+            font-size:13px;
+            color:#475569;
+            margin-top:2px;
+        }
+        .weekly-pos { color:#168a5b; font-weight:900; }
+        .weekly-neg { color:#d62839; font-weight:900; }
+        .weekly-zero { color:#475569; }
+        .weekly-rate {
+            display:inline-block;
+            min-width:64px;
+            padding:3px 7px;
+            border-radius:7px;
+            font-weight:900;
+        }
+        .weekly-rate-green { background:#16a06b; color:#fff; }
+        .weekly-rate-yellow { background:#f5bf1a; color:#222; }
+        .weekly-rate-red { background:#e63950; color:#fff; }
+        @media(max-width:900px){
+            .mode-switch{gap:8px}
+            .mode-btn{flex:1 1 auto}
+        }
+
     </style>
 </head>
 <body>
@@ -154,8 +285,62 @@
     <!-- Trạng thái dữ liệu: ưu tiên JSON tĩnh GitHub; Google Sheets chỉ fallback -->
     <div id="apiStatus" class="alert-offline" style="display:none;"></div>
 
-    <!-- Thanh chọn kỳ báo cáo -->
-    <div class="filter-section">
+    <div class="mode-switch">
+        <button id="btnModeThang" class="mode-btn active" onclick="doiCheDoBaoCao('thang')">📊 BÁO CÁO THÁNG</button>
+        <button id="btnModeTuan" class="mode-btn" onclick="doiCheDoBaoCao('tuan')">⚡ BÁO CÁO TUẦN</button>
+    </div>
+
+    <!-- ================= BÁO CÁO TUẦN ================= -->
+    <div id="weeklyDashboard">
+        <div class="weekly-controls">
+            <div class="row align-items-end g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold text-secondary mb-1">🗓 THÁNG BÁO CÁO TUẦN</label>
+                    <select id="selectWeekMonth" class="form-select form-select-sm" onchange="taiBaoCaoTuan()"></select>
+                </div>
+                <div class="col-md-8 text-md-end">
+                    <div id="weeklyPeriod" class="small text-secondary mb-1"></div>
+                    <div id="weeklyStatus" class="small text-secondary"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="weekly-summary-card">
+                    <div class="weekly-summary-label">BHXH BẮT BUỘC</div>
+                    <div class="weekly-summary-value text-primary" id="weeklySumBBRate">--</div>
+                    <small class="text-muted" id="weeklySumBBValue">Lũy kế -- / Chỉ tiêu --</small>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="weekly-summary-card">
+                    <div class="weekly-summary-label">BHXH TỰ NGUYỆN</div>
+                    <div class="weekly-summary-value text-success" id="weeklySumTNRate">--</div>
+                    <small class="text-muted" id="weeklySumTNValue">Lũy kế -- / Chỉ tiêu --</small>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="weekly-summary-card">
+                    <div class="weekly-summary-label">BHTN</div>
+                    <div class="weekly-summary-value text-warning" id="weeklySumBHTNRate">--</div>
+                    <small class="text-muted" id="weeklySumBHTNValue">Lũy kế -- / Chỉ tiêu --</small>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="weekly-summary-card">
+                    <div class="weekly-summary-label">BHYT</div>
+                    <div class="weekly-summary-value text-info">✅ ĐẠT 100%</div>
+                    <small class="text-muted">Theo chỉ tiêu năm</small>
+                </div>
+            </div>
+        </div>
+
+        <div id="weeklyTables"></div>
+    </div>
+
+    <!-- Thanh chọn kỳ báo cáo tháng -->
+    <div id="monthlyFilter" class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo:</label>
@@ -377,6 +562,8 @@
     let currentMuc = 'bhxh_chung';
     let xemTheoXaCuThe = false;
     let currentReport = null;
+    let cheDoBaoCao = 'thang';
+    let currentWeeklyReport = null;
 
     const danhSachXaCaiNuoc = [
         'Cái Nước',
@@ -390,7 +577,8 @@
 
     window.addEventListener('DOMContentLoaded', function() {
         khoiTaoKyBaoCao();
-        doiKyBaoCao();
+        khoiTaoKyTuan();
+        doiCheDoBaoCao('thang');
     });
 
     function khoiTaoKyBaoCao() {
@@ -423,9 +611,300 @@
         const month =
             Number(document.getElementById('selectSheet').value);
 
-        if (!month) return;
+        if (!month || cheDoBaoCao !== 'thang') return;
 
         taiVaPhanTichDuLieu(NAM_MAC_DINH, month);
+    }
+
+    function doiCheDoBaoCao(mode) {
+        cheDoBaoCao = mode === 'tuan' ? 'tuan' : 'thang';
+
+        const monthlyFilter = document.getElementById('monthlyFilter');
+        const monthlyDashboard = document.getElementById('mainDashboard');
+        const weeklyDashboard = document.getElementById('weeklyDashboard');
+        const btnThang = document.getElementById('btnModeThang');
+        const btnTuan = document.getElementById('btnModeTuan');
+
+        if (cheDoBaoCao === 'tuan') {
+            if (monthlyFilter) monthlyFilter.style.display = 'none';
+            if (monthlyDashboard) monthlyDashboard.style.display = 'none';
+            if (weeklyDashboard) weeklyDashboard.style.display = 'block';
+
+            btnThang.className = 'mode-btn';
+            btnTuan.className = 'mode-btn week-active';
+
+            document.getElementById('btnPDF').style.display = 'none';
+            taiBaoCaoTuan();
+        } else {
+            if (monthlyFilter) monthlyFilter.style.display = 'block';
+            if (weeklyDashboard) weeklyDashboard.style.display = 'none';
+
+            btnThang.className = 'mode-btn active';
+            btnTuan.className = 'mode-btn';
+
+            doiKyBaoCao();
+        }
+    }
+
+    function khoiTaoKyTuan() {
+        const select = document.getElementById('selectWeekMonth');
+        if (!select) return;
+
+        select.innerHTML = '';
+
+        DANH_SACH_THANG.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.value;
+            opt.innerText = 'Tháng ' + String(item.value).padStart(2, '0') + '/' + NAM_MAC_DINH;
+            select.appendChild(opt);
+        });
+
+        const nowMonth = new Date().getMonth() + 1;
+        const target = Math.max(7, Math.min(12, nowMonth));
+        select.value = String(target);
+    }
+
+    function getWeeklyMonthWeeks(year, month) {
+        const first = new Date(year, month - 1, 1);
+        const last = new Date(year, month, 0);
+        const weeks = [];
+
+        let firstSundayDay = 1 + ((7 - first.getDay()) % 7);
+        if (first.getDay() === 0) firstSundayDay = 1;
+        firstSundayDay = Math.min(firstSundayDay, last.getDate());
+
+        weeks.push({
+            week: 1,
+            start: new Date(year, month - 1, 1),
+            end: new Date(year, month - 1, firstSundayDay)
+        });
+
+        let startDay = firstSundayDay + 1;
+        let weekNo = 2;
+
+        while (startDay <= last.getDate()) {
+            const endDay = Math.min(startDay + 6, last.getDate());
+            weeks.push({
+                week: weekNo,
+                start: new Date(year, month - 1, startDay),
+                end: new Date(year, month - 1, endDay)
+            });
+            startDay += 7;
+            weekNo++;
+        }
+
+        return weeks;
+    }
+
+    function ddmmTuan(d) {
+        return String(d.getDate()).padStart(2, '0') + '/' +
+               String(d.getMonth() + 1).padStart(2, '0');
+    }
+
+    function weekHeaderHtml(info) {
+        return '<div class="weekly-title">Tuần ' + info.week + '</div>' +
+               '<div class="weekly-date">' + ddmmTuan(info.start) + ' – ' + ddmmTuan(info.end) + '</div>';
+    }
+
+    function weeklyRate(rate) {
+        const n = Number(rate || 0);
+        const cls = n >= 100 ? 'weekly-rate-green' : (n >= 90 ? 'weekly-rate-yellow' : 'weekly-rate-red');
+        return '<span class="weekly-rate ' + cls + '">' + n.toFixed(2) + '%</span>';
+    }
+
+    function weeklySigned(v) {
+        const n = Number(v || 0);
+        if (n > 0) return '<span class="weekly-pos">+' + formatDauCham(n) + '</span>';
+        if (n < 0) return '<span class="weekly-neg">' + formatDauCham(n) + '</span>';
+        return '<span class="weekly-zero">0</span>';
+    }
+
+    async function taiBaoCaoTuan() {
+        const select = document.getElementById('selectWeekMonth');
+        if (!select) return;
+
+        const month = Number(select.value);
+        const year = NAM_MAC_DINH;
+        const status = document.getElementById('weeklyStatus');
+        const period = document.getElementById('weeklyPeriod');
+        const tables = document.getElementById('weeklyTables');
+
+        if (!month) return;
+
+        status.innerText = '⏳ Đang tải dữ liệu tuần...';
+        period.innerText = '';
+        tables.innerHTML = '';
+
+        const staticUrl = STATIC_JSON_BASE + 'weekly-' + year + '-' + String(month).padStart(2, '0') + '.json';
+
+        try {
+            const response = await fetch(staticUrl, { cache: 'default' });
+            if (!response.ok) throw new Error('JSON tuần HTTP ' + response.status);
+            const data = await response.json();
+            if (!data || data.ok !== true) throw new Error('JSON tuần không hợp lệ.');
+
+            renderBaoCaoTuan(data);
+            status.innerText = '⚡ Đã tải báo cáo tuần từ dữ liệu tĩnh';
+            return;
+        } catch (err) {
+            console.warn('Không tải được JSON tuần:', err);
+        }
+
+        // Fallback API cũ dùng JSONP.
+        try {
+            const data = await taiBaoCaoTuanJsonp(year, month);
+            if (!data || data.ok === false) throw new Error((data && data.error) || 'API tuần không hợp lệ.');
+            renderBaoCaoTuan(data);
+            status.innerText = '🔄 JSON tuần chưa có, đang dùng Web App API';
+        } catch (err) {
+            console.error(err);
+            status.innerText = '❌ Không tải được báo cáo tuần: ' + (err.message || err);
+        }
+    }
+
+    function taiBaoCaoTuanJsonp(year, month) {
+        return new Promise((resolve, reject) => {
+            const callbackName = '__baoCaoTuanStatic_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+            const script = document.createElement('script');
+            let done = false;
+            const timer = setTimeout(() => finish(null, new Error('API tuần không phản hồi trong 20 giây.')), 20000);
+
+            function cleanup() {
+                clearTimeout(timer);
+                script.remove();
+                try { delete window[callbackName]; } catch (_) {}
+            }
+
+            function finish(data, error) {
+                if (done) return;
+                done = true;
+                cleanup();
+                if (error) reject(error);
+                else resolve(data);
+            }
+
+            window[callbackName] = data => finish(data, null);
+            script.onerror = () => finish(null, new Error('Không kết nối được Web App API tuần.'));
+            script.src = API_URL +
+                '?nam=' + encodeURIComponent(year) +
+                '&thang=' + encodeURIComponent(month) +
+                '&callback=' + encodeURIComponent(callbackName) +
+                '&_=' + Date.now();
+            document.head.appendChild(script);
+        });
+    }
+
+    function renderBaoCaoTuan(data) {
+        currentWeeklyReport = data;
+
+        const year = Number(data.nam || NAM_MAC_DINH);
+        const month = Number(data.thang || document.getElementById('selectWeekMonth').value);
+        const weeks = getWeeklyMonthWeeks(year, month);
+        const rows = Array.isArray(data.donVi) ? data.donVi : (Array.isArray(data.units) ? data.units : []);
+
+        document.getElementById('weeklyPeriod').innerText =
+            (data.mocBaoCao || ('Báo cáo tháng ' + String(month).padStart(2, '0') + '/' + year)) +
+            (data.tuan ? ' · Tuần mới nhất: Tuần ' + data.tuan : '');
+
+        renderWeeklySummary(rows);
+        renderWeeklyMetricTable('BHXH bắt buộc', 'bhxhBB', 'bbPS', rows, weeks);
+        renderWeeklyMetricTable('BHXH tự nguyện', 'bhxhTN', 'tnPS', rows, weeks);
+        renderWeeklyMetricTable('BHTN', 'bhtn', 'bhtnPS', rows, weeks);
+    }
+
+    function renderWeeklySummary(rows) {
+        function agg(metric) {
+            let lk = 0, target = 0;
+            rows.forEach(r => {
+                const o = r[metric] || {};
+                lk += Number(o.luyKe || 0);
+                target += Number(o.chiTieu || 0);
+            });
+            return { lk, target, rate: target ? lk / target * 100 : 0 };
+        }
+
+        const bb = agg('bhxhBB');
+        const tn = agg('bhxhTN');
+        const bhtn = agg('bhtn');
+
+        document.getElementById('weeklySumBBRate').innerHTML = weeklyRate(bb.rate);
+        document.getElementById('weeklySumTNRate').innerHTML = weeklyRate(tn.rate);
+        document.getElementById('weeklySumBHTNRate').innerHTML = weeklyRate(bhtn.rate);
+
+        document.getElementById('weeklySumBBValue').innerText = 'Lũy kế ' + formatDauCham(bb.lk) + ' / Chỉ tiêu ' + formatDauCham(bb.target);
+        document.getElementById('weeklySumTNValue').innerText = 'Lũy kế ' + formatDauCham(tn.lk) + ' / Chỉ tiêu ' + formatDauCham(tn.target);
+        document.getElementById('weeklySumBHTNValue').innerText = 'Lũy kế ' + formatDauCham(bhtn.lk) + ' / Chỉ tiêu ' + formatDauCham(bhtn.target);
+    }
+
+    function renderWeeklyMetricTable(title, metric, psKey, rows, weekInfos) {
+        const safeRows = Array.isArray(rows) ? rows : [];
+        const weekCount = weekInfos.length;
+        const totals = { weeks: Array.from({length: weekCount}, () => 0), tongThang: 0, luyKe: 0, chiTieu: 0, conThieu: 0, soVoiThangTruoc: 0 };
+
+        safeRows.forEach(r => {
+            const obj = r[metric] || {};
+            const map = {};
+            (obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
+            for (let w = 1; w <= weekCount; w++) {
+                if (map[w]) totals.weeks[w - 1] += Number(map[w][psKey] || 0);
+            }
+            totals.tongThang += Number(obj.tongThang || 0);
+            totals.luyKe += Number(obj.luyKe || 0);
+            totals.chiTieu += Number(obj.chiTieu || 0);
+            totals.conThieu += Number(obj.conThieu || 0);
+            if (obj.soVoiThangTruoc !== undefined) totals.soVoiThangTruoc += Number(obj.soVoiThangTruoc || 0);
+            else if (obj.cuoiKyThangTruoc !== undefined) totals.soVoiThangTruoc += Number(obj.luyKe || 0) - Number(obj.cuoiKyThangTruoc || 0);
+        });
+
+        const totalRate = totals.chiTieu ? totals.luyKe / totals.chiTieu * 100 : 0;
+
+        let html = '<div class="weekly-table-card">';
+        html += '<h5 class="fw-bold text-primary mb-3">📊 ' + title.toUpperCase() + '</h5>';
+        html += '<div class="weekly-table-wrap"><table class="weekly-table"><thead><tr>';
+        html += '<th class="name">Đơn vị</th>';
+
+        weekInfos.forEach(info => { html += '<th>' + weekHeaderHtml(info) + '</th>'; });
+        html += '<th>Tổng tháng</th><th>Lũy kế</th><th>% chỉ tiêu</th><th>Số còn phải thực hiện</th><th>So với tháng trước</th>';
+        html += '</tr></thead><tbody>';
+
+        safeRows.forEach(r => {
+            const obj = r[metric] || {};
+            const map = {};
+            (obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
+
+            html += '<tr>';
+            html += '<td class="name">' + escapeHtml(r.donVi || r.ten || '') + '</td>';
+            for (let w = 1; w <= weekCount; w++) {
+                const item = map[w];
+                html += '<td>' + (item ? weeklySigned(item[psKey]) : '<span class="weekly-zero">0</span>') + '</td>';
+            }
+            html += '<td>' + formatWeeklySigned(obj.tongThang) + '</td>';
+            html += '<td class="fw-bold">' + formatDauCham(obj.luyKe) + '</td>';
+            html += '<td>' + weeklyRate(obj.tyLe) + '</td>';
+            html += '<td class="fw-bold">' + formatDauCham(obj.conThieu) + '</td>';
+            const prev = obj.soVoiThangTruoc !== undefined ? obj.soVoiThangTruoc : (obj.cuoiKyThangTruoc !== undefined ? Number(obj.luyKe || 0) - Number(obj.cuoiKyThangTruoc || 0) : 0);
+            html += '<td>' + formatWeeklySigned(prev) + '</td>';
+            html += '</tr>';
+        });
+
+        html += '</tbody><tfoot><tr>';
+        html += '<td class="name">TỔNG CỘNG</td>';
+        totals.weeks.forEach(v => html += '<td>' + weeklySigned(v) + '</td>');
+        html += '<td>' + formatWeeklySigned(totals.tongThang) + '</td>';
+        html += '<td class="fw-bold">' + formatDauCham(totals.luyKe) + '</td>';
+        html += '<td>' + weeklyRate(totalRate) + '</td>';
+        html += '<td class="fw-bold">' + formatDauCham(totals.conThieu) + '</td>';
+        html += '<td>' + formatWeeklySigned(totals.soVoiThangTruoc) + '</td>';
+        html += '</tr></tfoot></table></div></div>';
+
+        document.getElementById('weeklyTables').insertAdjacentHTML('beforeend', html);
+    }
+
+    function formatWeeklySigned(value) {
+        const n = Number(value || 0);
+        if (n > 0) return '<span class="weekly-pos">+' + formatDauCham(n) + '</span>';
+        if (n < 0) return '<span class="weekly-neg">' + formatDauCham(n) + '</span>';
+        return '<span class="weekly-zero">0</span>';
     }
 
     async function taiVaPhanTichDuLieu(year, month) {
