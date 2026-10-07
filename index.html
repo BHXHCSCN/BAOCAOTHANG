@@ -735,7 +735,7 @@
         period.innerText = '';
         tables.innerHTML = '';
 
-        const staticUrl = STATIC_JSON_BASE + 'weekly-' + year + '-' + String(month).padStart(2, '0') + '.json';
+        const staticUrl = STATIC_JSON_BASE + 'weekly-' + year + '-' + String(month).padStart(2, '0') + '.json?v=' + Date.now();
 
         try {
             const response = await fetch(staticUrl, { cache: 'default' });
@@ -920,7 +920,8 @@
 
         const staticUrl =
             STATIC_JSON_BASE +
-            fileName;
+            fileName +
+            '?v=' + Date.now();
 
         try {
             // 1) Ưu tiên JSON tĩnh: rất nhanh, không đọc Google Sheets.
@@ -1380,9 +1381,7 @@
 
     function renderBangNoChung() {
 
-        const table =
-            document.getElementById('tblNoChung');
-
+        const table = document.getElementById('tblNoChung');
         if (!table) return;
 
         const thead = table.querySelector('thead');
@@ -1393,57 +1392,37 @@
 
         if (!noDataRows || noDataRows.length === 0) {
             tbody.innerHTML =
-                '<tr><td class="text-center text-muted py-3">' +
+                '<tr><td colspan="10" class="text-center text-muted py-3">' +
                 '⚠️ Chưa có dữ liệu nợ chung cho kỳ báo cáo này.' +
                 '</td></tr>';
             return;
         }
 
-        // THANG_NO được đọc theo đúng header thực tế trong Google Sheets.
         const headers =
-            noDataHeaders.length
-                ? noDataHeaders
-                : Object.keys(noDataRows[0]);
+            noDataHeaders.length ? noDataHeaders : Object.keys(noDataRows[0]);
 
-        thead.innerHTML =
-            '<tr>' +
-            headers.map(h =>
-                '<th>' + escapeHtml(h) + '</th>'
-            ).join('') +
+        // THANG_NO phải hiển thị ĐÚNG chuỗi từ Google Sheets.
+        // Không dùng formatCellValue()/Number()/toLocaleString() ở bảng này,
+        // nếu không 99.053 sẽ bị biến thành 99.
+        thead.innerHTML = '<tr>' +
+            headers.map(h => '<th>' + escapeHtml(h) + '</th>').join('') +
             '</tr>';
 
         noDataRows.forEach(row => {
-
             const tr = document.createElement('tr');
 
             headers.forEach((header, index) => {
+                const keys = Object.keys(row);
+                const key = keys[index] !== undefined ? keys[index] : header;
+                const value = row[key];
+                const td = document.createElement('td');
 
-                const key =
-                    Object.keys(row)[index] ??
-                    header;
+                td.innerText = (value === null || value === undefined || value === '')
+                    ? '-'
+                    : String(value);
 
-                const td =
-                    document.createElement('td');
-
-                const value =
-                    row[key];
-
-                td.innerText =
-                    value === null ||
-                    value === undefined ||
-                    value === ''
-                        ? '-'
-                        : formatCellValue(value);
-
-                if (
-                    typeof value === 'number' ||
-                    (
-                        typeof value === 'string' &&
-                        /^[+-]?\d[\d.,]*%?$/.test(value.trim())
-                    )
-                ) {
-                    td.className = 'text-end';
-                }
+                if (index > 0) td.className = 'text-end';
+                if (index === 0) td.className = 'text-start';
 
                 tr.appendChild(td);
             });
