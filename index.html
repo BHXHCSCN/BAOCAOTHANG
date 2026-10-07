@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theo dõi chỉ tiêu phát triển người tham gia & Chỉ tiêu thu - BHXH Cơ sở Cái Nước</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Import font Geometric Sans-serif chuẩn -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Báo cáo tháng dùng dữ liệu trực tiếp từ Google Sheets qua Apps Script -->
     <style>
         body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
@@ -68,7 +64,7 @@
         .filter-section { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #e2e8f0; }
         .chart-card, .table-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 20px; }
         th { background-color: #f1f5f9 !important; vertical-align: middle; text-align: center; font-size: 0.75rem; color: #334155; }
-        td { vertical-align: middle; font-size: 0.82rem; }
+        td { vertical-align: middle; font-size: 0.88rem; }
         
         /* Làm đậm đường viền line giữa các xã rõ hơn */
         #tblTongHop7Xa, #tblTongHop7Xa th, #tblTongHop7Xa td {
@@ -118,9 +114,27 @@
         .footer-bhxh strong { color: #ffffff; }
         .alert-offline { background: #fff3cd; color: #856404; padding: 12px 15px; border: 1px solid #ffeeba; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
         
-        #nsnnDisplayArea table, #nsnnDisplayArea th, #nsnnDisplayArea td {
+        #tblNSNN, #tblNSNN th, #tblNSNN td, #tblNoChung, #tblNoChung th, #tblNoChung td {
             border: 1.5px solid #94a3b8 !important;
         }
+
+        /* BẢNG 2 - NỢ CHUNG: giữ đúng 10 cột của mẫu web cũ */
+        #tblNoChung {
+            min-width: 1100px;
+        }
+        #tblNoChung th {
+            white-space: nowrap;
+            font-weight: 700;
+        }
+        #tblNoChung td {
+            white-space: nowrap;
+        }
+        #tblNoChung th:first-child,
+        #tblNoChung td:first-child {
+            min-width: 220px;
+            text-align: left;
+        }
+
     </style>
 </head>
 <body>
@@ -137,23 +151,20 @@
         </div>
     </div>
 
-    <!-- Khung chọn file dự phòng khi chạy offline (file:///) trực tiếp từ máy -->
-    <div id="manualUploadBox" class="alert-offline" style="display: none;">
-        <strong>⚠️ Đang chạy ở chế độ Offline (file:///):</strong> Trình duyệt bảo mật chặn tự động đọc file cục bộ. Vui lòng chọn file <strong>T07_BHXH, BHTN_2026.xlsx</strong> để hiển thị dữ liệu:
-        <input type="file" id="excelFileManual" class="form-control form-control-sm mt-2" accept=".xlsx, .xls" onchange="xuLyFileThuCong(event)">
-    </div>
+    <!-- Trạng thái dữ liệu: ưu tiên JSON tĩnh GitHub; Google Sheets chỉ fallback -->
+    <div id="apiStatus" class="alert-offline" style="display:none;"></div>
 
-    <!-- Thanh chuyển đổi kỳ báo cáo -->
+    <!-- Thanh chọn kỳ báo cáo -->
     <div class="filter-section">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo (Từ Tháng 7 trở đi):</label>
+                <label class="form-label fw-bold text-secondary mb-1">🗓 Chọn Kỳ Báo Cáo:</label>
                 <select id="selectSheet" class="form-select form-select-sm" onchange="doiKyBaoCao()">
-                    <option value="">-- Đang khởi tạo dữ liệu --</option>
+                    <option value="">-- Đang tải dữ liệu --</option>
                 </select>
             </div>
             <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <label class="form-label fw-bold text-success mb-1">&nbsp;</label><br>
+                <div id="lblMocDuLieu" class="small text-secondary mb-2"></div>
                 <button id="btnPDF" class="btn btn-danger btn-sm fw-bold shadow-sm px-4" onclick="xuatPDF()" style="display:none;">📄 XUẤT BÁO CÁO PDF</button>
             </div>
         </div>
@@ -223,21 +234,8 @@
                 <h5 class="fw-bold text-danger m-0">⚠️ BẢNG 2: SỐ TIỀN CHẬM ĐÓNG, TRỐN ĐÓNG (<span id="lblKyBaoCaoNo"></span>)</h5>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover align-middle" id="tblSoTienChamDong">
-                    <thead>
-                        <tr>
-                            <th>Đơn vị / Nội dung</th>
-                            <th>Tổng</th>
-                            <th>Nợ không tính lãi</th>
-                            <th>Nợ tính lãi</th>
-                            <th>Nợ lãi</th>
-                            <th>NSNN</th>
-                            <th>Số tiền chậm đóng, trốn đóng</th>
-                            <th>% KH</th>
-                            <th>Số KH</th>
-                            <th>+/- KH</th>
-                        </tr>
-                    </thead>
+                <table class="table table-bordered table-striped table-hover align-middle" id="tblNoChung">
+                    <thead></thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -253,7 +251,7 @@
                     <thead>
                         <tr>
                             <th rowspan="2" class="sticky-col-stt">STT</th>
-                            <th rowspan="2" class="sticky-col-xa">Xã</th>
+                            <th rowspan="2" class="sticky-col-xa">Đơn vị</th>
                             <th colspan="6" class="group-chung border-group-end">BHXH Chung (BB + TN)</th>
                             <th colspan="6" class="group-bb border-group-end">BHXH Bắt Buộc</th>
                             <th colspan="6" class="group-tn border-group-end">Bảo Hiểm Xã Hội Tự Nguyện</th>
@@ -312,17 +310,19 @@
         <!-- ================= KHU VỰC NỢ NSNN ================= -->
         <div class="table-card mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                <h5 class="fw-bold text-primary m-0" id="nsnnCardTitle">CHI TIẾT NỢ NSNN THEO TỪNG XÃ</h5>
-                <div class="d-flex align-items-center gap-2">
-                    <label for="xaSelectNsnn" class="form-label fw-bold text-secondary mb-0 text-nowrap">Chọn xã xem NSNN:</label>
-                    <select id="xaSelectNsnn" class="form-select form-select-sm" style="width: 240px;" onchange="hienThiNoNsnnTheoLuaChon()">
-                        <option value="tong_hop">📊 Tổng hợp (Toàn đơn vị)</option>
-                    </select>
-                </div>
+                <h5 class="fw-bold text-primary m-0" id="nsnnCardTitle">⚠️ BẢNG CUỐI: NỢ NSNN THEO 7 ĐƠN VỊ</h5>
+                <div id="nsnnMocDuLieu" class="small text-secondary"></div>
             </div>
-            
-            <div id="nsnnDisplayArea">
-                <!-- Nội dung bảng Nợ NSNN -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle" id="tblNSNN">
+                    <thead>
+                        <tr>
+                            <th>Đơn vị</th>
+                            <th>Số nợ NSNN</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
         <!-- ================= KẾT THÚC KHU VỰC NỢ NSNN ================= -->
@@ -336,558 +336,1346 @@
 </div>
 
 <script>
-    let workbookData = null;
-    let rawDataStore = [];
-    let thuDataRows = [];
-    let noDataStore = null;
-    let currentMuc = 'bhxh_chung';
-    let xemTheoXaCuThe = false;
+    /*
+     * ============================================================
+     * BÁO CÁO THÁNG - GOOGLE SHEETS
+     * ============================================================
+     * Nguồn:
+     *   LICH_SU_THANG
+     *   THANG_THU
+     *   THANG_NO       -> Nợ chung
+     *   THANG_NSNN     -> Nợ NSNN theo 7 đơn vị
+     *
+     * Website ưu tiên JSON tĩnh trên GitHub.
+     * Google Sheets API chỉ là fallback.
+     */
 
-    let danhSachXaCaiNuoc = [
-        "Xã Cái Nước", "Xã Hưng Mỹ", "Xã Tân Hưng", 
-        "Xã Lương Thế Trân", "Xã Cái Đôi Vàm", 
-        "Xã Nguyễn Việt Khái", "Xã Phú Tân"
+    const API_URL =
+        'https://script.google.com/macros/s/AKfycbzEaQGKfcPScDQVhXqWFJdxOLeEHYgjLgOn3EcPiIk_cX6VDaewsY7d1oVCVo6O5qH8Nw/exec';
+
+    // WEBSITE ƯU TIÊN ĐỌC JSON TĨNH TRÊN GITHUB.
+    // API Google Sheets chỉ là phương án dự phòng khi JSON chưa được xuất.
+    const STATIC_JSON_BASE =
+        'https://bhxhcscn.github.io/BAOCAOTHANG/data/';
+
+    const DANH_SACH_THANG = [
+        { value: 7, label: 'Kỳ báo cáo: Tháng 07' },
+        { value: 8, label: 'Kỳ báo cáo: Tháng 08' },
+        { value: 9, label: 'Kỳ báo cáo: Tháng 09' },
+        { value: 10, label: 'Kỳ báo cáo: Tháng 10' },
+        { value: 11, label: 'Kỳ báo cáo: Tháng 11' },
+        { value: 12, label: 'Kỳ báo cáo: Tháng 12' }
     ];
 
-    const tenFileExcel = 'T07_BHXH, BHTN_2026.xlsx';
+    const NAM_MAC_DINH = 2026;
+
+    let rawDataStore = [];
+    let thuDataRows = [];
+    let nsnnData = [];
+    let noDataRows = [];
+    let noDataHeaders = [];
+    let currentMuc = 'bhxh_chung';
+    let xemTheoXaCuThe = false;
+    let currentReport = null;
+
+    const danhSachXaCaiNuoc = [
+        'Cái Nước',
+        'Hưng Mỹ',
+        'Tân Hưng',
+        'Lương Thế Trân',
+        'Cái Đôi Vàm',
+        'Nguyễn Việt Khái',
+        'Phú Tân'
+    ];
 
     window.addEventListener('DOMContentLoaded', function() {
-        if (window.location.protocol === 'file:') {
-            document.getElementById('manualUploadBox').style.display = 'block';
-        } else {
-            taiFileTuServer(tenFileExcel);
-        }
-        taiFileNsnn();
+        khoiTaoKyBaoCao();
+        doiKyBaoCao();
     });
 
-    function taiFileTuServer(url) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error("Không tìm thấy file Excel trên server");
-                return response.arrayBuffer();
-            })
-            .then(data => {
-                khoiTaoDuLieuExcel(data);
-            })
-            .catch(error => {
-                console.error(error);
-                alert("Không thể tự động tải file Excel từ server! Hãy kiểm tra lại tên file hoặc đường dẫn.");
-            });
-    }
+    function khoiTaoKyBaoCao() {
+        const select = document.getElementById('selectSheet');
 
-    function xuLyFileThuCong(event) {
-        let file = event.target.files[0];
-        if (!file) return;
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let data = new Uint8Array(e.target.result);
-            khoiTaoDuLieuExcel(data);
-        };
-        reader.readAsArrayBuffer(file);
-    }
+        select.innerHTML = '';
 
-    function khoiTaoDuLieuExcel(dataBuffer) {
-        workbookData = XLSX.read(dataBuffer, {type: 'array'});
-        let selectSheet = document.getElementById('selectSheet');
-        selectSheet.innerHTML = '';
-        
-        let validSheets = workbookData.SheetNames.filter(name => {
-            let lower = name.toLowerCase().trim();
-            let match = lower.match(/(?:tháng|thang)\s*(\d{1,2})/);
-            if (match) {
-                let month = parseInt(match[1], 10);
-                return month >= 7 && month <= 12;
-            }
-            return false;
+        DANH_SACH_THANG.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.value;
+            opt.innerText = item.label + '/' + NAM_MAC_DINH;
+            select.appendChild(opt);
         });
 
-        if (validSheets.length === 0) validSheets = workbookData.SheetNames; 
+        /*
+         * Tháng hiện tại ưu tiên.
+         * Nếu tháng hiện tại < 7 thì dùng tháng 7.
+         */
+        const nowMonth = new Date().getMonth() + 1;
+        const target = Math.max(7, Math.min(12, nowMonth));
 
-        validSheets.forEach(name => {
-            let opt = document.createElement('option');
-            opt.value = name;
-            opt.innerText = "Kỳ báo cáo: " + name;
-            selectSheet.appendChild(opt);
-        });
+        select.value = String(target);
 
-        let currentMonth = new Date().getMonth() + 1; 
-        let targetMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-        
-        let defaultIndex = 0;
-        for (let i = 0; i < validSheets.length; i++) {
-            let nameLower = validSheets[i].toLowerCase();
-            let regex = new RegExp(`(tháng|thang)\\s*0?${targetMonth}([^0-9]|$)`, 'i');
-            if (regex.test(nameLower)) {
-                defaultIndex = i;
-                break;
-            }
+        if (!DANH_SACH_THANG.some(x => x.value === target)) {
+            select.value = '10';
         }
-
-        selectSheet.selectedIndex = defaultIndex;
-        let defaultSheetName = validSheets[defaultIndex];
-
-        taiVaPhanTichDuLieu(defaultSheetName);
     }
 
     function doiKyBaoCao() {
-        let sheetName = document.getElementById('selectSheet').value;
-        if (sheetName) taiVaPhanTichDuLieu(sheetName);
+        const month =
+            Number(document.getElementById('selectSheet').value);
+
+        if (!month) return;
+
+        taiVaPhanTichDuLieu(NAM_MAC_DINH, month);
     }
 
-    function taiVaPhanTichDuLieu(sheetName) {
-        let worksheet = workbookData.Sheets[sheetName];
-        let jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1, defval: 0});
-        
-        const labelsToUpdate = [
-            'lblKyBaoCao', 'lblKyBaoCao2', 'lblKyBaoCaoThu', 'lblKyBaoCaoNo',
-            'thLabelChung', 'thLabelBB', 'thLabelTN', 'thLabelBHTN', 'thLabelBHYT'
-        ];
-        labelsToUpdate.forEach(id => {
-            let el = document.getElementById(id);
-            if(el) el.innerText = sheetName;
-        });
+    async function taiVaPhanTichDuLieu(year, month) {
 
-        rawDataStore = [];
-        thuDataRows = [];
-        noDataStore = null;
-        let selectXa = document.getElementById('selectXa');
-        selectXa.innerHTML = '<option value="all">-- Tất cả 7 xã, thị trấn --</option>';
-        xemTheoXaCuThe = false;
+        setLoadingState(year, month);
 
-        let soXaDat100 = 0;
-        let rawThuMap = {};
+        const fileName =
+            'report-' +
+            String(year) +
+            '-' +
+            String(month).padStart(2, '0') +
+            '.json';
 
-        let baseRowIdx = 8, thuColIdx = 24, xaColIdx = 1;
-        
-        for(let r = 0; r < jsonData.length; r++) {
-            if(jsonData[r]) {
-                for(let c = 0; c < jsonData[r].length; c++) {
-                    let cellVal = String(jsonData[r][c]).toUpperCase().replace(/\s+/g, ' ').trim();
-                    if(cellVal === "TỔNG SỐ THU" || cellVal.includes("TỔNG SỐ THU")) {
-                        baseRowIdx = r;
-                        thuColIdx = c;
-                    }
-                    if(cellVal === "XÃ CÁI NƯỚC" || cellVal === "CÁI NƯỚC") {
-                        xaColIdx = c;
-                    }
-                }
-            }
-        }
+        const staticUrl =
+            STATIC_JSON_BASE +
+            fileName;
 
-        jsonData.forEach((row, rIdx) => {
-            let colThuName = row[thuColIdx] ? row[thuColIdx].toString().trim() : "";
-            if (rIdx >= baseRowIdx && rIdx <= baseRowIdx + 5 && colThuName !== "") {
-                let tenKhoanThu = colThuName;
-                if (rIdx === baseRowIdx + 2 || tenKhoanThu === "BHXH TN") tenKhoanThu = "Bảo hiểm xã hội tự nguyện";
-                else if (rIdx === baseRowIdx + 3 || tenKhoanThu === "Thu BHTN") tenKhoanThu = "Bảo hiểm thất nghiệp";
-
-                rawThuMap[rIdx] = {
-                    noi_dung: tenKhoanThu,
-                    so_kh: Number(row[thuColIdx + 1]) || 0,
-                    luy_ke: Number(row[thuColIdx + 2]) || 0,
-                    lk_truoc: Number(row[thuColIdx + 3]) || 0,
-                    trong_thang: Number(row[thuColIdx + 4]) || 0,
-                    so_cuoi_nam: Number(row[thuColIdx + 5]) || 0,
-                    tyle_kh: Number(row[thuColIdx + 6]) ? Number(row[thuColIdx + 6]).toFixed(2) : "0.00",
-                    con_th: Number(row[thuColIdx + 7]) || 0,
-                    thu_cuoi_2025: Number(row[thuColIdx + 8]) || 0
-                };
-            }
-
-            if (rIdx === baseRowIdx) {
-                noDataStore = {
-                    ten: "BHXH cơ sở Cái Nước",
-                    tong: Number(row[thuColIdx + 9]) || 0,
-                    no_khong_lai: Number(row[thuColIdx + 10]) || 0,
-                    no_tinh_lai: Number(row[thuColIdx + 11]) || 0,
-                    no_lai: Number(row[thuColIdx + 12]) || 0,
-                    nsnn: Number(row[thuColIdx + 13]) || 0,
-                    so_cham_dong: Number(row[thuColIdx + 14]) || 0,
-                    tyle_kh: Number(row[thuColIdx + 15]) ? Number(row[thuColIdx + 15]).toFixed(2) : "0.00",
-                    so_kh: Number(row[thuColIdx + 16]) ? Number(row[thuColIdx + 16]).toFixed(2) : "0.00",
-                    cong_tru_kh: Number(row[thuColIdx + 17]) ? Number(row[thuColIdx + 17]).toFixed(2) : "0.00"
-                };
-            }
-
-            let tenDonVi = row[xaColIdx] ? row[xaColIdx].toString().trim() : "";
-            let matchFound = danhSachXaCaiNuoc.find(x => tenDonVi.toLowerCase().includes(x.toLowerCase().replace("xã ", "")));
-            
-            if (matchFound) {
-                let ds_bhyt = Number(row[xaColIdx + 1]) || 0;
-                let th_bhyt = Number(row[xaColIdx + 2]) || 0;
-                let tyle_bhyt = ds_bhyt > 0 ? Number(((th_bhyt / ds_bhyt) * 100).toFixed(2)) : 0;
-
-                let kh_bb = Number(row[xaColIdx + 4]) || 0; let th_bb = Number(row[xaColIdx + 5]) || 0;
-                let stt_bb = Number(row[xaColIdx + 6]) || 0; let scn_bb = Number(row[xaColIdx + 7]) || 0; let con_bb = Number(row[xaColIdx + 8]) || 0;
-                let tyle_bb = kh_bb > 0 ? Number(((th_bb / kh_bb) * 100).toFixed(2)) : 0;
-
-                let kh_btn = Number(row[xaColIdx + 10]) || 0; let th_btn = Number(row[xaColIdx + 11]) || 0;
-                let stt_btn = Number(row[xaColIdx + 12]) || 0; let scn_btn = Number(row[xaColIdx + 13]) || 0; let con_btn = Number(row[xaColIdx + 14]) || 0;
-                let tyle_btn = kh_btn > 0 ? Number(((th_btn / kh_btn) * 100).toFixed(2)) : 0;
-
-                let kh_chung = kh_bb + kh_btn; let th_chung = th_bb + th_btn; let stt_chung = stt_bb + stt_btn; let scn_chung = scn_bb + scn_btn; let con_chung = con_bb + con_btn;
-                let tyle_chung = kh_chung > 0 ? Number(((th_chung / kh_chung) * 100).toFixed(2)) : 0;
-
-                let kh_bhtn = Number(row[xaColIdx + 16]) || 0; let th_bhtn = Number(row[xaColIdx + 17]) || 0;
-                let stt_bhtn = Number(row[xaColIdx + 18]) || 0; let scn_bhtn = Number(row[xaColIdx + 19]) || 0; let con_bhtn = Number(row[xaColIdx + 20]) || 0;
-                let tyle_bhtn = kh_bhtn > 0 ? Number(((th_bhtn / kh_bhtn) * 100).toFixed(2)) : 0;
-
-                if (tyle_chung >= 100) soXaDat100++;
-
-                rawDataStore.push({
-                    ten: matchFound,
-                    bhxh_chung: { kh: kh_chung, th: th_chung, stt: stt_chung, scn: scn_chung, con: con_chung, tyle: tyle_chung },
-                    bhxh_bb: { kh: kh_bb, th: th_bb, stt: stt_bb, scn: scn_bb, con: con_bb, tyle: tyle_bb },
-                    bhxh_tn: { kh: kh_btn, th: th_btn, stt: stt_btn, scn: scn_btn, con: con_btn, tyle: tyle_btn },
-                    bhtn: { kh: kh_bhtn, th: th_bhtn, stt: stt_bhtn, scn: scn_bhtn, con: con_bhtn, tyle: tyle_bhtn },
-                    bhyt: { kh: ds_bhyt, th: th_bhyt, tyle: tyle_bhyt }
+        try {
+            // 1) Ưu tiên JSON tĩnh: rất nhanh, không đọc Google Sheets.
+            const response =
+                await fetch(staticUrl, {
+                    method: 'GET',
+                    cache: 'default'
                 });
 
-                let opt = document.createElement('option'); opt.value = matchFound; opt.innerText = matchFound;
+            if (!response.ok) {
+                throw new Error(
+                    'JSON tĩnh HTTP ' + response.status
+                );
+            }
+
+            const data =
+                await response.json();
+
+            if (!data || data.ok !== true) {
+                throw new Error(
+                    (data && data.message) ||
+                    'JSON tĩnh không hợp lệ.'
+                );
+
+            currentReport = data;
+
+            rawDataStore =
+                Array.isArray(data.units)
+                    ? data.units
+                    : [];
+
+            thuDataRows =
+                Array.isArray(data.thuDataRows)
+                    ? data.thuDataRows
+                    : [];
+
+            nsnnData =
+                Array.isArray(data.nsnnData)
+                    ? data.nsnnData
+                    : [];
+
+            noDataHeaders =
+                Array.isArray(data.thangNo?.headers)
+                    ? data.thangNo.headers
+                    : [];
+
+            noDataRows =
+                Array.isArray(data.thangNo?.rows)
+                    ? data.thangNo.rows
+                    : [];
+
+            renderReport(data);
+
+            showStatus(
+                '⚡ Đã tải báo cáo từ dữ liệu tĩnh · ' +
+                (data.mocBaoCao || ''),
+                'success'
+            );
+
+            return;
+
+        } catch (staticError) {
+
+            console.warn(
+                'Không tải được JSON tĩnh, chuyển sang API Google Sheets:',
+                staticError
+            );
+        }
+
+        // 2) Fallback: chỉ dùng khi JSON chưa được xuất lên GitHub.
+        try {
+
+            const url =
+                API_URL +
+                '?mode=thang-api' +
+                '&nam=' + encodeURIComponent(year) +
+                '&thang=' + encodeURIComponent(month) +
+                '&_=' + Date.now();
+
+            const response =
+                await fetch(url, {
+                    method: 'GET',
+                    cache: 'no-store'
+                });
+
+            if (!response.ok) {
+                throw new Error(
+                    'API HTTP ' + response.status
+                );
+            }
+
+            const data =
+                await response.json();
+
+            if (!data || data.ok !== true) {
+                throw new Error(
+                    (data && data.message) ||
+                    'API trả dữ liệu không hợp lệ.'
+                );
+
+            currentReport = data;
+
+            rawDataStore =
+                Array.isArray(data.units)
+                    ? data.units
+                    : [];
+
+            thuDataRows =
+                Array.isArray(data.thuDataRows)
+                    ? data.thuDataRows
+                    : [];
+
+            nsnnData =
+                Array.isArray(data.nsnnData)
+                    ? data.nsnnData
+                    : [];
+
+            noDataHeaders =
+                Array.isArray(data.thangNo?.headers)
+                    ? data.thangNo.headers
+                    : [];
+
+            noDataRows =
+                Array.isArray(data.thangNo?.rows)
+                    ? data.thangNo.rows
+                    : [];
+
+            renderReport(data);
+
+            showStatus(
+                '🔄 JSON tĩnh chưa có, đang dùng Google Sheets · ' +
+                (data.mocBaoCao || ''),
+                'warning'
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Lỗi tải báo cáo tháng:',
+                error
+            );
+
+            hideDashboard();
+
+            showStatus(
+                '❌ Không tải được dữ liệu: ' +
+                (error.message || error),
+                'danger'
+            );
+        }
+    }
+
+    function setLoadingState(year, month) {
+        document.getElementById('mainDashboard').style.display = 'none';
+        document.getElementById('btnPDF').style.display = 'none';
+
+        showStatus(
+            '⏳ Đang tải dữ liệu ' +
+            'tháng ' + String(month).padStart(2, '0') +
+            '/' + year +
+            '...',
+            'warning'
+        );
+    }
+
+    function hideDashboard() {
+        document.getElementById('mainDashboard').style.display = 'none';
+        document.getElementById('btnPDF').style.display = 'none';
+    }
+
+    function showStatus(message, type) {
+        const el =
+            document.getElementById('apiStatus');
+
+        if (!el) return;
+
+        const classes = {
+            success: 'alert alert-success',
+            warning: 'alert alert-warning',
+            danger: 'alert alert-danger'
+        };
+
+        el.className =
+            classes[type] || 'alert alert-info';
+
+        el.innerText = message;
+        el.style.display = 'block';
+    }
+
+    function formatKyBaoCao(data) {
+        const ky =
+            data && data.kyBaoCao
+                ? data.kyBaoCao
+                : '';
+
+        const moc =
+            data && data.mocBaoCao
+                ? data.mocBaoCao
+                : '';
+
+        return ky + (moc ? ' — ' + moc : '');
+    }
+
+    function updateLabels(data) {
+
+        const label =
+            formatKyBaoCao(data);
+
+        [
+            'lblKyBaoCao',
+            'lblKyBaoCao2',
+            'lblKyBaoCaoThu',
+            'lblKyBaoCaoNo'
+        ].forEach(id => {
+
+            const el =
+                document.getElementById(id);
+
+            if (el) {
+                el.innerText = label;
+            }
+        });
+
+        [
+            'thLabelChung',
+            'thLabelBB',
+            'thLabelTN',
+            'thLabelBHTN',
+            'thLabelBHYT'
+        ].forEach(id => {
+
+            const el =
+                document.getElementById(id);
+
+            if (el) {
+                el.innerText = 'Thực hiện';
+            }
+        });
+
+        const moc =
+            document.getElementById('lblMocDuLieu');
+
+        if (moc) {
+            moc.innerText =
+                data.mocBaoCao || '';
+        }
+
+        const nsnnMoc =
+            document.getElementById('nsnnMocDuLieu');
+
+        if (nsnnMoc) {
+            nsnnMoc.innerText =
+                data.mocBaoCao || '';
+        }
+    }
+
+    function renderReport(data) {
+
+        updateLabels(data);
+
+        const kpi =
+            data.kpi || {
+                kh: 0,
+                th: 0,
+                dsBhyt: 0,
+                thBhyt: 0,
+                soXaDat: 0,
+                tyleBhyt: 0
+            };
+
+        document.getElementById(
+            'kpiTongChiTieu'
+        ).innerText =
+            formatDauCham(kpi.kh) +
+            ' người';
+
+        document.getElementById(
+            'kpiTongThucHien'
+        ).innerText =
+            formatDauCham(kpi.th) +
+            ' người';
+
+        document.getElementById(
+            'kpiTyLeBHYT'
+        ).innerText =
+            Number(kpi.tyleBhyt || 0).toFixed(2) +
+            '%';
+
+        document.getElementById(
+            'kpiSoXaDat'
+        ).innerText =
+            (kpi.soXaDat || 0) +
+            ' / 7';
+
+        /*
+         * Reset xã.
+         */
+        const selectXa =
+            document.getElementById('selectXa');
+
+        selectXa.innerHTML =
+            '<option value="all">-- Tất cả 7 đơn vị --</option>';
+
+        danhSachXaCaiNuoc.forEach(name => {
+
+            if (
+                rawDataStore.some(
+                    x => x.ten === name
+                )
+            ) {
+                const opt =
+                    document.createElement('option');
+
+                opt.value = name;
+                opt.innerText = name;
+
                 selectXa.appendChild(opt);
             }
         });
 
-        for (let i = baseRowIdx; i <= baseRowIdx + 5; i++) {
-            if (rawThuMap[i]) thuDataRows.push(rawThuMap[i]);
-        }
+        xemTheoXaCuThe = false;
+        selectXa.value = 'all';
 
-        if (!noDataStore) {
-            noDataStore = { ten: "BHXH cơ sở Cái Nước", tong: 0, no_khong_lai: 0, no_tinh_lai: 0, no_lai: 0, nsnn: 0, so_cham_dong: 0, tyle_kh: "0.00", so_kh: "0.00", cong_tru_kh: "0.00" };
-        }
+        renderBangChiTieuThu();
+        renderBangNoChung();
+        renderBangNSNN();
+        renderBangTongHop7Xa();
+        veBieuDo();
 
-        let t_kh_chung = rawDataStore.reduce((sum, item) => sum + item.bhxh_chung.kh, 0);
-        let t_th_chung = rawDataStore.reduce((sum, item) => sum + item.bhxh_chung.th, 0);
-        let t_ds_bhyt = rawDataStore.reduce((sum, item) => sum + item.bhyt.kh, 0);
-        let t_th_bhyt = rawDataStore.reduce((sum, item) => sum + item.bhyt.th, 0);
-        let avgBHYT = t_ds_bhyt > 0 ? ((t_th_bhyt / t_ds_bhyt) * 100).toFixed(2) : 0;
+        document.getElementById(
+            'mainDashboard'
+        ).style.display = 'block';
 
-        document.getElementById('kpiTongChiTieu').innerText = formatDauCham(t_kh_chung) + " người";
-        document.getElementById('kpiTongThucHien').innerText = formatDauCham(t_th_chung) + " người";
-        document.getElementById('kpiTyLeBHYT').innerText = avgBHYT + "%";
-        document.getElementById('kpiSoXaDat').innerText = soXaDat100 + " / 7";
-
-        renderBangChiTieuThu(); renderBangSoTienChamDong(); renderBangTongHop7Xa(); veBieuDo();
-        
-        document.getElementById('mainDashboard').style.display = 'block';
-        document.getElementById('btnPDF').style.display = 'inline-block';
+        document.getElementById(
+            'btnPDF'
+        ).style.display = 'inline-block';
     }
 
     function formatDauCham(num) {
-        if (num === null || num === undefined || isNaN(num)) return "-";
-        if (typeof num === 'string') {
-            let parsed = parseFloat(num.replace(/\./g, '').replace(',', '.'));
-            if (isNaN(parsed)) return num;
-            num = parsed;
+
+        if (
+            num === null ||
+            num === undefined ||
+            num === '' ||
+            Number.isNaN(Number(num))
+        ) {
+            return '-';
         }
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        const n = Number(num);
+
+        if (!Number.isFinite(n)) {
+            return '-';
+        }
+
+        return Math.round(n)
+            .toString()
+            .replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                '.'
+            );
+    }
+
+    function formatSigned(num) {
+
+        const n = Number(num);
+
+        if (
+            !Number.isFinite(n) ||
+            n === 0
+        ) {
+            return '0';
+        }
+
+        return n > 0
+            ? '+' + formatDauCham(n)
+            : formatDauCham(n);
     }
 
     function renderBangChiTieuThu() {
-        let tbody = document.getElementById('tblChiTieuThu').getElementsByTagName('tbody')[0];
+
+        const tbody =
+            document
+                .getElementById('tblChiTieuThu')
+                .getElementsByTagName('tbody')[0];
+
         tbody.innerHTML = '';
-        if(thuDataRows.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">⚠️ Không tìm thấy dữ liệu thu cho kỳ báo cáo này.</td></tr>`;
+
+        if (
+            !thuDataRows ||
+            thuDataRows.length === 0
+        ) {
+            tbody.innerHTML =
+                '<tr>' +
+                '<td colspan="9" class="text-center text-muted py-3">' +
+                '⚠️ Chưa có dữ liệu thu cho kỳ báo cáo này.' +
+                '</td>' +
+                '</tr>';
+
             return;
         }
-        thuDataRows.forEach((row, idx) => {
-            let isTong = idx === 0;
-            let rowClass = isTong ? 'table-secondary fw-bold' : '';
-            let nameStyle = isTong ? 'text-primary text-uppercase' : 'ps-3';
-            tbody.innerHTML += `
-                <tr class="${rowClass}">
-                    <td class="${nameStyle}">${row.noi_dung}</td>
-                    <td class="text-end fw-bold">${formatDauCham(row.so_kh)}</td>
-                    <td class="text-end fw-bold text-success">${formatDauCham(row.luy_ke)}</td>
-                    <td class="text-end">${formatDauCham(row.lk_truoc)}</td>
-                    <td class="text-end">${formatDauCham(row.trong_thang)}</td>
-                    <td class="text-end">${formatDauCham(row.so_cuoi_nam)}</td>
-                    <td class="text-center fw-bold"><span class="badge bg-info text-dark">${row.tyle_kh}</span></td>
-                    <td class="text-end">${formatDauCham(row.con_th)}</td>
-                    <td class="text-end">${formatDauCham(row.thu_cuoi_2025)}</td>
-                </tr>
-            `;
+
+        thuDataRows.forEach(
+            (row, idx) => {
+
+                const isTong =
+                    idx === 0;
+
+                const rowClass =
+                    isTong
+                        ? 'table-secondary fw-bold'
+                        : '';
+
+                const nameStyle =
+                    isTong
+                        ? 'text-primary text-uppercase'
+                        : 'ps-3';
+
+                tbody.innerHTML += `
+                    <tr class="${rowClass}">
+                        <td class="${nameStyle}">
+                            ${escapeHtml(row.noi_dung)}
+                        </td>
+                        <td class="text-end fw-bold">
+                            ${formatDauCham(row.so_kh)}
+                        </td>
+                        <td class="text-end fw-bold text-success">
+                            ${formatDauCham(row.luy_ke)}
+                        </td>
+                        <td class="text-end">
+                            ${formatDauCham(row.lk_truoc)}
+                        </td>
+                        <td class="text-end">
+                            ${formatDauCham(row.trong_thang)}
+                        </td>
+                        <td class="text-end">
+                            ${formatSigned(row.so_cuoi_nam)}
+                        </td>
+                        <td class="text-center fw-bold">
+                            <span class="badge bg-info text-dark">
+                                ${Number(row.tyle_kh || 0).toFixed(2)}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            ${formatDauCham(row.con_th)}
+                        </td>
+                        <td class="text-end">
+                            ${formatDauCham(row.thu_cuoi_2025)}
+                        </td>
+                    </tr>
+                `;
+            }
+        );
+    }
+
+    function renderBangNoChung() {
+
+        const table =
+            document.getElementById('tblNoChung');
+
+        if (!table) return;
+
+        const thead = table.querySelector('thead');
+        const tbody = table.querySelector('tbody');
+
+        thead.innerHTML = '';
+        tbody.innerHTML = '';
+
+        if (!noDataRows || noDataRows.length === 0) {
+            tbody.innerHTML =
+                '<tr><td class="text-center text-muted py-3">' +
+                '⚠️ Chưa có dữ liệu nợ chung cho kỳ báo cáo này.' +
+                '</td></tr>';
+            return;
+        }
+
+        // THANG_NO được đọc theo đúng header thực tế trong Google Sheets.
+        const headers =
+            noDataHeaders.length
+                ? noDataHeaders
+                : Object.keys(noDataRows[0]);
+
+        thead.innerHTML =
+            '<tr>' +
+            headers.map(h =>
+                '<th>' + escapeHtml(h) + '</th>'
+            ).join('') +
+            '</tr>';
+
+        noDataRows.forEach(row => {
+
+            const tr = document.createElement('tr');
+
+            headers.forEach((header, index) => {
+
+                const key =
+                    Object.keys(row)[index] ??
+                    header;
+
+                const td =
+                    document.createElement('td');
+
+                const value =
+                    row[key];
+
+                td.innerText =
+                    value === null ||
+                    value === undefined ||
+                    value === ''
+                        ? '-'
+                        : formatCellValue(value);
+
+                if (
+                    typeof value === 'number' ||
+                    (
+                        typeof value === 'string' &&
+                        /^[+-]?\d[\d.,]*%?$/.test(value.trim())
+                    )
+                ) {
+                    td.className = 'text-end';
+                }
+
+                tr.appendChild(td);
+            });
+
+            tbody.appendChild(tr);
         });
     }
 
-    function renderBangSoTienChamDong() {
-        let tbody = document.getElementById('tblSoTienChamDong').getElementsByTagName('tbody')[0];
-        let n = noDataStore;
-        tbody.innerHTML = `
-            <tr>
-                <td class="fw-bold text-danger">${n.ten}</td>
-                <td class="text-end fw-bold text-danger">${formatDauCham(n.tong)}</td>
-                <td class="text-end">${formatDauCham(n.no_khong_lai)}</td>
-                <td class="text-end">${formatDauCham(n.no_tinh_lai)}</td>
-                <td class="text-end">${formatDauCham(n.no_lai)}</td>
-                <td class="text-end">${formatDauCham(n.nsnn)}</td>
-                <td class="text-end">${formatDauCham(n.so_cham_dong)}</td>
-                <td class="text-center fw-bold"><span class="badge bg-danger">${n.tyle_kh}</span></td>
-                <td class="text-end">${n.so_kh}</td>
-                <td class="text-end">${n.cong_tru_kh}</td>
+    function formatCellValue(value) {
+
+        if (value instanceof Date) {
+            return value.toLocaleDateString('vi-VN');
+        }
+
+        if (
+            typeof value === 'number' &&
+            Number.isFinite(value)
+        ) {
+            return formatDauCham(value);
+        }
+
+        const s = String(value);
+
+        // Không tự đổi các chuỗi phần trăm / ngày / nội dung.
+        if (/^\d+$/.test(s)) {
+            return formatDauCham(Number(s));
+        }
+
+        return s;
+    }
+
+    function renderBangNSNN() {
+
+        const tbody =
+            document
+                .getElementById('tblNSNN')
+                .getElementsByTagName('tbody')[0];
+
+        tbody.innerHTML = '';
+
+        if (
+            !nsnnData ||
+            nsnnData.length === 0
+        ) {
+            tbody.innerHTML =
+                '<tr>' +
+                '<td colspan="2" class="text-center text-muted py-3">' +
+                '⚠️ Chưa có dữ liệu NSNN cho kỳ báo cáo này.' +
+                '</td>' +
+                '</tr>';
+
+            return;
+        }
+
+        let tong = 0;
+
+        nsnnData.forEach(row => {
+
+            const value =
+                Number(row.noNsnn || 0);
+
+            tong += value;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="fw-bold">
+                        ${escapeHtml(row.donVi)}
+                    </td>
+                    <td class="text-end fw-bold text-danger">
+                        ${formatDauCham(value)}
+                    </td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML += `
+            <tr class="table-secondary fw-bold">
+                <td class="text-uppercase">
+                    TỔNG CỘNG
+                </td>
+                <td class="text-end text-danger">
+                    ${formatDauCham(tong)}
+                </td>
             </tr>
         `;
     }
 
     function renderBangTongHop7Xa() {
-        let tbody = document.getElementById('tblTongHop7Xa').getElementsByTagName('tbody')[0];
+
+        const tbody =
+            document
+                .getElementById('tblTongHop7Xa')
+                .getElementsByTagName('tbody')[0];
+
         tbody.innerHTML = '';
-        if(rawDataStore.length === 0) {
-             tbody.innerHTML = `<tr><td colspan="25" class="text-center text-muted py-3">⚠️ Không tìm thấy số liệu người tham gia cho kỳ báo cáo này.</td></tr>`;
-             return;
+
+        if (
+            rawDataStore.length === 0
+        ) {
+            tbody.innerHTML =
+                '<tr>' +
+                '<td colspan="29" class="text-center text-muted py-3">' +
+                '⚠️ Không tìm thấy số liệu người tham gia.' +
+                '</td>' +
+                '</tr>';
+
+            return;
         }
 
-        let sum_kh_chung = 0, sum_th_chung = 0, sum_stt_chung = 0, sum_scn_chung = 0, sum_con_chung = 0;
-        let sum_kh_bb = 0, sum_th_bb = 0, sum_stt_bb = 0, sum_scn_bb = 0, sum_con_bb = 0;
-        let sum_kh_tn = 0, sum_th_tn = 0, sum_stt_tn = 0, sum_scn_tn = 0, sum_con_tn = 0;
-        let sum_kh_bhtn = 0, sum_th_bhtn = 0, sum_stt_bhtn = 0, sum_scn_bhtn = 0, sum_con_bhtn = 0;
-        let sum_ds_bhyt = 0, sum_th_bhyt = 0;
+        let sum_kh_chung = 0;
+        let sum_th_chung = 0;
+        let sum_stt_chung = 0;
+        let sum_scn_chung = 0;
+        let sum_con_chung = 0;
 
-        rawDataStore.forEach((item, index) => {
-            let chung = item.bhxh_chung; let bb = item.bhxh_bb; let tn = item.bhxh_tn; let bhtn = item.bhtn; let bhyt = item.bhyt;
+        let sum_kh_bb = 0;
+        let sum_th_bb = 0;
+        let sum_stt_bb = 0;
+        let sum_scn_bb = 0;
+        let sum_con_bb = 0;
 
-            sum_kh_chung += chung.kh; sum_th_chung += chung.th; sum_stt_chung += chung.stt; sum_scn_chung += chung.scn; sum_con_chung += chung.con;
-            sum_kh_bb += bb.kh; sum_th_bb += bb.th; sum_stt_bb += bb.stt; sum_scn_bb += bb.scn; sum_con_bb += bb.con;
-            sum_kh_tn += tn.kh; sum_th_tn += tn.th; sum_stt_tn += tn.stt; sum_scn_tn += tn.scn; sum_con_tn += tn.con;
-            sum_kh_bhtn += bhtn.kh; sum_th_bhtn += bhtn.th; sum_stt_bhtn += bhtn.stt; sum_scn_bhtn += bhtn.scn; sum_con_bhtn += bhtn.con;
-            sum_ds_bhyt += bhyt.kh; sum_th_bhyt += bhyt.th;
+        let sum_kh_tn = 0;
+        let sum_th_tn = 0;
+        let sum_stt_tn = 0;
+        let sum_scn_tn = 0;
+        let sum_con_tn = 0;
 
-            function getBadgeAndProgress(tyleVal) {
-                let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-                return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>`;
+        let sum_kh_bhtn = 0;
+        let sum_th_bhtn = 0;
+        let sum_stt_bhtn = 0;
+        let sum_scn_bhtn = 0;
+        let sum_con_bhtn = 0;
+
+        let sum_ds_bhyt = 0;
+        let sum_th_bhyt = 0;
+
+        rawDataStore.forEach(
+            (item, index) => {
+
+                const chung = item.bhxh_chung;
+                const bb = item.bhxh_bb;
+                const tn = item.bhxh_tn;
+                const bhtn = item.bhtn;
+                const bhyt = item.bhyt;
+
+                sum_kh_chung += chung.kh;
+                sum_th_chung += chung.th;
+                sum_stt_chung += chung.stt;
+                sum_scn_chung += chung.scn;
+                sum_con_chung += chung.con;
+
+                sum_kh_bb += bb.kh;
+                sum_th_bb += bb.th;
+                sum_stt_bb += bb.stt;
+                sum_scn_bb += bb.scn;
+                sum_con_bb += bb.con;
+
+                sum_kh_tn += tn.kh;
+                sum_th_tn += tn.th;
+                sum_stt_tn += tn.stt;
+                sum_scn_tn += tn.scn;
+                sum_con_tn += tn.con;
+
+                sum_kh_bhtn += bhtn.kh;
+                sum_th_bhtn += bhtn.th;
+                sum_stt_bhtn += bhtn.stt;
+                sum_scn_bhtn += bhtn.scn;
+                sum_con_bhtn += bhtn.con;
+
+                sum_ds_bhyt += bhyt.kh;
+                sum_th_bhyt += bhyt.th;
+
+                const htmlChung =
+                    getBadgeAndProgress(chung.tyle);
+
+                const htmlBB =
+                    getBadgeAndProgress(bb.tyle);
+
+                const htmlTN =
+                    getBadgeAndProgress(tn.tyle);
+
+                const htmlBHTN =
+                    getBadgeAndProgress(bhtn.tyle);
+
+                const htmlBHYT =
+                    getBadgeAndProgress(bhyt.tyle);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="text-center fw-bold sticky-col-stt">
+                            ${index + 1}
+                        </td>
+
+                        <td class="fw-bold sticky-col-xa">
+                            ${escapeHtml(item.ten)}
+                        </td>
+
+                        <!-- BHXH Chung -->
+                        <td class="text-end fw-bold group-chung">
+                            ${formatDauCham(chung.kh)}
+                        </td>
+                        <td class="text-end fw-bold group-chung">
+                            ${formatDauCham(chung.th)}
+                        </td>
+                        <td class="text-end group-chung">
+                            ${formatSigned(chung.stt)}
+                        </td>
+                        <td class="text-end group-chung">
+                            ${formatSigned(chung.scn)}
+                        </td>
+                        <td class="text-end group-chung">
+                            ${formatDauCham(chung.con)}
+                        </td>
+                        <td class="text-center group-chung border-group-end">
+                            ${htmlChung}
+                        </td>
+
+                        <!-- BHXH BB -->
+                        <td class="text-end group-bb">
+                            ${formatDauCham(bb.kh)}
+                        </td>
+                        <td class="text-end group-bb">
+                            ${formatDauCham(bb.th)}
+                        </td>
+                        <td class="text-end group-bb">
+                            ${formatSigned(bb.stt)}
+                        </td>
+                        <td class="text-end group-bb">
+                            ${formatSigned(bb.scn)}
+                        </td>
+                        <td class="text-end group-bb">
+                            ${formatDauCham(bb.con)}
+                        </td>
+                        <td class="text-center group-bb border-group-end">
+                            ${htmlBB}
+                        </td>
+
+                        <!-- BHXH TN -->
+                        <td class="text-end group-tn">
+                            ${formatDauCham(tn.kh)}
+                        </td>
+                        <td class="text-end group-tn">
+                            ${formatDauCham(tn.th)}
+                        </td>
+                        <td class="text-end group-tn">
+                            ${formatSigned(tn.stt)}
+                        </td>
+                        <td class="text-end group-tn">
+                            ${formatSigned(tn.scn)}
+                        </td>
+                        <td class="text-end group-tn">
+                            ${formatDauCham(tn.con)}
+                        </td>
+                        <td class="text-center group-tn border-group-end">
+                            ${htmlTN}
+                        </td>
+
+                        <!-- BHTN -->
+                        <td class="text-end group-bhtn">
+                            ${formatDauCham(bhtn.kh)}
+                        </td>
+                        <td class="text-end group-bhtn">
+                            ${formatDauCham(bhtn.th)}
+                        </td>
+                        <td class="text-end group-bhtn">
+                            ${formatSigned(bhtn.stt)}
+                        </td>
+                        <td class="text-end group-bhtn">
+                            ${formatSigned(bhtn.scn)}
+                        </td>
+                        <td class="text-end group-bhtn">
+                            ${formatDauCham(bhtn.con)}
+                        </td>
+                        <td class="text-center group-bhtn border-group-end">
+                            ${htmlBHTN}
+                        </td>
+
+                        <!-- BHYT -->
+                        <td class="text-end group-bhyt">
+                            ${formatDauCham(bhyt.kh)}
+                        </td>
+                        <td class="text-end group-bhyt">
+                            ${formatDauCham(bhyt.th)}
+                        </td>
+                        <td class="text-center group-bhyt">
+                            ${htmlBHYT}
+                        </td>
+                    </tr>
+                `;
             }
+        );
 
-            let htmlChung = getBadgeAndProgress(chung.tyle);
-            let htmlBB = getBadgeAndProgress(bb.tyle);
-            let htmlTN = getBadgeAndProgress(tn.tyle);
-            let htmlBHTN = getBadgeAndProgress(bhtn.tyle);
-            let htmlBHYT = getBadgeAndProgress(bhyt.tyle);
+        const totalTyleChung =
+            sum_kh_chung > 0
+                ? (sum_th_chung / sum_kh_chung) * 100
+                : 0;
 
-            tbody.innerHTML += `
-                <tr>
-                    <td class="text-center fw-bold sticky-col-stt">${index + 1}</td>
-                    <td class="fw-bold sticky-col-xa">${item.ten}</td>
-                    <!-- BHXH Chung -->
-                    <td class="text-end fw-bold group-chung">${formatDauCham(chung.kh)}</td>
-                    <td class="text-end fw-bold group-chung">${formatDauCham(chung.th)}</td>
-                    <td class="text-end group-chung">${formatDauCham(chung.stt)}</td>
-                    <td class="text-end group-chung">${formatDauCham(chung.scn)}</td>
-                    <td class="text-end group-chung">${formatDauCham(chung.con)}</td>
-                    <td class="text-center group-chung border-group-end">${htmlChung}</td>
-                    <!-- BHXH Bắt buộc -->
-                    <td class="text-end group-bb">${formatDauCham(bb.kh)}</td>
-                    <td class="text-end group-bb">${formatDauCham(bb.th)}</td>
-                    <td class="text-end group-bb">${formatDauCham(bb.stt)}</td>
-                    <td class="text-end group-bb">${formatDauCham(bb.scn)}</td>
-                    <td class="text-end group-bb">${formatDauCham(bb.con)}</td>
-                    <td class="text-center group-bb border-group-end">${htmlBB}</td>
-                    <!-- BHXH Tự nguyện -->
-                    <td class="text-end group-tn">${formatDauCham(tn.kh)}</td>
-                    <td class="text-end group-tn">${formatDauCham(tn.th)}</td>
-                    <td class="text-end group-tn">${formatDauCham(tn.stt)}</td>
-                    <td class="text-end group-tn">${formatDauCham(tn.scn)}</td>
-                    <td class="text-end group-tn">${formatDauCham(tn.con)}</td>
-                    <td class="text-center group-tn border-group-end">${htmlTN}</td>
-                    <!-- BHTN -->
-                    <td class="text-end group-bhtn">${formatDauCham(bhtn.kh)}</td>
-                    <td class="text-end group-bhtn">${formatDauCham(bhtn.th)}</td>
-                    <td class="text-end group-bhtn">${formatDauCham(bhtn.stt)}</td>
-                    <td class="text-end group-bhtn">${formatDauCham(bhtn.scn)}</td>
-                    <td class="text-end group-bhtn">${formatDauCham(bhtn.con)}</td>
-                    <td class="text-center group-bhtn border-group-end">${htmlBHTN}</td>
-                    <!-- BHYT -->
-                    <td class="text-end group-bhyt">${formatDauCham(bhyt.kh)}</td>
-                    <td class="text-end group-bhyt">${formatDauCham(bhyt.th)}</td>
-                    <td class="text-center group-bhyt">${htmlBHYT}</td>
-                </tr>
-            `;
-        });
+        const totalTyleBB =
+            sum_kh_bb > 0
+                ? (sum_th_bb / sum_kh_bb) * 100
+                : 0;
 
-        let totalTyleChung = sum_kh_chung > 0 ? ((sum_th_chung / sum_kh_chung) * 100) : 0;
-        let totalTyleBB = sum_kh_bb > 0 ? ((sum_th_bb / sum_kh_bb) * 100) : 0;
-        let totalTyleTN = sum_kh_tn > 0 ? ((sum_th_tn / sum_kh_tn) * 100) : 0;
-        let totalTyleBHTN = sum_kh_bhtn > 0 ? ((sum_th_bhtn / sum_kh_bhtn) * 100) : 0;
-        let totalTyleBHYT = sum_ds_bhyt > 0 ? ((sum_th_bhyt / sum_ds_bhyt) * 100) : 0;
+        const totalTyleTN =
+            sum_kh_tn > 0
+                ? (sum_th_tn / sum_kh_tn) * 100
+                : 0;
 
-        function getBadgeOnly(tyleVal) {
-            let badgeClass = tyleVal < 90 ? 'bg-danger text-white' : (tyleVal < 100 ? 'bg-warning text-dark' : 'bg-success text-white');
-            return `<span class="badge ${badgeClass}">${tyleVal.toFixed(2)}%</span>`;
-        }
+        const totalTyleBHTN =
+            sum_kh_bhtn > 0
+                ? (sum_th_bhtn / sum_kh_bhtn) * 100
+                : 0;
 
-        // Hàng tổng cộng không dùng sticky-col để tránh che cột số liệu khi cuộn ngang
+        const totalTyleBHYT =
+            sum_ds_bhyt > 0
+                ? (sum_th_bhyt / sum_ds_bhyt) * 100
+                : 0;
+
         tbody.innerHTML += `
             <tr class="table-secondary fw-bold">
-                <td colspan="2" class="text-center text-uppercase" style="background-color: #e2e8f0 !important;">TỔNG CỘNG</td>
-                <td class="text-end group-chung">${formatDauCham(sum_kh_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_th_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_stt_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_scn_chung)}</td><td class="text-end group-chung">${formatDauCham(sum_con_chung)}</td><td class="text-center group-chung border-group-end">${getBadgeOnly(totalTyleChung)}</td>
-                <td class="text-end group-bb">${formatDauCham(sum_kh_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_th_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_stt_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_scn_bb)}</td><td class="text-end group-bb">${formatDauCham(sum_con_bb)}</td><td class="text-center group-bb border-group-end">${getBadgeOnly(totalTyleBB)}</td>
-                <td class="text-end group-tn">${formatDauCham(sum_kh_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_th_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_stt_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_scn_tn)}</td><td class="text-end group-tn">${formatDauCham(sum_con_tn)}</td><td class="text-center group-tn border-group-end">${getBadgeOnly(totalTyleTN)}</td>
-                <td class="text-end group-bhtn">${formatDauCham(sum_kh_bhtn)}</td><td class="text-end group-bhtn">${formatDauCham(sum_th_bhtn)}</td><td class="text-end group-bhtn">${formatDauCham(sum_stt_bhtn)}</td><td class="text-end group-bhtn">${formatDauCham(sum_scn_bhtn)}</td><td class="text-end group-bhtn">${formatDauCham(sum_con_bhtn)}</td><td class="text-center group-bhtn border-group-end">${getBadgeOnly(totalTyleBHTN)}</td>
-                <td class="text-end group-bhyt">${formatDauCham(sum_ds_bhyt)}</td><td class="text-end group-bhyt">${formatDauCham(sum_th_bhyt)}</td><td class="text-center group-bhyt">${getBadgeOnly(totalTyleBHYT)}</td>
+
+                <td colspan="2"
+                    class="text-center text-uppercase"
+                    style="background-color:#e2e8f0 !important;">
+                    TỔNG CỘNG
+                </td>
+
+                <!-- Chung -->
+                <td class="text-end group-chung">
+                    ${formatDauCham(sum_kh_chung)}
+                </td>
+                <td class="text-end group-chung">
+                    ${formatDauCham(sum_th_chung)}
+                </td>
+                <td class="text-end group-chung">
+                    ${formatSigned(sum_stt_chung)}
+                </td>
+                <td class="text-end group-chung">
+                    ${formatSigned(sum_scn_chung)}
+                </td>
+                <td class="text-end group-chung">
+                    ${formatDauCham(sum_con_chung)}
+                </td>
+                <td class="text-center group-chung border-group-end">
+                    ${getBadgeOnly(totalTyleChung)}
+                </td>
+
+                <!-- BB -->
+                <td class="text-end group-bb">
+                    ${formatDauCham(sum_kh_bb)}
+                </td>
+                <td class="text-end group-bb">
+                    ${formatDauCham(sum_th_bb)}
+                </td>
+                <td class="text-end group-bb">
+                    ${formatSigned(sum_stt_bb)}
+                </td>
+                <td class="text-end group-bb">
+                    ${formatSigned(sum_scn_bb)}
+                </td>
+                <td class="text-end group-bb">
+                    ${formatDauCham(sum_con_bb)}
+                </td>
+                <td class="text-center group-bb border-group-end">
+                    ${getBadgeOnly(totalTyleBB)}
+                </td>
+
+                <!-- TN -->
+                <td class="text-end group-tn">
+                    ${formatDauCham(sum_kh_tn)}
+                </td>
+                <td class="text-end group-tn">
+                    ${formatDauCham(sum_th_tn)}
+                </td>
+                <td class="text-end group-tn">
+                    ${formatSigned(sum_stt_tn)}
+                </td>
+                <td class="text-end group-tn">
+                    ${formatSigned(sum_scn_tn)}
+                </td>
+                <td class="text-end group-tn">
+                    ${formatDauCham(sum_con_tn)}
+                </td>
+                <td class="text-center group-tn border-group-end">
+                    ${getBadgeOnly(totalTyleTN)}
+                </td>
+
+                <!-- BHTN -->
+                <td class="text-end group-bhtn">
+                    ${formatDauCham(sum_kh_bhtn)}
+                </td>
+                <td class="text-end group-bhtn">
+                    ${formatDauCham(sum_th_bhtn)}
+                </td>
+                <td class="text-end group-bhtn">
+                    ${formatSigned(sum_stt_bhtn)}
+                </td>
+                <td class="text-end group-bhtn">
+                    ${formatSigned(sum_scn_bhtn)}
+                </td>
+                <td class="text-end group-bhtn">
+                    ${formatDauCham(sum_con_bhtn)}
+                </td>
+                <td class="text-center group-bhtn border-group-end">
+                    ${getBadgeOnly(totalTyleBHTN)}
+                </td>
+
+                <!-- BHYT -->
+                <td class="text-end group-bhyt">
+                    ${formatDauCham(sum_ds_bhyt)}
+                </td>
+                <td class="text-end group-bhyt">
+                    ${formatDauCham(sum_th_bhyt)}
+                </td>
+                <td class="text-center group-bhyt">
+                    ${getBadgeOnly(totalTyleBHYT)}
+                </td>
+
             </tr>
         `;
     }
 
-    function chonXaXem() { xemTheoXaCuThe = (document.getElementById('selectXa').value !== 'all'); veBieuDo(); }
+    function getBadgeAndProgress(tyleVal) {
+
+        const n =
+            Number(tyleVal) || 0;
+
+        const badgeClass =
+            n < 90
+                ? 'bg-danger text-white'
+                : (
+                    n < 100
+                        ? 'bg-warning text-dark'
+                        : 'bg-success text-white'
+                );
+
+        return `
+            <span class="badge ${badgeClass}">
+                ${n.toFixed(2)}%
+            </span>
+        `;
+    }
+
+    function getBadgeOnly(tyleVal) {
+
+        const n =
+            Number(tyleVal) || 0;
+
+        const badgeClass =
+            n < 90
+                ? 'bg-danger text-white'
+                : (
+                    n < 100
+                        ? 'bg-warning text-dark'
+                        : 'bg-success text-white'
+                );
+
+        return `
+            <span class="badge ${badgeClass}">
+                ${n.toFixed(2)}%
+            </span>
+        `;
+    }
+
+    function chonXaXem() {
+
+        xemTheoXaCuThe =
+            (
+                document.getElementById('selectXa').value !== 'all'
+            );
+
+        veBieuDo();
+    }
+
     function chuyenMuc(muc, btn) {
-        currentMuc = muc; xemTheoXaCuThe = false; document.getElementById('selectXa').value = 'all';
-        document.querySelectorAll('#chiTieuGroup button').forEach(b => { b.classList.remove('btn-primary'); b.classList.add('btn-outline-secondary'); });
-        btn.classList.remove('btn-outline-secondary'); btn.classList.add('btn-primary');
+
+        currentMuc =
+            muc;
+
+        xemTheoXaCuThe =
+            false;
+
+        document.getElementById(
+            'selectXa'
+        ).value = 'all';
+
+        document
+            .querySelectorAll(
+                '#chiTieuGroup button'
+            )
+            .forEach(b => {
+
+                b.classList.remove(
+                    'btn-primary'
+                );
+
+                b.classList.add(
+                    'btn-outline-secondary'
+                );
+            });
+
+        btn.classList.remove(
+            'btn-outline-secondary'
+        );
+
+        btn.classList.add(
+            'btn-primary'
+        );
+
         veBieuDo();
     }
 
     function veBieuDo() {
-        let selectedXa = document.getElementById('selectXa').value;
-        let chartContainer = document.getElementById('chartContainer');
-        chartContainer.innerHTML = '';
-        let titles = { 'bhxh_chung': '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG', 'bhxh_bb': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC', 'bhxh_tn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI TỰ NGUYỆN', 'bhtn': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP', 'bhyt': '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ' };
 
-        if (!xemTheoXaCuThe || selectedXa === 'all') {
-            document.getElementById('chartTitle').innerText = titles[currentMuc];
-            rawDataStore.forEach(item => {
-                let m = item[currentMuc]; let percentWidth = Math.max(5, Math.min(100, m.tyle));
-                let colorClass = m.tyle < 90 ? 'bg-danger-custom' : (m.tyle < 100 ? 'bg-warning-custom' : 'bg-success-custom');
-                chartContainer.innerHTML += `
-                    <div class="bar-row">
-                        <div class="bar-label">${item.ten}</div>
-                        <div class="bar-container"><div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">${formatDauCham(m.th)} / ${formatDauCham(m.kh)} (${m.tyle.toFixed(2)}%)</div></div>
-                    </div>`;
-            });
-        } else {
-            let foundItem = rawDataStore.find(x => x.ten === selectedXa);
-            if (foundItem) {
-                document.getElementById('chartTitle').innerText = `📊 CHI TIẾT CÁC CHỈ TIÊU TẠI: ${selectedXa.toUpperCase()}`;
-                [{key: 'bhxh_chung', name: 'BHXH Chung'}, {key: 'bhxh_bb', name: 'BHXH Bắt Buộc'}, {key: 'bhxh_tn', name: 'BHXH Tự Nguyện'}, {key: 'bhtn', name: 'Bảo Hiểm Thất Nghiệp'}, {key: 'bhyt', name: 'Bảo Hiểm Y Tế'}].forEach(kObj => {
-                    let m = foundItem[kObj.key]; let percentWidth = Math.max(5, Math.min(100, m.tyle));
-                    let colorClass = m.tyle < 90 ? 'bg-danger-custom' : (m.tyle < 100 ? 'bg-warning-custom' : 'bg-success-custom');
+        const selectedXa =
+            document.getElementById(
+                'selectXa'
+            ).value;
+
+        const chartContainer =
+            document.getElementById(
+                'chartContainer'
+            );
+
+        chartContainer.innerHTML = '';
+
+        const titles = {
+
+            bhxh_chung:
+                '📊 BIỂU ĐỒ SO SÁNH: BHXH CHUNG',
+
+            bhxh_bb:
+                '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM XÃ HỘI BẮT BUỘC',
+
+            bhxh_tn:
+                '📊 BIỂU ĐỒ SO SÁNH: BHXH TỰ NGUYỆN',
+
+            bhtn:
+                '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM THẤT NGHIỆP',
+
+            bhyt:
+                '📊 BIỂU ĐỒ SO SÁNH: BẢO HIỂM Y TẾ'
+        };
+
+        if (
+            !xemTheoXaCuThe ||
+            selectedXa === 'all'
+        ) {
+
+            document.getElementById(
+                'chartTitle'
+            ).innerText =
+                titles[currentMuc] +
+                (
+                    currentReport
+                        ? ' — ' + currentReport.mocBaoCao
+                        : ''
+                );
+
+            rawDataStore.forEach(
+                item => {
+
+                    const m =
+                        item[currentMuc];
+
+                    const percentWidth =
+                        Math.max(
+                            5,
+                            Math.min(
+                                100,
+                                Number(m.tyle) || 0
+                            )
+                        );
+
+                    const colorClass =
+                        m.tyle < 90
+                            ? 'bg-danger-custom'
+                            : (
+                                m.tyle < 100
+                                    ? 'bg-warning-custom'
+                                    : 'bg-success-custom'
+                            );
+
                     chartContainer.innerHTML += `
                         <div class="bar-row">
-                            <div class="bar-label" style="width: 250px;">${kObj.name}</div>
-                            <div class="bar-container"><div class="bar-actual ${colorClass}" style="width: ${percentWidth}%;">${formatDauCham(m.th)} / ${formatDauCham(m.kh)} (${m.tyle.toFixed(2)}%)</div></div>
-                        </div>`;
-                });
-            }
-        }
-    }
-    function xuatPDF() { window.print(); }
 
-    /* ================= SCRIPT NỢ NSNN ================= */
-    let globalNsnnWorkbook = null;
-    const EXCEL_FILE_NSNN_URL = 'CHI TIET XA NO NSNN.xlsx';
+                            <div class="bar-label">
+                                ${escapeHtml(item.ten)}
+                            </div>
 
-    async function taiFileNsnn() {
-        try {
-            let responseNsnn = await fetch(EXCEL_FILE_NSNN_URL);
-            if (!responseNsnn.ok) {
-                throw new Error(`Không thể kết nối đến file NSNN (Mã lỗi: ${responseNsnn.status})`);
-            }
-            let bufferNsnn = await responseNsnn.arrayBuffer();
-            globalNsnnWorkbook = XLSX.read(bufferNsnn, { type: 'array' });
-            
-            hienThiBangTongHopNsnn();
-            khoiTaoDropdownXaNsnn();
-        } catch (error) {
-            console.error("Lỗi tải file NSNN:", error);
-            let errEl = document.getElementById('nsnnDisplayArea');
-            if(errEl) {
-                errEl.innerHTML = `<span class="text-danger">⚠️ Lỗi: Không tìm thấy file "${EXCEL_FILE_NSNN_URL}" trên server. Hãy đảm bảo file đã được upload cùng thư mục!</span>`;
-            }
-        }
-    }
+                            <div class="bar-container">
 
-    function cleanAndFormatNsnnHtml(htmlString) {
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(htmlString, 'text/html');
-        
-        let tables = doc.querySelectorAll('table');
-        tables.forEach(table => {
-            table.className = 'table table-bordered table-striped table-hover align-middle';
-            
-            let firstChildElem = table.previousElementSibling;
-            if (firstChildElem && firstChildElem.textContent.trim() === "1") {
-                firstChildElem.remove();
-            }
-            
-            let rows = table.querySelectorAll('tr');
-            if (rows.length > 0) {
-                rows.forEach((row, rIdx) => {
-                    let cells = row.querySelectorAll('th, td');
-                    
-                    if (rIdx === rows.length - 1 && cells.length > 0 && cells[0].textContent.trim() === "") {
-                        cells[0].textContent = "Tổng cộng";
-                        cells[0].style.fontWeight = "bold";
-                        cells[0].style.textAlign = "center";
-                    }
+                                <div
+                                    class="bar-actual ${colorClass}"
+                                    style="width:${percentWidth}%;">
+                                    ${formatDauCham(m.th)}
+                                    /
+                                    ${formatDauCham(m.kh)}
+                                    (${Number(m.tyle || 0).toFixed(2)}%)
+                                </div>
 
-                    cells.forEach(cell => {
-                        let text = cell.textContent.trim();
-                        if (/^[\d,.-]+$/.test(text) && text.includes(',')) {
-                            let cleanedNum = text.replace(/,/g, '');
-                            let numVal = parseFloat(cleanedNum);
-                            if (!isNaN(numVal)) {
-                                cell.textContent = formatDauCham(numVal);
-                            }
-                        }
-                    });
-                });
-            }
-        });
+                            </div>
 
-        doc.body.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() === "1") {
-                node.remove();
-            }
-        });
+                        </div>
+                    `;
+                }
+            );
 
-        return doc.body.innerHTML;
-    }
-
-    function hienThiBangTongHopNsnn() {
-        if (!globalNsnnWorkbook || !globalNsnnWorkbook.Sheets['TỔNG HỢP']) {
-            document.getElementById('nsnnDisplayArea').innerHTML = '<span class="text-danger">Không tìm thấy Sheet "TỔNG HỢP" trong file Excel NSNN!</span>';
-            return;
-        }
-        let sheet = globalNsnnWorkbook.Sheets['TỔNG HỢP'];
-        let rawHtml = XLSX.utils.sheet_to_html(sheet, { header: 1 });
-        let cleanedHtml = cleanAndFormatNsnnHtml(rawHtml);
-
-        document.getElementById('nsnnCardTitle').innerText = "CHI TIẾT NỢ NSNN THEO TỪNG XÃ";
-        document.getElementById('nsnnDisplayArea').innerHTML = `
-            <div class="table-responsive">${cleanedHtml}</div>
-        `;
-    }
-
-    function khoiTaoDropdownXaNsnn() {
-        if (!globalNsnnWorkbook) return;
-        let select = document.getElementById('xaSelectNsnn');
-        let sheetNames = globalNsnnWorkbook.SheetNames.filter(name => name !== 'TỔNG HỢP');
-        
-        sheetNames.forEach(name => {
-            let opt = document.createElement('option');
-            opt.value = name;
-            opt.textContent = name;
-            select.appendChild(opt);
-        });
-    }
-
-    function hienThiNoNsnnTheoLuaChon() {
-        let selectValue = document.getElementById('xaSelectNsnn').value;
-        let container = document.getElementById('nsnnDisplayArea');
-        
-        if (selectValue === 'tong_hop') {
-            hienThiBangTongHopNsnn();
-            return;
-        }
-
-        let sheet = globalNsnnWorkbook.Sheets[selectValue];
-        if (sheet) {
-            let rawHtml = XLSX.utils.sheet_to_html(sheet, { header: 1 });
-            let cleanedHtml = cleanAndFormatNsnnHtml(rawHtml);
-            container.innerHTML = `
-                <div class="table-responsive">${cleanedHtml}</div>
-            `;
         } else {
-            container.innerHTML = '<span class="text-danger">Không tìm thấy dữ liệu cho xã này.</span>';
+
+            const foundItem =
+                rawDataStore.find(
+                    x => x.ten === selectedXa
+                );
+
+            if (!foundItem) {
+                return;
+            }
+
+            document.getElementById(
+                'chartTitle'
+            ).innerText =
+                `📊 CHI TIẾT CÁC CHỈ TIÊU TẠI: ${selectedXa.toUpperCase()}`;
+
+            [
+                {
+                    key: 'bhxh_chung',
+                    name: 'BHXH Chung'
+                },
+                {
+                    key: 'bhxh_bb',
+                    name: 'BHXH Bắt Buộc'
+                },
+                {
+                    key: 'bhxh_tn',
+                    name: 'BHXH Tự Nguyện'
+                },
+                {
+                    key: 'bhtn',
+                    name: 'Bảo Hiểm Thất Nghiệp'
+                },
+                {
+                    key: 'bhyt',
+                    name: 'Bảo Hiểm Y Tế'
+                }
+            ].forEach(
+                obj => {
+
+                    const m =
+                        foundItem[obj.key];
+
+                    const percentWidth =
+                        Math.max(
+                            5,
+                            Math.min(
+                                100,
+                                Number(m.tyle) || 0
+                            )
+                        );
+
+                    const colorClass =
+                        m.tyle < 90
+                            ? 'bg-danger-custom'
+                            : (
+                                m.tyle < 100
+                                    ? 'bg-warning-custom'
+                                    : 'bg-success-custom'
+                            );
+
+                    chartContainer.innerHTML += `
+                        <div class="bar-row">
+
+                            <div
+                                class="bar-label"
+                                style="width:250px;">
+                                ${obj.name}
+                            </div>
+
+                            <div class="bar-container">
+
+                                <div
+                                    class="bar-actual ${colorClass}"
+                                    style="width:${percentWidth}%;">
+                                    ${formatDauCham(m.th)}
+                                    /
+                                    ${formatDauCham(m.kh)}
+                                    (${Number(m.tyle || 0).toFixed(2)}%)
+                                </div>
+
+                            </div>
+
+                        </div>
+                    `;
+                }
+            );
         }
+    }
+
+    function escapeHtml(value) {
+
+        return String(
+            value == null
+                ? ''
+                : value
+        )
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function xuatPDF() {
+        window.print();
     }
 </script>
 </body>
