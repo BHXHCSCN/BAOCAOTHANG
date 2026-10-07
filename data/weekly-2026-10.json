@@ -49,6 +49,54 @@
           "bbLK": 1575,
           "tnLK": 1597,
           "bhtnLK": 1448
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1575,
+          "tnLK": 1597,
+          "bhtnLK": 1448
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1575,
+          "tnLK": 1597,
+          "bhtnLK": 1448
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1575,
+          "tnLK": 1597,
+          "bhtnLK": 1448
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1575,
+          "tnLK": 1597,
+          "bhtnLK": 1448
         }
       ],
       "bhxhBB": {
@@ -94,6 +142,54 @@
           "bbPS": 5,
           "tnPS": -34,
           "bhtnPS": 4,
+          "bbLK": 509,
+          "tnLK": 756,
+          "bhtnLK": 396
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 509,
+          "tnLK": 756,
+          "bhtnLK": 396
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 509,
+          "tnLK": 756,
+          "bhtnLK": 396
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 509,
+          "tnLK": 756,
+          "bhtnLK": 396
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
           "bbLK": 509,
           "tnLK": 756,
           "bhtnLK": 396
@@ -145,6 +241,54 @@
           "bbLK": 514,
           "tnLK": 812,
           "bhtnLK": 423
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 514,
+          "tnLK": 812,
+          "bhtnLK": 423
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 514,
+          "tnLK": 812,
+          "bhtnLK": 423
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 514,
+          "tnLK": 812,
+          "bhtnLK": 423
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 514,
+          "tnLK": 812,
+          "bhtnLK": 423
         }
       ],
       "bhxhBB": {
@@ -189,6 +333,54 @@
           "ngayChot": "2026-10-04",
           "bbPS": 0,
           "tnPS": -91,
+          "bhtnPS": 0,
+          "bbLK": 1144,
+          "tnLK": 1666,
+          "bhtnLK": 1035
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1144,
+          "tnLK": 1666,
+          "bhtnLK": 1035
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1144,
+          "tnLK": 1666,
+          "bhtnLK": 1035
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1144,
+          "tnLK": 1666,
+          "bhtnLK": 1035
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
           "bhtnPS": 0,
           "bbLK": 1144,
           "tnLK": 1666,
@@ -241,6 +433,54 @@
           "bbLK": 970,
           "tnLK": 1061,
           "bhtnLK": 857
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 970,
+          "tnLK": 1061,
+          "bhtnLK": 857
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 970,
+          "tnLK": 1061,
+          "bhtnLK": 857
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 970,
+          "tnLK": 1061,
+          "bhtnLK": 857
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 970,
+          "tnLK": 1061,
+          "bhtnLK": 857
         }
       ],
       "bhxhBB": {
@@ -286,6 +526,54 @@
           "bbPS": 1,
           "tnPS": -42,
           "bhtnPS": 1,
+          "bbLK": 529,
+          "tnLK": 1070,
+          "bhtnLK": 417
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 529,
+          "tnLK": 1070,
+          "bhtnLK": 417
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 529,
+          "tnLK": 1070,
+          "bhtnLK": 417
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 529,
+          "tnLK": 1070,
+          "bhtnLK": 417
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
           "bbLK": 529,
           "tnLK": 1070,
           "bhtnLK": 417
@@ -337,6 +625,54 @@
           "bbLK": 532,
           "tnLK": 1100,
           "bhtnLK": 437
+        },
+        {
+          "tuan": 2,
+          "start": "2026-10-05",
+          "end": "2026-10-11",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 532,
+          "tnLK": 1100,
+          "bhtnLK": 437
+        },
+        {
+          "tuan": 3,
+          "start": "2026-10-12",
+          "end": "2026-10-18",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 532,
+          "tnLK": 1100,
+          "bhtnLK": 437
+        },
+        {
+          "tuan": 4,
+          "start": "2026-10-19",
+          "end": "2026-10-25",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 532,
+          "tnLK": 1100,
+          "bhtnLK": 437
+        },
+        {
+          "tuan": 5,
+          "start": "2026-10-26",
+          "end": "2026-10-31",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 532,
+          "tnLK": 1100,
+          "bhtnLK": 437
         }
       ],
       "bhxhBB": {
@@ -372,5 +708,5 @@
       }
     }
   ],
-  "source": "LICH_SU_TUAN + SO_DAU_KY + LICH_SU_THANG + CHI_TIEU"
+  "source": "DU_LIEU_TUAN + LICH_SU_TUAN + SO_DAU_KY + CHI_TIEU"
 }
