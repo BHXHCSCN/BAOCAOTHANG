@@ -1,0 +1,990 @@
+{
+  "ok": true,
+  "nam": 2026,
+  "thang": 10,
+  "soDonVi": 7,
+  "ngayChot": "04/10/2026",
+  "tuan": 1,
+  "kyBaoCao": "Tháng 10/2026",
+  "mocBaoCao": "Số liệu đến ngày 04/10/2026",
+  "units": [
+    {
+      "ten": "Cái Nước",
+      "bhxh_chung": {
+        "kh": 3487,
+        "th": 3172,
+        "stt": -56,
+        "scn": -150,
+        "con": 315,
+        "tyle": 90.97
+      },
+      "bhxh_bb": {
+        "kh": 1625,
+        "th": 1575,
+        "stt": -1,
+        "scn": -77,
+        "con": 50,
+        "tyle": 96.92
+      },
+      "bhxh_tn": {
+        "kh": 1862,
+        "th": 1597,
+        "stt": -55,
+        "scn": -73,
+        "con": 265,
+        "tyle": 85.77
+      },
+      "bhtn": {
+        "kh": 1420,
+        "th": 1448,
+        "stt": 1391,
+        "scn": 3,
+        "con": -28,
+        "tyle": 101.97
+      },
+      "bhyt": {
+        "kh": 39379,
+        "th": 39379,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Hưng Mỹ",
+      "bhxh_chung": {
+        "kh": 2112,
+        "th": 1265,
+        "stt": -29,
+        "scn": 188,
+        "con": 847,
+        "tyle": 59.9
+      },
+      "bhxh_bb": {
+        "kh": 815,
+        "th": 509,
+        "stt": 5,
+        "scn": 22,
+        "con": 306,
+        "tyle": 62.45
+      },
+      "bhxh_tn": {
+        "kh": 1297,
+        "th": 756,
+        "stt": -34,
+        "scn": 166,
+        "con": 541,
+        "tyle": 58.29
+      },
+      "bhtn": {
+        "kh": 661,
+        "th": 396,
+        "stt": 394,
+        "scn": 46,
+        "con": 265,
+        "tyle": 59.91
+      },
+      "bhyt": {
+        "kh": 29921,
+        "th": 29921,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Tân Hưng",
+      "bhxh_chung": {
+        "kh": 1769,
+        "th": 1326,
+        "stt": -20,
+        "scn": -29,
+        "con": 443,
+        "tyle": 74.96
+      },
+      "bhxh_bb": {
+        "kh": 652,
+        "th": 514,
+        "stt": -2,
+        "scn": -25,
+        "con": 138,
+        "tyle": 78.83
+      },
+      "bhxh_tn": {
+        "kh": 1117,
+        "th": 812,
+        "stt": -18,
+        "scn": -4,
+        "con": 305,
+        "tyle": 72.69
+      },
+      "bhtn": {
+        "kh": 565,
+        "th": 423,
+        "stt": 433,
+        "scn": 26,
+        "con": 142,
+        "tyle": 74.87
+      },
+      "bhyt": {
+        "kh": 25763,
+        "th": 25763,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Lương Thế Trân",
+      "bhxh_chung": {
+        "kh": 3194,
+        "th": 2810,
+        "stt": -91,
+        "scn": 258,
+        "con": 384,
+        "tyle": 87.98
+      },
+      "bhxh_bb": {
+        "kh": 1151,
+        "th": 1144,
+        "stt": 0,
+        "scn": 43,
+        "con": 7,
+        "tyle": 99.39
+      },
+      "bhxh_tn": {
+        "kh": 2043,
+        "th": 1666,
+        "stt": -91,
+        "scn": 215,
+        "con": 377,
+        "tyle": 81.55
+      },
+      "bhtn": {
+        "kh": 978,
+        "th": 1035,
+        "stt": 991,
+        "scn": 125,
+        "con": -57,
+        "tyle": 105.83
+      },
+      "bhyt": {
+        "kh": 51742,
+        "th": 51742,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Cái Đôi Vàm",
+      "bhxh_chung": {
+        "kh": 2410,
+        "th": 2031,
+        "stt": -27,
+        "scn": 16,
+        "con": 379,
+        "tyle": 84.27
+      },
+      "bhxh_bb": {
+        "kh": 1206,
+        "th": 970,
+        "stt": -1,
+        "scn": -38,
+        "con": 236,
+        "tyle": 80.43
+      },
+      "bhxh_tn": {
+        "kh": 1204,
+        "th": 1061,
+        "stt": -26,
+        "scn": 54,
+        "con": 143,
+        "tyle": 88.12
+      },
+      "bhtn": {
+        "kh": 1005,
+        "th": 857,
+        "stt": 863,
+        "scn": -57,
+        "con": 148,
+        "tyle": 85.27
+      },
+      "bhyt": {
+        "kh": 27773,
+        "th": 27773,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Nguyễn Việt Khái",
+      "bhxh_chung": {
+        "kh": 1848,
+        "th": 1599,
+        "stt": -41,
+        "scn": 155,
+        "con": 249,
+        "tyle": 86.53
+      },
+      "bhxh_bb": {
+        "kh": 591,
+        "th": 529,
+        "stt": 1,
+        "scn": 65,
+        "con": 62,
+        "tyle": 89.51
+      },
+      "bhxh_tn": {
+        "kh": 1257,
+        "th": 1070,
+        "stt": -42,
+        "scn": 90,
+        "con": 187,
+        "tyle": 85.12
+      },
+      "bhtn": {
+        "kh": 447,
+        "th": 417,
+        "stt": 418,
+        "scn": 45,
+        "con": 30,
+        "tyle": 93.29
+      },
+      "bhyt": {
+        "kh": 28987,
+        "th": 28987,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Phú Tân",
+      "bhxh_chung": {
+        "kh": 1613,
+        "th": 1632,
+        "stt": -80,
+        "scn": 131,
+        "con": -19,
+        "tyle": 101.18
+      },
+      "bhxh_bb": {
+        "kh": 541,
+        "th": 532,
+        "stt": -2,
+        "scn": 71,
+        "con": 9,
+        "tyle": 98.34
+      },
+      "bhxh_tn": {
+        "kh": 1072,
+        "th": 1100,
+        "stt": -78,
+        "scn": 60,
+        "con": -28,
+        "tyle": 102.61
+      },
+      "bhtn": {
+        "kh": 439,
+        "th": 437,
+        "stt": 439,
+        "scn": 54,
+        "con": 2,
+        "tyle": 99.54
+      },
+      "bhyt": {
+        "kh": 24726,
+        "th": 24726,
+        "tyle": 100
+      }
+    }
+  ],
+  "donVi": [
+    {
+      "ten": "Cái Nước",
+      "bhxh_chung": {
+        "kh": 3487,
+        "th": 3172,
+        "stt": -56,
+        "scn": -150,
+        "con": 315,
+        "tyle": 90.97
+      },
+      "bhxh_bb": {
+        "kh": 1625,
+        "th": 1575,
+        "stt": -1,
+        "scn": -77,
+        "con": 50,
+        "tyle": 96.92
+      },
+      "bhxh_tn": {
+        "kh": 1862,
+        "th": 1597,
+        "stt": -55,
+        "scn": -73,
+        "con": 265,
+        "tyle": 85.77
+      },
+      "bhtn": {
+        "kh": 1420,
+        "th": 1448,
+        "stt": 1391,
+        "scn": 3,
+        "con": -28,
+        "tyle": 101.97
+      },
+      "bhyt": {
+        "kh": 39379,
+        "th": 39379,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Hưng Mỹ",
+      "bhxh_chung": {
+        "kh": 2112,
+        "th": 1265,
+        "stt": -29,
+        "scn": 188,
+        "con": 847,
+        "tyle": 59.9
+      },
+      "bhxh_bb": {
+        "kh": 815,
+        "th": 509,
+        "stt": 5,
+        "scn": 22,
+        "con": 306,
+        "tyle": 62.45
+      },
+      "bhxh_tn": {
+        "kh": 1297,
+        "th": 756,
+        "stt": -34,
+        "scn": 166,
+        "con": 541,
+        "tyle": 58.29
+      },
+      "bhtn": {
+        "kh": 661,
+        "th": 396,
+        "stt": 394,
+        "scn": 46,
+        "con": 265,
+        "tyle": 59.91
+      },
+      "bhyt": {
+        "kh": 29921,
+        "th": 29921,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Tân Hưng",
+      "bhxh_chung": {
+        "kh": 1769,
+        "th": 1326,
+        "stt": -20,
+        "scn": -29,
+        "con": 443,
+        "tyle": 74.96
+      },
+      "bhxh_bb": {
+        "kh": 652,
+        "th": 514,
+        "stt": -2,
+        "scn": -25,
+        "con": 138,
+        "tyle": 78.83
+      },
+      "bhxh_tn": {
+        "kh": 1117,
+        "th": 812,
+        "stt": -18,
+        "scn": -4,
+        "con": 305,
+        "tyle": 72.69
+      },
+      "bhtn": {
+        "kh": 565,
+        "th": 423,
+        "stt": 433,
+        "scn": 26,
+        "con": 142,
+        "tyle": 74.87
+      },
+      "bhyt": {
+        "kh": 25763,
+        "th": 25763,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Lương Thế Trân",
+      "bhxh_chung": {
+        "kh": 3194,
+        "th": 2810,
+        "stt": -91,
+        "scn": 258,
+        "con": 384,
+        "tyle": 87.98
+      },
+      "bhxh_bb": {
+        "kh": 1151,
+        "th": 1144,
+        "stt": 0,
+        "scn": 43,
+        "con": 7,
+        "tyle": 99.39
+      },
+      "bhxh_tn": {
+        "kh": 2043,
+        "th": 1666,
+        "stt": -91,
+        "scn": 215,
+        "con": 377,
+        "tyle": 81.55
+      },
+      "bhtn": {
+        "kh": 978,
+        "th": 1035,
+        "stt": 991,
+        "scn": 125,
+        "con": -57,
+        "tyle": 105.83
+      },
+      "bhyt": {
+        "kh": 51742,
+        "th": 51742,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Cái Đôi Vàm",
+      "bhxh_chung": {
+        "kh": 2410,
+        "th": 2031,
+        "stt": -27,
+        "scn": 16,
+        "con": 379,
+        "tyle": 84.27
+      },
+      "bhxh_bb": {
+        "kh": 1206,
+        "th": 970,
+        "stt": -1,
+        "scn": -38,
+        "con": 236,
+        "tyle": 80.43
+      },
+      "bhxh_tn": {
+        "kh": 1204,
+        "th": 1061,
+        "stt": -26,
+        "scn": 54,
+        "con": 143,
+        "tyle": 88.12
+      },
+      "bhtn": {
+        "kh": 1005,
+        "th": 857,
+        "stt": 863,
+        "scn": -57,
+        "con": 148,
+        "tyle": 85.27
+      },
+      "bhyt": {
+        "kh": 27773,
+        "th": 27773,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Nguyễn Việt Khái",
+      "bhxh_chung": {
+        "kh": 1848,
+        "th": 1599,
+        "stt": -41,
+        "scn": 155,
+        "con": 249,
+        "tyle": 86.53
+      },
+      "bhxh_bb": {
+        "kh": 591,
+        "th": 529,
+        "stt": 1,
+        "scn": 65,
+        "con": 62,
+        "tyle": 89.51
+      },
+      "bhxh_tn": {
+        "kh": 1257,
+        "th": 1070,
+        "stt": -42,
+        "scn": 90,
+        "con": 187,
+        "tyle": 85.12
+      },
+      "bhtn": {
+        "kh": 447,
+        "th": 417,
+        "stt": 418,
+        "scn": 45,
+        "con": 30,
+        "tyle": 93.29
+      },
+      "bhyt": {
+        "kh": 28987,
+        "th": 28987,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Phú Tân",
+      "bhxh_chung": {
+        "kh": 1613,
+        "th": 1632,
+        "stt": -80,
+        "scn": 131,
+        "con": -19,
+        "tyle": 101.18
+      },
+      "bhxh_bb": {
+        "kh": 541,
+        "th": 532,
+        "stt": -2,
+        "scn": 71,
+        "con": 9,
+        "tyle": 98.34
+      },
+      "bhxh_tn": {
+        "kh": 1072,
+        "th": 1100,
+        "stt": -78,
+        "scn": 60,
+        "con": -28,
+        "tyle": 102.61
+      },
+      "bhtn": {
+        "kh": 439,
+        "th": 437,
+        "stt": 439,
+        "scn": 54,
+        "con": 2,
+        "tyle": 99.54
+      },
+      "bhyt": {
+        "kh": 24726,
+        "th": 24726,
+        "tyle": 100
+      }
+    }
+  ],
+  "rawDataStore": [
+    {
+      "ten": "Cái Nước",
+      "bhxh_chung": {
+        "kh": 3487,
+        "th": 3172,
+        "stt": -56,
+        "scn": -150,
+        "con": 315,
+        "tyle": 90.97
+      },
+      "bhxh_bb": {
+        "kh": 1625,
+        "th": 1575,
+        "stt": -1,
+        "scn": -77,
+        "con": 50,
+        "tyle": 96.92
+      },
+      "bhxh_tn": {
+        "kh": 1862,
+        "th": 1597,
+        "stt": -55,
+        "scn": -73,
+        "con": 265,
+        "tyle": 85.77
+      },
+      "bhtn": {
+        "kh": 1420,
+        "th": 1448,
+        "stt": 1391,
+        "scn": 3,
+        "con": -28,
+        "tyle": 101.97
+      },
+      "bhyt": {
+        "kh": 39379,
+        "th": 39379,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Hưng Mỹ",
+      "bhxh_chung": {
+        "kh": 2112,
+        "th": 1265,
+        "stt": -29,
+        "scn": 188,
+        "con": 847,
+        "tyle": 59.9
+      },
+      "bhxh_bb": {
+        "kh": 815,
+        "th": 509,
+        "stt": 5,
+        "scn": 22,
+        "con": 306,
+        "tyle": 62.45
+      },
+      "bhxh_tn": {
+        "kh": 1297,
+        "th": 756,
+        "stt": -34,
+        "scn": 166,
+        "con": 541,
+        "tyle": 58.29
+      },
+      "bhtn": {
+        "kh": 661,
+        "th": 396,
+        "stt": 394,
+        "scn": 46,
+        "con": 265,
+        "tyle": 59.91
+      },
+      "bhyt": {
+        "kh": 29921,
+        "th": 29921,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Tân Hưng",
+      "bhxh_chung": {
+        "kh": 1769,
+        "th": 1326,
+        "stt": -20,
+        "scn": -29,
+        "con": 443,
+        "tyle": 74.96
+      },
+      "bhxh_bb": {
+        "kh": 652,
+        "th": 514,
+        "stt": -2,
+        "scn": -25,
+        "con": 138,
+        "tyle": 78.83
+      },
+      "bhxh_tn": {
+        "kh": 1117,
+        "th": 812,
+        "stt": -18,
+        "scn": -4,
+        "con": 305,
+        "tyle": 72.69
+      },
+      "bhtn": {
+        "kh": 565,
+        "th": 423,
+        "stt": 433,
+        "scn": 26,
+        "con": 142,
+        "tyle": 74.87
+      },
+      "bhyt": {
+        "kh": 25763,
+        "th": 25763,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Lương Thế Trân",
+      "bhxh_chung": {
+        "kh": 3194,
+        "th": 2810,
+        "stt": -91,
+        "scn": 258,
+        "con": 384,
+        "tyle": 87.98
+      },
+      "bhxh_bb": {
+        "kh": 1151,
+        "th": 1144,
+        "stt": 0,
+        "scn": 43,
+        "con": 7,
+        "tyle": 99.39
+      },
+      "bhxh_tn": {
+        "kh": 2043,
+        "th": 1666,
+        "stt": -91,
+        "scn": 215,
+        "con": 377,
+        "tyle": 81.55
+      },
+      "bhtn": {
+        "kh": 978,
+        "th": 1035,
+        "stt": 991,
+        "scn": 125,
+        "con": -57,
+        "tyle": 105.83
+      },
+      "bhyt": {
+        "kh": 51742,
+        "th": 51742,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Cái Đôi Vàm",
+      "bhxh_chung": {
+        "kh": 2410,
+        "th": 2031,
+        "stt": -27,
+        "scn": 16,
+        "con": 379,
+        "tyle": 84.27
+      },
+      "bhxh_bb": {
+        "kh": 1206,
+        "th": 970,
+        "stt": -1,
+        "scn": -38,
+        "con": 236,
+        "tyle": 80.43
+      },
+      "bhxh_tn": {
+        "kh": 1204,
+        "th": 1061,
+        "stt": -26,
+        "scn": 54,
+        "con": 143,
+        "tyle": 88.12
+      },
+      "bhtn": {
+        "kh": 1005,
+        "th": 857,
+        "stt": 863,
+        "scn": -57,
+        "con": 148,
+        "tyle": 85.27
+      },
+      "bhyt": {
+        "kh": 27773,
+        "th": 27773,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Nguyễn Việt Khái",
+      "bhxh_chung": {
+        "kh": 1848,
+        "th": 1599,
+        "stt": -41,
+        "scn": 155,
+        "con": 249,
+        "tyle": 86.53
+      },
+      "bhxh_bb": {
+        "kh": 591,
+        "th": 529,
+        "stt": 1,
+        "scn": 65,
+        "con": 62,
+        "tyle": 89.51
+      },
+      "bhxh_tn": {
+        "kh": 1257,
+        "th": 1070,
+        "stt": -42,
+        "scn": 90,
+        "con": 187,
+        "tyle": 85.12
+      },
+      "bhtn": {
+        "kh": 447,
+        "th": 417,
+        "stt": 418,
+        "scn": 45,
+        "con": 30,
+        "tyle": 93.29
+      },
+      "bhyt": {
+        "kh": 28987,
+        "th": 28987,
+        "tyle": 100
+      }
+    },
+    {
+      "ten": "Phú Tân",
+      "bhxh_chung": {
+        "kh": 1613,
+        "th": 1632,
+        "stt": -80,
+        "scn": 131,
+        "con": -19,
+        "tyle": 101.18
+      },
+      "bhxh_bb": {
+        "kh": 541,
+        "th": 532,
+        "stt": -2,
+        "scn": 71,
+        "con": 9,
+        "tyle": 98.34
+      },
+      "bhxh_tn": {
+        "kh": 1072,
+        "th": 1100,
+        "stt": -78,
+        "scn": 60,
+        "con": -28,
+        "tyle": 102.61
+      },
+      "bhtn": {
+        "kh": 439,
+        "th": 437,
+        "stt": 439,
+        "scn": 54,
+        "con": 2,
+        "tyle": 99.54
+      },
+      "bhyt": {
+        "kh": 24726,
+        "th": 24726,
+        "tyle": 100
+      }
+    }
+  ],
+  "thuDataRows": [
+    {
+      "noi_dung": "Tổng số thu",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    },
+    {
+      "noi_dung": "BHXH bắt buộc",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    },
+    {
+      "noi_dung": "BHXH tự nguyện",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    },
+    {
+      "noi_dung": "Bảo hiểm thất nghiệp",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    },
+    {
+      "noi_dung": "Bảo hiểm y tế",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    },
+    {
+      "noi_dung": "Lãi chậm đóng",
+      "so_kh": 0,
+      "luy_ke": 0,
+      "lk_truoc": 0,
+      "trong_thang": 0,
+      "so_cuoi_nam": 0,
+      "tyle_kh": "0.00",
+      "con_th": 0,
+      "thu_cuoi_2025": 0
+    }
+  ],
+  "nsnnData": [
+    {
+      "donVi": "Cái Nước",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Hưng Mỹ",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Tân Hưng",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Lương Thế Trân",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Cái Đôi Vàm",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Nguyễn Việt Khái",
+      "noNsnn": 0
+    },
+    {
+      "donVi": "Phú Tân",
+      "noNsnn": 0
+    }
+  ],
+  "kpi": {
+    "kh": 16433,
+    "th": 13835,
+    "dsBhyt": 228291,
+    "thBhyt": 228291,
+    "soXaDat": 1,
+    "tyleBhyt": 100
+  },
+  "thangNo": {
+    "headers": [
+      "Đơn vị / Nội dung",
+      "Tổng",
+      "Nợ không tính lãi",
+      "Nợ tính lãi",
+      "Nợ lãi",
+      "NSNN",
+      "Số tiền chậm đóng, trốn đóng",
+      "% KH",
+      "Số KH",
+      "+/- KH"
+    ],
+    "rows": [
+      {
+        "Đơn vị / Nội dung": "BHXH cơ sở Cái Nước",
+        "Tổng": "",
+        "Nợ không tính lãi": "",
+        "Nợ tính lãi": "",
+        "Nợ lãi": "",
+        "NSNN": "",
+        "Số tiền chậm đóng, trốn đóng": "",
+        "% KH": "",
+        "Số KH": "",
+        "+/- KH": ""
+      }
+    ]
+  }
+}
