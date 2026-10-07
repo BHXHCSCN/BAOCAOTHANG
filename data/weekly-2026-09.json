@@ -1,0 +1,285 @@
+{
+  "ok": true,
+  "nam": 2026,
+  "thang": 9,
+  "tuan": 0,
+  "ngayChot": null,
+  "kyBaoCao": "Tháng 09/2026",
+  "mocBaoCao": "Chưa có số liệu đã chốt",
+  "weekCount": 5,
+  "weeks": [
+    {
+      "tuan": 1,
+      "tuNgay": "2026-09-01",
+      "denNgay": "2026-09-06"
+    },
+    {
+      "tuan": 2,
+      "tuNgay": "2026-09-07",
+      "denNgay": "2026-09-13"
+    },
+    {
+      "tuan": 3,
+      "tuNgay": "2026-09-14",
+      "denNgay": "2026-09-20"
+    },
+    {
+      "tuan": 4,
+      "tuNgay": "2026-09-21",
+      "denNgay": "2026-09-27"
+    },
+    {
+      "tuan": 5,
+      "tuNgay": "2026-09-28",
+      "denNgay": "2026-09-30"
+    }
+  ],
+  "donVi": [
+    {
+      "donVi": "Cái Nước",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 1549,
+        "chiTieu": 1625,
+        "conThieu": 76,
+        "tyLe": 95.32307692307693,
+        "cuoiKyThangTruoc": 1549,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1638,
+        "chiTieu": 1862,
+        "conThieu": 224,
+        "tyLe": 87.96992481203007,
+        "cuoiKyThangTruoc": 1638,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 1427,
+        "chiTieu": 1420,
+        "conThieu": -7,
+        "tyLe": 100.49295774647888,
+        "cuoiKyThangTruoc": 1427,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 39379,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Hưng Mỹ",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 506,
+        "chiTieu": 815,
+        "conThieu": 309,
+        "tyLe": 62.08588957055214,
+        "cuoiKyThangTruoc": 506,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 785,
+        "chiTieu": 1297,
+        "conThieu": 512,
+        "tyLe": 60.5242868157286,
+        "cuoiKyThangTruoc": 785,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 396,
+        "chiTieu": 661,
+        "conThieu": 265,
+        "tyLe": 59.90922844175491,
+        "cuoiKyThangTruoc": 396,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 29921,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Tân Hưng",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 515,
+        "chiTieu": 652,
+        "conThieu": 137,
+        "tyLe": 78.9877300613497,
+        "cuoiKyThangTruoc": 515,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 831,
+        "chiTieu": 1117,
+        "conThieu": 286,
+        "tyLe": 74.39570277529096,
+        "cuoiKyThangTruoc": 831,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 425,
+        "chiTieu": 565,
+        "conThieu": 140,
+        "tyLe": 75.22123893805309,
+        "cuoiKyThangTruoc": 425,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 25763,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Lương Thế Trân",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 1132,
+        "chiTieu": 1151,
+        "conThieu": 19,
+        "tyLe": 98.34926151172894,
+        "cuoiKyThangTruoc": 1132,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1719,
+        "chiTieu": 2043,
+        "conThieu": 324,
+        "tyLe": 84.14096916299559,
+        "cuoiKyThangTruoc": 1719,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 1026,
+        "chiTieu": 978,
+        "conThieu": -48,
+        "tyLe": 104.9079754601227,
+        "cuoiKyThangTruoc": 1026,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 51742,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Cái Đôi Vàm",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 974,
+        "chiTieu": 1206,
+        "conThieu": 232,
+        "tyLe": 80.76285240464345,
+        "cuoiKyThangTruoc": 974,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1005,
+        "chiTieu": 1204,
+        "conThieu": 199,
+        "tyLe": 83.4717607973422,
+        "cuoiKyThangTruoc": 1005,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 857,
+        "chiTieu": 1005,
+        "conThieu": 148,
+        "tyLe": 85.27363184079601,
+        "cuoiKyThangTruoc": 857,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 27773,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Nguyễn Việt Khái",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 529,
+        "chiTieu": 591,
+        "conThieu": 62,
+        "tyLe": 89.5093062605753,
+        "cuoiKyThangTruoc": 529,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1063,
+        "chiTieu": 1257,
+        "conThieu": 194,
+        "tyLe": 84.56642800318218,
+        "cuoiKyThangTruoc": 1063,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 417,
+        "chiTieu": 447,
+        "conThieu": 30,
+        "tyLe": 93.28859060402685,
+        "cuoiKyThangTruoc": 417,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 28987,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Phú Tân",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 533,
+        "chiTieu": 541,
+        "conThieu": 8,
+        "tyLe": 98.52125693160814,
+        "cuoiKyThangTruoc": 533,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1025,
+        "chiTieu": 1072,
+        "conThieu": 47,
+        "tyLe": 95.61567164179104,
+        "cuoiKyThangTruoc": 1025,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 435,
+        "chiTieu": 439,
+        "conThieu": 4,
+        "tyLe": 99.08883826879271,
+        "cuoiKyThangTruoc": 435,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 24726,
+        "trangThai": "Đạt 100%"
+      }
+    }
+  ],
+  "source": "LICH_SU_TUAN + SO_DAU_KY + LICH_SU_THANG + CHI_TIEU"
+}
