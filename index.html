@@ -844,7 +844,7 @@
         safeRows.forEach(r => {
             const obj = r[metric] || {};
             const map = {};
-            (obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
+            (r.tuan || obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
             for (let w = 1; w <= weekCount; w++) {
                 if (map[w]) totals.weeks[w - 1] += Number(map[w][psKey] || 0);
             }
@@ -870,7 +870,7 @@
         safeRows.forEach(r => {
             const obj = r[metric] || {};
             const map = {};
-            (obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
+            (r.tuan || obj.tuan || []).forEach(w => map[Number(w.tuan)] = w);
 
             html += '<tr>';
             html += '<td class="name">' + escapeHtml(r.donVi || r.ten || '') + '</td>';
