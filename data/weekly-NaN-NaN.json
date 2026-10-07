@@ -1,0 +1,265 @@
+{
+  "ok": true,
+  "nam": null,
+  "thang": null,
+  "tuan": 0,
+  "ngayChot": null,
+  "kyBaoCao": "Tháng NaN/NaN",
+  "mocBaoCao": "Chưa có số liệu đã chốt",
+  "weekCount": 1,
+  "weeks": [
+    {
+      "tuan": 1,
+      "tuNgay": "",
+      "denNgay": ""
+    }
+  ],
+  "donVi": [
+    {
+      "donVi": "Cái Nước",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Hưng Mỹ",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Tân Hưng",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Lương Thế Trân",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Cái Đôi Vàm",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Nguyễn Việt Khái",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Phú Tân",
+      "tuan": [],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 0,
+        "chiTieu": 0,
+        "conThieu": 0,
+        "tyLe": 0,
+        "cuoiKyThangTruoc": 0,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 0,
+        "trangThai": "Đạt 100%"
+      }
+    }
+  ],
+  "source": "LICH_SU_TUAN + SO_DAU_KY + LICH_SU_THANG + CHI_TIEU"
+}
