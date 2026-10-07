@@ -975,12 +975,12 @@
     "rows": [
       {
         "Đơn vị / Nội dung": "BHXH cơ sở Cái Nước",
-        "Tổng": 99.053,
-        "Nợ không tính lãi": 8.046,
-        "Nợ tính lãi": 2.194,
-        "Nợ lãi": 138,
-        "NSNN": 88.813,
-        "Số tiền chậm đóng, trốn đóng": 2.332,
+        "Tổng": "99.053",
+        "Nợ không tính lãi": "8.046",
+        "Nợ tính lãi": "2.194",
+        "Nợ lãi": "138",
+        "NSNN": "88.813",
+        "Số tiền chậm đóng, trốn đóng": "2.332",
         "% KH": "0,50",
         "Số KH": "1,26",
         "+/- KH": "0,76"
