@@ -784,6 +784,70 @@
                String(d.getMonth() + 1).padStart(2, '0');
     }
 
+    function parseJsonUpdateDate(data) {
+        const candidates = [
+            data && data.capNhatNgay,
+            data && data.ngayCapNhat,
+            data && data.staticVersion,
+            data && data.exportedAt,
+            data && data.generatedAt,
+            data && data.updatedAt
+        ];
+
+        for (const value of candidates) {
+            if (value == null || value === '') continue;
+            const s = String(value).trim();
+
+            // yyyy-MM-dd: parse as local date, avoiding timezone shift.
+            let m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+
+            // yyyyMMdd or yyyyMMddHHmmss (staticVersion).
+            m = s.match(/^(\d{4})(\d{2})(\d{2})/);
+            if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+
+            // dd/MM/yyyy.
+            m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (m) return new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]));
+
+            const parsed = new Date(s);
+            if (!Number.isNaN(parsed.getTime())) {
+                return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
+            }
+        }
+
+        return null;
+    }
+
+    function formatFullDateVN(date) {
+        return String(date.getDate()).padStart(2, '0') + '/' +
+               String(date.getMonth() + 1).padStart(2, '0') + '/' +
+               date.getFullYear();
+    }
+
+    function taoThongBaoMocDuLieu(data) {
+        const year = Number((data && data.nam) || NAM_MAC_DINH);
+        const month = Number((data && data.thang) || 0);
+        const weekNo = Number((data && data.tuan) || 0);
+
+        if (!year || !month || !weekNo) {
+            return (data && data.mocBaoCao) ||
+                ('Số liệu báo cáo tháng ' + String(month).padStart(2, '0') + '/' + year);
+        }
+
+        const weekInfo = getWeeklyMonthWeeks(year, month).find(w => w.week === weekNo);
+        if (!weekInfo) {
+            return (data && data.mocBaoCao) ||
+                ('Số liệu báo cáo tháng ' + String(month).padStart(2, '0') + '/' + year);
+        }
+
+        // Theo yêu cầu: luôn hiển thị trọn kỳ tuần, không phụ thuộc ngày xuất JSON.
+        // Tuần cuối tháng tự kết thúc tại ngày cuối tháng do getWeeklyMonthWeeks() tính.
+        return 'Số liệu đến Tuần ' + weekNo +
+               ', từ ngày ' + formatFullDateVN(weekInfo.start) +
+               ' đến ngày ' + formatFullDateVN(weekInfo.end);
+    }
+
     function weekHeaderHtml(info) {
         return '<div class="weekly-title">Tuần ' + info.week + '</div>' +
                '<div class="weekly-date">' + ddmmTuan(info.start) + ' – ' + ddmmTuan(info.end) + '</div>';
@@ -827,7 +891,9 @@
             if (!data || data.ok !== true) throw new Error('JSON tuần không hợp lệ.');
 
             renderBaoCaoTuan(data);
-            status.innerText = '⚡ Đã tải báo cáo tuần từ dữ liệu tĩnh';
+            const message = taoThongBaoMocDuLieu(data);
+            status.innerText = message;
+            showStatus(message, 'success');
             return;
         } catch (err) {
             console.warn('Không tải được JSON tuần:', err);
@@ -838,7 +904,9 @@
             const data = await taiBaoCaoTuanJsonp(year, month);
             if (!data || data.ok === false) throw new Error((data && data.error) || 'API tuần không hợp lệ.');
             renderBaoCaoTuan(data);
-            status.innerText = '🔄 JSON tuần chưa có, đang dùng Web App API';
+            const message = taoThongBaoMocDuLieu(data);
+            status.innerText = message;
+            showStatus(message, 'warning');
         } catch (err) {
             console.error(err);
             status.innerText = '❌ Không tải được báo cáo tuần: ' + (err.message || err);
@@ -886,7 +954,7 @@
         const rows = Array.isArray(data.donVi) ? data.donVi : (Array.isArray(data.units) ? data.units : []);
 
         document.getElementById('weeklyPeriod').innerText =
-            (data.mocBaoCao || ('Báo cáo tháng ' + String(month).padStart(2, '0') + '/' + year)) +
+            'Báo cáo tháng ' + String(month).padStart(2, '0') + '/' + year +
             (data.tuan ? ' · Tuần mới nhất: Tuần ' + data.tuan : '');
 
         renderWeeklySummary(rows);
@@ -1060,8 +1128,7 @@
             renderReport(data);
 
             showStatus(
-                '⚡ Đã tải báo cáo từ dữ liệu tĩnh · ' +
-                (data.mocBaoCao || ''),
+                taoThongBaoMocDuLieu(data),
                 'success'
             );
 
@@ -1137,8 +1204,7 @@
             renderReport(data);
 
             showStatus(
-                '🔄 JSON tĩnh chưa có, đang dùng Google Sheets · ' +
-                (data.mocBaoCao || ''),
+                taoThongBaoMocDuLieu(data),
                 'warning'
             );
 
