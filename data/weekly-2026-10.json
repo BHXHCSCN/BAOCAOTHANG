@@ -2,10 +2,10 @@
   "ok": true,
   "nam": 2026,
   "thang": 10,
-  "tuan": 3,
-  "ngayChot": "2026-10-18",
+  "tuan": 4,
+  "ngayChot": "2026-10-25",
   "kyBaoCao": "Tháng 10/2026",
-  "mocBaoCao": "Số liệu đến ngày 18/10/2026",
+  "mocBaoCao": "Số liệu đến ngày 25/10/2026",
   "weekCount": 5,
   "weeks": [
     {
@@ -42,7 +42,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -1,
           "tnPS": -55,
           "bhtnPS": -1,
@@ -54,7 +54,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -8,
           "tnPS": 25,
           "bhtnPS": -5,
@@ -66,7 +66,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -3,
           "tnPS": 93,
           "bhtnPS": -4,
@@ -78,12 +78,12 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
+          "ngayChot": "2026-10-25",
+          "bbPS": 4,
+          "tnPS": 23,
           "bhtnPS": 0,
-          "bbLK": 1564,
-          "tnLK": 1715,
+          "bbLK": 1568,
+          "tnLK": 1738,
           "bhtnLK": 1439
         },
         {
@@ -94,28 +94,28 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 1564,
-          "tnLK": 1715,
+          "bbLK": 1568,
+          "tnLK": 1738,
           "bhtnLK": 1439
         }
       ],
       "bhxhBB": {
-        "tongThang": -12,
-        "luyKe": 1564,
+        "tongThang": -8,
+        "luyKe": 1568,
         "chiTieu": 1625,
-        "conThieu": 61,
-        "tyLe": 96.24615384615385,
+        "conThieu": 57,
+        "tyLe": 96.49230769230769,
         "cuoiKyThangTruoc": 1576,
-        "soVoiThangTruoc": -12
+        "soVoiThangTruoc": -8
       },
       "bhxhTN": {
-        "tongThang": 63,
-        "luyKe": 1715,
+        "tongThang": 86,
+        "luyKe": 1738,
         "chiTieu": 1862,
-        "conThieu": 147,
-        "tyLe": 92.10526315789474,
+        "conThieu": 124,
+        "tyLe": 93.34049409237379,
         "cuoiKyThangTruoc": 1652,
-        "soVoiThangTruoc": 63
+        "soVoiThangTruoc": 86
       },
       "bhtn": {
         "tongThang": -10,
@@ -138,7 +138,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 5,
           "tnPS": -34,
           "bhtnPS": 4,
@@ -150,7 +150,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 1,
           "tnPS": 37,
           "bhtnPS": 0,
@@ -162,7 +162,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 7,
           "tnPS": 12,
           "bhtnPS": 3,
@@ -174,13 +174,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 517,
-          "tnLK": 805,
-          "bhtnLK": 399
+          "ngayChot": "2026-10-25",
+          "bbPS": 6,
+          "tnPS": 25,
+          "bhtnPS": 6,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
         },
         {
           "tuan": 5,
@@ -190,37 +190,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 517,
-          "tnLK": 805,
-          "bhtnLK": 399
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
         }
       ],
       "bhxhBB": {
-        "tongThang": 13,
-        "luyKe": 517,
+        "tongThang": 19,
+        "luyKe": 523,
         "chiTieu": 815,
-        "conThieu": 298,
-        "tyLe": 63.43558282208589,
+        "conThieu": 292,
+        "tyLe": 64.1717791411043,
         "cuoiKyThangTruoc": 504,
-        "soVoiThangTruoc": 13
+        "soVoiThangTruoc": 19
       },
       "bhxhTN": {
-        "tongThang": 15,
-        "luyKe": 805,
+        "tongThang": 40,
+        "luyKe": 830,
         "chiTieu": 1297,
-        "conThieu": 492,
-        "tyLe": 62.066306861989204,
+        "conThieu": 467,
+        "tyLe": 63.99383191981496,
         "cuoiKyThangTruoc": 790,
-        "soVoiThangTruoc": 15
+        "soVoiThangTruoc": 40
       },
       "bhtn": {
-        "tongThang": 7,
-        "luyKe": 399,
+        "tongThang": 13,
+        "luyKe": 405,
         "chiTieu": 661,
-        "conThieu": 262,
-        "tyLe": 60.363086232980336,
+        "conThieu": 256,
+        "tyLe": 61.27080181543116,
         "cuoiKyThangTruoc": 392,
-        "soVoiThangTruoc": 7
+        "soVoiThangTruoc": 13
       },
       "bhyt": {
         "chiTieu": 29921,
@@ -234,7 +234,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -2,
           "tnPS": -18,
           "bhtnPS": -1,
@@ -246,7 +246,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -4,
           "tnPS": 14,
           "bhtnPS": -3,
@@ -258,7 +258,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 5,
           "tnPS": 1,
           "bhtnPS": 3,
@@ -270,13 +270,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 515,
-          "tnLK": 827,
-          "bhtnLK": 423
+          "ngayChot": "2026-10-25",
+          "bbPS": 2,
+          "tnPS": 16,
+          "bhtnPS": 1,
+          "bbLK": 517,
+          "tnLK": 843,
+          "bhtnLK": 424
         },
         {
           "tuan": 5,
@@ -286,37 +286,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 515,
-          "tnLK": 827,
-          "bhtnLK": 423
+          "bbLK": 517,
+          "tnLK": 843,
+          "bhtnLK": 424
         }
       ],
       "bhxhBB": {
-        "tongThang": -1,
-        "luyKe": 515,
+        "tongThang": 1,
+        "luyKe": 517,
         "chiTieu": 652,
-        "conThieu": 137,
-        "tyLe": 78.9877300613497,
+        "conThieu": 135,
+        "tyLe": 79.29447852760735,
         "cuoiKyThangTruoc": 516,
-        "soVoiThangTruoc": -1
+        "soVoiThangTruoc": 1
       },
       "bhxhTN": {
-        "tongThang": -3,
-        "luyKe": 827,
+        "tongThang": 13,
+        "luyKe": 843,
         "chiTieu": 1117,
-        "conThieu": 290,
-        "tyLe": 74.03760071620412,
+        "conThieu": 274,
+        "tyLe": 75.47000895255148,
         "cuoiKyThangTruoc": 830,
-        "soVoiThangTruoc": -3
+        "soVoiThangTruoc": 13
       },
       "bhtn": {
-        "tongThang": -1,
-        "luyKe": 423,
+        "tongThang": 0,
+        "luyKe": 424,
         "chiTieu": 565,
-        "conThieu": 142,
-        "tyLe": 74.86725663716814,
+        "conThieu": 141,
+        "tyLe": 75.04424778761062,
         "cuoiKyThangTruoc": 424,
-        "soVoiThangTruoc": -1
+        "soVoiThangTruoc": 0
       },
       "bhyt": {
         "chiTieu": 25763,
@@ -330,7 +330,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 0,
           "tnPS": -91,
           "bhtnPS": 0,
@@ -342,7 +342,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -3,
           "tnPS": 12,
           "bhtnPS": -3,
@@ -354,7 +354,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 16,
           "tnPS": 50,
           "bhtnPS": 10,
@@ -366,13 +366,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 1157,
-          "tnLK": 1728,
-          "bhtnLK": 1042
+          "ngayChot": "2026-10-25",
+          "bbPS": -1,
+          "tnPS": 90,
+          "bhtnPS": -4,
+          "bbLK": 1156,
+          "tnLK": 1818,
+          "bhtnLK": 1038
         },
         {
           "tuan": 5,
@@ -382,37 +382,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 1157,
-          "tnLK": 1728,
-          "bhtnLK": 1042
+          "bbLK": 1156,
+          "tnLK": 1818,
+          "bhtnLK": 1038
         }
       ],
       "bhxhBB": {
-        "tongThang": 13,
-        "luyKe": 1157,
+        "tongThang": 12,
+        "luyKe": 1156,
         "chiTieu": 1151,
-        "conThieu": -6,
-        "tyLe": 100.52128583840138,
+        "conThieu": -5,
+        "tyLe": 100.43440486533449,
         "cuoiKyThangTruoc": 1144,
-        "soVoiThangTruoc": 13
+        "soVoiThangTruoc": 12
       },
       "bhxhTN": {
-        "tongThang": -29,
-        "luyKe": 1728,
+        "tongThang": 61,
+        "luyKe": 1818,
         "chiTieu": 2043,
-        "conThieu": 315,
-        "tyLe": 84.58149779735683,
+        "conThieu": 225,
+        "tyLe": 88.98678414096916,
         "cuoiKyThangTruoc": 1757,
-        "soVoiThangTruoc": -29
+        "soVoiThangTruoc": 61
       },
       "bhtn": {
-        "tongThang": 7,
-        "luyKe": 1042,
+        "tongThang": 3,
+        "luyKe": 1038,
         "chiTieu": 978,
-        "conThieu": -64,
-        "tyLe": 106.5439672801636,
+        "conThieu": -60,
+        "tyLe": 106.13496932515338,
         "cuoiKyThangTruoc": 1035,
-        "soVoiThangTruoc": 7
+        "soVoiThangTruoc": 3
       },
       "bhyt": {
         "chiTieu": 51742,
@@ -426,7 +426,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -1,
           "tnPS": -26,
           "bhtnPS": -1,
@@ -438,7 +438,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 13,
           "tnPS": -1,
           "bhtnPS": 13,
@@ -450,7 +450,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 13,
           "tnPS": 13,
           "bhtnPS": 1,
@@ -462,13 +462,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 996,
-          "tnLK": 1073,
-          "bhtnLK": 871
+          "ngayChot": "2026-10-25",
+          "bbPS": 4,
+          "tnPS": 4,
+          "bhtnPS": 5,
+          "bbLK": 1000,
+          "tnLK": 1077,
+          "bhtnLK": 876
         },
         {
           "tuan": 5,
@@ -478,37 +478,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 996,
-          "tnLK": 1073,
-          "bhtnLK": 871
+          "bbLK": 1000,
+          "tnLK": 1077,
+          "bhtnLK": 876
         }
       ],
       "bhxhBB": {
-        "tongThang": 25,
-        "luyKe": 996,
+        "tongThang": 29,
+        "luyKe": 1000,
         "chiTieu": 1206,
-        "conThieu": 210,
-        "tyLe": 82.58706467661692,
+        "conThieu": 206,
+        "tyLe": 82.91873963515755,
         "cuoiKyThangTruoc": 971,
-        "soVoiThangTruoc": 25
+        "soVoiThangTruoc": 29
       },
       "bhxhTN": {
-        "tongThang": -14,
-        "luyKe": 1073,
+        "tongThang": -10,
+        "luyKe": 1077,
         "chiTieu": 1204,
-        "conThieu": 131,
-        "tyLe": 89.11960132890366,
+        "conThieu": 127,
+        "tyLe": 89.45182724252491,
         "cuoiKyThangTruoc": 1087,
-        "soVoiThangTruoc": -14
+        "soVoiThangTruoc": -10
       },
       "bhtn": {
-        "tongThang": 13,
-        "luyKe": 871,
+        "tongThang": 18,
+        "luyKe": 876,
         "chiTieu": 1005,
-        "conThieu": 134,
-        "tyLe": 86.66666666666667,
+        "conThieu": 129,
+        "tyLe": 87.16417910447761,
         "cuoiKyThangTruoc": 858,
-        "soVoiThangTruoc": 13
+        "soVoiThangTruoc": 18
       },
       "bhyt": {
         "chiTieu": 27773,
@@ -522,7 +522,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 1,
           "tnPS": -42,
           "bhtnPS": 1,
@@ -534,7 +534,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -4,
           "tnPS": 11,
           "bhtnPS": -4,
@@ -546,7 +546,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 5,
           "tnPS": 16,
           "bhtnPS": 6,
@@ -558,13 +558,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 530,
-          "tnLK": 1097,
-          "bhtnLK": 419
+          "ngayChot": "2026-10-25",
+          "bbPS": 7,
+          "tnPS": 1,
+          "bhtnPS": 4,
+          "bbLK": 537,
+          "tnLK": 1098,
+          "bhtnLK": 423
         },
         {
           "tuan": 5,
@@ -574,37 +574,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 530,
-          "tnLK": 1097,
-          "bhtnLK": 419
+          "bbLK": 537,
+          "tnLK": 1098,
+          "bhtnLK": 423
         }
       ],
       "bhxhBB": {
-        "tongThang": 2,
-        "luyKe": 530,
+        "tongThang": 9,
+        "luyKe": 537,
         "chiTieu": 591,
-        "conThieu": 61,
-        "tyLe": 89.67851099830794,
+        "conThieu": 54,
+        "tyLe": 90.86294416243655,
         "cuoiKyThangTruoc": 528,
-        "soVoiThangTruoc": 2
+        "soVoiThangTruoc": 9
       },
       "bhxhTN": {
-        "tongThang": -15,
-        "luyKe": 1097,
+        "tongThang": -14,
+        "luyKe": 1098,
         "chiTieu": 1257,
-        "conThieu": 160,
-        "tyLe": 87.27128082736675,
+        "conThieu": 159,
+        "tyLe": 87.3508353221957,
         "cuoiKyThangTruoc": 1112,
-        "soVoiThangTruoc": -15
+        "soVoiThangTruoc": -14
       },
       "bhtn": {
-        "tongThang": 3,
-        "luyKe": 419,
+        "tongThang": 7,
+        "luyKe": 423,
         "chiTieu": 447,
-        "conThieu": 28,
-        "tyLe": 93.73601789709173,
+        "conThieu": 24,
+        "tyLe": 94.63087248322147,
         "cuoiKyThangTruoc": 416,
-        "soVoiThangTruoc": 3
+        "soVoiThangTruoc": 7
       },
       "bhyt": {
         "chiTieu": 28987,
@@ -618,7 +618,7 @@
           "tuan": 1,
           "start": "2026-10-01",
           "end": "2026-10-04",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": -2,
           "tnPS": -78,
           "bhtnPS": -2,
@@ -630,7 +630,7 @@
           "tuan": 2,
           "start": "2026-10-05",
           "end": "2026-10-11",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 3,
           "tnPS": 33,
           "bhtnPS": 2,
@@ -642,7 +642,7 @@
           "tuan": 3,
           "start": "2026-10-12",
           "end": "2026-10-18",
-          "ngayChot": "2026-10-18",
+          "ngayChot": "2026-10-25",
           "bbPS": 12,
           "tnPS": 11,
           "bhtnPS": 2,
@@ -654,13 +654,13 @@
           "tuan": 4,
           "start": "2026-10-19",
           "end": "2026-10-25",
-          "ngayChot": null,
-          "bbPS": 0,
-          "tnPS": 0,
-          "bhtnPS": 0,
-          "bbLK": 547,
-          "tnLK": 1144,
-          "bhtnLK": 441
+          "ngayChot": "2026-10-25",
+          "bbPS": -1,
+          "tnPS": 18,
+          "bhtnPS": -1,
+          "bbLK": 546,
+          "tnLK": 1162,
+          "bhtnLK": 440
         },
         {
           "tuan": 5,
@@ -670,37 +670,37 @@
           "bbPS": 0,
           "tnPS": 0,
           "bhtnPS": 0,
-          "bbLK": 547,
-          "tnLK": 1144,
-          "bhtnLK": 441
+          "bbLK": 546,
+          "tnLK": 1162,
+          "bhtnLK": 440
         }
       ],
       "bhxhBB": {
-        "tongThang": 13,
-        "luyKe": 547,
+        "tongThang": 12,
+        "luyKe": 546,
         "chiTieu": 541,
-        "conThieu": -6,
-        "tyLe": 101.10905730129389,
+        "conThieu": -5,
+        "tyLe": 100.9242144177449,
         "cuoiKyThangTruoc": 534,
-        "soVoiThangTruoc": 13
+        "soVoiThangTruoc": 12
       },
       "bhxhTN": {
-        "tongThang": -34,
-        "luyKe": 1144,
+        "tongThang": -16,
+        "luyKe": 1162,
         "chiTieu": 1072,
-        "conThieu": -72,
-        "tyLe": 106.71641791044777,
+        "conThieu": -90,
+        "tyLe": 108.39552238805969,
         "cuoiKyThangTruoc": 1178,
-        "soVoiThangTruoc": -34
+        "soVoiThangTruoc": -16
       },
       "bhtn": {
-        "tongThang": 2,
-        "luyKe": 441,
+        "tongThang": 1,
+        "luyKe": 440,
         "chiTieu": 439,
-        "conThieu": -2,
-        "tyLe": 100.45558086560365,
+        "conThieu": -1,
+        "tyLe": 100.22779043280184,
         "cuoiKyThangTruoc": 439,
-        "soVoiThangTruoc": 2
+        "soVoiThangTruoc": 1
       },
       "bhyt": {
         "chiTieu": 24726,
@@ -709,5 +709,5 @@
     }
   ],
   "source": "DU_LIEU_TUAN + LICH_SU_TUAN + SO_DAU_KY + CHI_TIEU",
-  "capNhatNgay": "2026-10-19"
+  "capNhatNgay": "2026-10-23"
 }
