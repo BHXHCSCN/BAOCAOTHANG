@@ -1,0 +1,802 @@
+{
+  "ok": true,
+  "nam": 2026,
+  "thang": 11,
+  "tuan": 0,
+  "ngayChot": null,
+  "kyBaoCao": "Tháng 11/2026",
+  "mocBaoCao": "Chưa có số liệu đã chốt",
+  "weekCount": 6,
+  "weeks": [
+    {
+      "tuan": 1,
+      "tuNgay": "2026-11-01",
+      "denNgay": "2026-11-01"
+    },
+    {
+      "tuan": 2,
+      "tuNgay": "2026-11-02",
+      "denNgay": "2026-11-08"
+    },
+    {
+      "tuan": 3,
+      "tuNgay": "2026-11-09",
+      "denNgay": "2026-11-15"
+    },
+    {
+      "tuan": 4,
+      "tuNgay": "2026-11-16",
+      "denNgay": "2026-11-22"
+    },
+    {
+      "tuan": 5,
+      "tuNgay": "2026-11-23",
+      "denNgay": "2026-11-29"
+    },
+    {
+      "tuan": 6,
+      "tuNgay": "2026-11-30",
+      "denNgay": "2026-11-30"
+    }
+  ],
+  "donVi": [
+    {
+      "donVi": "Cái Nước",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1568,
+          "tnLK": 1650,
+          "bhtnLK": 1438
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 1568,
+        "chiTieu": 1625,
+        "conThieu": 57,
+        "tyLe": 96.49230769230769,
+        "cuoiKyThangTruoc": 1568,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1650,
+        "chiTieu": 1862,
+        "conThieu": 212,
+        "tyLe": 88.61439312567131,
+        "cuoiKyThangTruoc": 1650,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 1438,
+        "chiTieu": 1420,
+        "conThieu": -18,
+        "tyLe": 101.26760563380282,
+        "cuoiKyThangTruoc": 1438,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 39379,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Hưng Mỹ",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 523,
+          "tnLK": 830,
+          "bhtnLK": 405
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 523,
+        "chiTieu": 815,
+        "conThieu": 292,
+        "tyLe": 64.1717791411043,
+        "cuoiKyThangTruoc": 523,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 830,
+        "chiTieu": 1297,
+        "conThieu": 467,
+        "tyLe": 63.99383191981496,
+        "cuoiKyThangTruoc": 830,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 405,
+        "chiTieu": 661,
+        "conThieu": 256,
+        "tyLe": 61.27080181543116,
+        "cuoiKyThangTruoc": 405,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 29921,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Tân Hưng",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 518,
+          "tnLK": 848,
+          "bhtnLK": 425
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 518,
+        "chiTieu": 652,
+        "conThieu": 134,
+        "tyLe": 79.4478527607362,
+        "cuoiKyThangTruoc": 518,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 848,
+        "chiTieu": 1117,
+        "conThieu": 269,
+        "tyLe": 75.91763652641002,
+        "cuoiKyThangTruoc": 848,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 425,
+        "chiTieu": 565,
+        "conThieu": 140,
+        "tyLe": 75.22123893805309,
+        "cuoiKyThangTruoc": 425,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 25763,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Lương Thế Trân",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 1174,
+          "tnLK": 1820,
+          "bhtnLK": 1056
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 1174,
+        "chiTieu": 1151,
+        "conThieu": -23,
+        "tyLe": 101.99826238053866,
+        "cuoiKyThangTruoc": 1174,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1820,
+        "chiTieu": 2043,
+        "conThieu": 223,
+        "tyLe": 89.08467939304944,
+        "cuoiKyThangTruoc": 1820,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 1056,
+        "chiTieu": 978,
+        "conThieu": -78,
+        "tyLe": 107.97546012269939,
+        "cuoiKyThangTruoc": 1056,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 51742,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Cái Đôi Vàm",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 998,
+          "tnLK": 1081,
+          "bhtnLK": 874
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 998,
+        "chiTieu": 1206,
+        "conThieu": 208,
+        "tyLe": 82.75290215588723,
+        "cuoiKyThangTruoc": 998,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1081,
+        "chiTieu": 1204,
+        "conThieu": 123,
+        "tyLe": 89.78405315614619,
+        "cuoiKyThangTruoc": 1081,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 874,
+        "chiTieu": 1005,
+        "conThieu": 131,
+        "tyLe": 86.96517412935323,
+        "cuoiKyThangTruoc": 874,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 27773,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Nguyễn Việt Khái",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 536,
+          "tnLK": 1154,
+          "bhtnLK": 422
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 536,
+        "chiTieu": 591,
+        "conThieu": 55,
+        "tyLe": 90.69373942470389,
+        "cuoiKyThangTruoc": 536,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1154,
+        "chiTieu": 1257,
+        "conThieu": 103,
+        "tyLe": 91.80588703261733,
+        "cuoiKyThangTruoc": 1154,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 422,
+        "chiTieu": 447,
+        "conThieu": 25,
+        "tyLe": 94.40715883668904,
+        "cuoiKyThangTruoc": 422,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 28987,
+        "trangThai": "Đạt 100%"
+      }
+    },
+    {
+      "donVi": "Phú Tân",
+      "tuan": [
+        {
+          "tuan": 1,
+          "start": "2026-11-01",
+          "end": "2026-11-01",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        },
+        {
+          "tuan": 2,
+          "start": "2026-11-02",
+          "end": "2026-11-08",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        },
+        {
+          "tuan": 3,
+          "start": "2026-11-09",
+          "end": "2026-11-15",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        },
+        {
+          "tuan": 4,
+          "start": "2026-11-16",
+          "end": "2026-11-22",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        },
+        {
+          "tuan": 5,
+          "start": "2026-11-23",
+          "end": "2026-11-29",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        },
+        {
+          "tuan": 6,
+          "start": "2026-11-30",
+          "end": "2026-11-30",
+          "ngayChot": null,
+          "bbPS": 0,
+          "tnPS": 0,
+          "bhtnPS": 0,
+          "bbLK": 546,
+          "tnLK": 1180,
+          "bhtnLK": 440
+        }
+      ],
+      "bhxhBB": {
+        "tongThang": 0,
+        "luyKe": 546,
+        "chiTieu": 541,
+        "conThieu": -5,
+        "tyLe": 100.9242144177449,
+        "cuoiKyThangTruoc": 546,
+        "soVoiThangTruoc": 0
+      },
+      "bhxhTN": {
+        "tongThang": 0,
+        "luyKe": 1180,
+        "chiTieu": 1072,
+        "conThieu": -108,
+        "tyLe": 110.07462686567165,
+        "cuoiKyThangTruoc": 1180,
+        "soVoiThangTruoc": 0
+      },
+      "bhtn": {
+        "tongThang": 0,
+        "luyKe": 440,
+        "chiTieu": 439,
+        "conThieu": -1,
+        "tyLe": 100.22779043280184,
+        "cuoiKyThangTruoc": 440,
+        "soVoiThangTruoc": 0
+      },
+      "bhyt": {
+        "chiTieu": 24726,
+        "trangThai": "Đạt 100%"
+      }
+    }
+  ],
+  "source": "DU_LIEU_TUAN + LICH_SU_TUAN + SO_DAU_KY + CHI_TIEU",
+  "capNhatNgay": "2026-11-02"
+}
